@@ -47,7 +47,7 @@ as an orientation of a singularity with respect to its normal form.
 \subsubsection*{$A_n$ singularities}
 
 As we can see from the equations 
-$F(x,y,z)=z^{n+1}\pm x^2\pm y^2$, $A_{n-+}$
+$F(x,y,z)=x^{n+1}\pm y^2\pm z^2$, $A_{n-+}$
 singularities are just rotated $A_{n+-}$ singularities and $A_{n++}$ singularities
 are a single point if $n$ is odd and reflected $A_{n--}$ singularities if n is even. 
 We will therefore only discuss geometry of $A_{n--}$ and $A_{n+-}$ singularities.
@@ -218,11 +218,11 @@ $(\frac{1}{2}r^{\frac{3}{2}}, -r, 0)$ as triangulation vectors.
 For $E_{8++}$ singularity, we will pick $(-1, -1, 0)$ as a triangulation vector.
 These vectors are displayed on the image \ref{img:10} as blue arrows.
 
-\subsection*{Local triangulation of ADE singularities}
-For given edge size $e$, we want to create local triangulation of ADE
+\subsection*{Analytical calculation of local triangulation of some ADE singularities}
+For given edge size $e$, we want to calculate the local triangulation of ADE
 singularities, such that edges on the border of the local triangulation
-have aproximate length $e$.
-\subsubsection*{$A_n$ singualrities}
+have length $e$.
+\subsubsection*{$A_{n--}$ singualrities}
 For $A_{n--}$ singularities, we create a disc of $6$ isosceles triangles
 with vertex in the singular point. The bases of these triangles create regular
 hexagon in the plane $P$ parallel to the plane $x=0$, as showed on the image
@@ -234,13 +234,24 @@ hexagon in the plane $P$ parallel to the plane $x=0$, as showed on the image
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:11}
 \end{figure}
-Given by equation $z^{n+1}-x^2-y^2=0$, we will find the distance of the 
+Given by equation $x^{n+1}-y^2-z^2=0$, we will find the distance of the 
 plane $P$ from the plane $x=0$ for the given length $e$ of the sides of
 the hexagon.
 
-Let's $e$ be the length of the side of the hexagon.
+Let $e$ be the length of the side of the hexagon, then the circumscribed
+circle has radius $e$. This circle is identical with the intersection of
+the surface and the plane $x=h$. The equation of the intersecting circle
+is $y^2+z^2=h^{n+1}$ therefore, the radius can be also expressed as 
+$r=h^{\frac{n+1}{2}}$, which emerges $h=e^{\frac{2}{n+1}}$. Knowing the
+distance of the plane, one can easily calculate the length of the arms of
+the triangles using Pythagorean theorem: 
+$$a^2=h^2+e^2 \implies a = \sqrt{e^{\frac{4}{n+1}} + e^2}$$
+
 \subsubsection*{$D_n$ singualrities}
 \subsubsection*{$E_6, E_7$ and $E_8$ singualrities}
+
+\subsection*{Numerical calculation of local triangulation of ADE singularities}
+
 
 \section{Triangulation of non-isolated singularities of translation surfaces}
 \label{sub3.3}
