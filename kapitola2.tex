@@ -173,23 +173,19 @@ Given as the zero set of the function $F(x, y, z)=x^2-y^2-z^2$, cone has
 a singular point $P=(0, 0, 0)$. This singular point is an example of $A_{1--}$
 singularity.
 
-\subsection*{Correspondence between $SL(2,\mathbb{C})$ group and ADE singularities}
+\subsection*{Correspondence between $SO(3,\R)$ group and ADE singularities}
 \label{subs2.2.2}
-$SL(2, \mathbb{C})$ is special linear group of degree two over complex numbers.
+$SO(3, \R)$ is special orthogonal group over the field of real numbers 
+in three dimensions. It is also called $3D$ rotation group, as it is a group
+of all rotations about the origin in $R^3$.
 \begin{definition}
-    $SL(2, \mathbb{C})$ is a group of unimodular (determinant is 1) matrices
-    of complex numbers.
-
-    $$SL(2, \mathbb{C}) = \bigg\{
-        \begin{pmatrix}
-            a & b\\ 
-            c & d
-          \end{pmatrix} \bigg| \hspace{1mm} a,b,c,d \in \mathbb{C}, ad-bc=1
-          \bigg\}.$$
+    $SO(3, \R)$ is a group of $3\times3$ orthogonal matrices
+    of real numbers with determinant $1$.
+    $$SO(3, \R) = \bigg\{A\in\R^{3\times3} \hspace{1mm} | AA^T=I ,\hspace{1mm} det(A)=1\bigg\}.$$
 \end{definition}
 
 Simply laced Dynkin diagrams correspond to all finite subgroups of
-$S0(3,\R)$. Finite subgroups of
+$SO(3,\R)$. Finite subgroups of
 $SO(3,\R)$ are the rotational symmetry groups of
 \begin{itemize}
     \item pyramid with $n$ vertices (cyclic subgroup $\overline{C}_n$),
@@ -197,7 +193,7 @@ $SO(3,\R)$ are the rotational symmetry groups of
     \item platonic solids
     \begin{itemize}
         \item tetrahedron (tetrahedral subgroup $\overline{T}$)
-        \item octagedron (octahedral subgroup $\overline{O}$)
+        \item octahedron (octahedral subgroup $\overline{O}$)
         \item icosahedron (icosahedral subgroup $\overline{I}$)
     \end{itemize}
 \end{itemize}
@@ -217,11 +213,8 @@ $SO(3, \R)$, which represent certain types of symmetries in $\R^3$.
 \section{Non-isolated translation surface singularities}
 \label{sub2.3}
 
-\section{Non-isolated translation surface singularities}
+\section{Tringulation of regular implicit srufaces}
 \label{sub2.4}
 
-\section{Tringulation of regular implicit srufaces}
-\label{sub2.5}
-
 \section{Data structures for triangulation algorithm}
-\label{sub2.6}
+\label{sub2.5}

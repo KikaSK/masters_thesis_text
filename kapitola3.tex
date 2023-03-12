@@ -15,14 +15,14 @@ expressed by corresponding implicit equations.
 We already know, that $A_{1--}$ singularity is locally represented as a cone.
 In this section we will discuss geometric structure of other ADE surface singularities.
 
-\begin{definition} TODO rewrite
-    Let's define branch of ADE singularity as the part of surface,
+\begin{definition} (TODO rewrite)
+    Let's define branch of ADE singularity as the part of the surface,
     which is connected to the rest only by the singular point.
 \end{definition}
 
 \begin{comment}
 \begin{definition}
-    Let's define traingulation direction of ADE singularity $A$ with radius $r$ as 
+    Let's define triangulation direction of ADE singularity $A$ with radius $r$ as 
     a direction $\overrightarrow{v}$ for which 
     $$F\bigg(A+t \overrightarrow{v} \cap S_{r}(A)\bigg) < 0,$$
     where $F$ is the implicit equation defining the singularity $A$
@@ -32,24 +32,28 @@ As we can see, there are infinitely many axes of each ADE singularity.
 \end{comment}
 
 For our needs, we will pick one triangulation vector for each branch of
-each ADE singularity. This trinauglation vector is either in the direction
+each ADE singularity. This triangulation vector is normalized vector
+either in the direction
 of rotation symmetry axis or an intersection of reflection symmetry planes
-of the corresponding branch.
+of the corresponding branch. If the branch has only one reflection symmetry
+plane, the triangulation vector will be picked to lie in the reflection
+symmetry plane.
 
 \begin{comment}
 Moreover, when placed to the singular point, triangulation vector of a branch 
 is in the same half-space as the corresponding branch.
 \end{comment}
 
-In the general case, triangulation vectors will serve
-as an orientation of a singularity with respect to its normal form.
+In the general case, triangulation vectors will serve us
+as a partial information about the orientation of a singularity with 
+respect to its normal form.
 
 \subsubsection*{$A_n$ singularities}
 
 As we can see from the equations 
 $F(x,y,z)=x^{n+1}\pm y^2\pm z^2$, $A_{n-+}$
 singularities are just rotated $A_{n+-}$ singularities and $A_{n++}$ singularities
-are a single point if $n$ is odd and reflected $A_{n--}$ singularities if n is even. 
+are a single point if $n$ is odd and reflected $A_{n--}$ singularities if $n$ is even. 
 We will therefore only discuss geometry of $A_{n--}$ and $A_{n+-}$ singularities.
 
 $A_{n--}$ singularities are topologically equivalent to a cone if $n$ is odd, therefore
@@ -59,7 +63,7 @@ they have a single branch.
 As $n$ gets bigger, the tip of the cone gets sharper. As $A_{n--}$ singularities
 are rotationally symmetrical, we will pick the direction of
 axis of symmetry as triangulation vector. For a normal form, the triangulation vectors
-are $(1, 0, 0)$ (and $(-1, 0, 0)$ if n is odd).
+are $(1, 0, 0)$ (and $(-1, 0, 0)$ if $n$ is odd).
 First four $A_{n--}$ singularities can be seen on image \ref{img:4}.
 
 \begin{figure}
@@ -100,7 +104,7 @@ equivalent, with sharper(or flatter) features around the singualrities for incre
 value of $n$ similar to $A_n$ singualrities.
 
 We can therefore say that $D_n$ singularities can be classified into 8 categories
-represented by the following singularities:
+locally represented by the following equations:
 \begin{itemize}
     \item $D_{4++}$ \hspace{5mm} $yx^2 + y^3 + z^2$
     \item $D_{5++}$ \hspace{5mm} $yx^2 + y^4 + z^2$
@@ -164,7 +168,8 @@ For $D_{n--}$ singularity, the intersections of the two branches where
 $y \geq 0$ are bounded by curves $y=0$ and $x^2=y^{n-2}$. For given $r$,
 we will pick the triangulation vectors as $(r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$
 and $(-r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$. The resulting vectors are
-displayed on image \ref{img:9} by blue arrow.
+displayed on image \ref{img:9} by blue arrow. Parameter $r$ is changed based
+on the length of the edge of triangulation triangle.
 
 \begin{figure}
     \centerline{\includegraphics[width=0.35\textwidth]{images/img9}}
@@ -187,14 +192,23 @@ $E_{7+-}, E_{7-+}$ and $E_{7--}$ are all reflected $E_{7++}$ singularity.
 $E_{8+-}, E_{8-+}$ and $E_{8--}$ are all reflected $E_{8++}$ singularity.
 
 We will only analyze geometry of $E_{6++}$, $E_{6+-}$, $E_{7++}$ and $E_{8++}$
-singularities.
+singularities. These singularities are displayed on the image \ref{img:12}.
+
+
+\begin{figure}
+    \centerline{\includegraphics[width=1\textwidth]{images/img12}}
+    \caption[$E_n$ singularities.]
+    {$E_n$ singularities. \cite{singsurf}}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:12}
+\end{figure}
 
 Both $E_{6++}$ and $E_{6+-}$ are topologically equivalent to a plane, thus
 they each have only one branch. The planes of symmetry of both of these 
 branches are $y=0$ and $z=0$, therefore we pick $(-1, 0, 0)$ as the
 triangulation vector.
 
-$E_{7++}$ singularity is topologically equival to a cone, therefore it has
+$E_{7++}$ singularity is topologically equivalent to a cone, therefore it has
 two branches. The plane of symmetry of this singularity is $z=0$.
 
 $E_{8++}$ singularity is also topologically equivalent to a plane, therefore
@@ -226,7 +240,7 @@ have length $e$.
 For $A_{n--}$ singularities, we create a disc of $6$ isosceles triangles
 with vertex in the singular point. The bases of these triangles create regular
 hexagon in the plane $P$ parallel to the plane $x=0$, as showed on the image
-\ref{img:11}
+\ref{img:11}.
 \begin{figure}
     \centerline{\includegraphics[width=0.6\textwidth]{images/img11}}
     \caption[Triangulation of $A_{n--}$ singularity.]
@@ -248,6 +262,34 @@ the triangles using Pythagorean theorem:
 $$a^2=h^2+e^2 \implies a = \sqrt{e^{\frac{4}{n+1}} + e^2}$$
 
 \subsubsection*{$D_n$ singualrities}
+Some $D_n$ singularities have branches with elliptical intersection with 
+a plane parallel to the plane $y=0$. As ellipses have 2 axes of symmetry,
+we will create 8 triangles for these branches.
+
+Let's have an ellipse $E$ with semi-major axis $a$ and semi-minor axis $b$.
+We'll create eight triangles with apex in the singular point. The other
+points of the triangles lie on the ellipse and they have the same length
+of the base.
+
+As displayed on image \ref{img:13}, we pick the leftmpost, the rightmost, the top
+and the bottom points. Then we can calculate the point $P$ on ellipse equidistant
+from points $P_1$ and $P_2$.
+
+\begin{figure}
+    \centerline{\includegraphics[width=0.7\textwidth]{images/img13}}
+    \caption[Equidistant points on ellipse.]
+    {Equidistant points on ellipse.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:13}
+\end{figure}
+
+$$\frac{1}{2}(a,b) + \frac{t}{2}(b,a) \in E \implies 
+\frac{(a+tb)^2}{4a^2} + \frac{(b+ta)^2}{4b^2} = 1$$
+$$4b^2(a^2+2atb+t^2b^2)+4a^2(b^2+2atb+t^2a^2)-a^2b^2=0$$
+$$4(b^4+a^4)t^2+8ab(b^2+a^2)t+7a^2b^2=0$$
+$$t=\frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{a^4+b^4}$$
+
+
 \subsubsection*{$E_6, E_7$ and $E_8$ singualrities}
 
 \subsection*{Numerical calculation of local triangulation of ADE singularities}
