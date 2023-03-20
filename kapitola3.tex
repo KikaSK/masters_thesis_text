@@ -4,6 +4,31 @@
 \section{Triangulation adaptive to the local curvature}
 \label{sub3.1}
 
+As we explained in the begining of chapeter \ref{sub2.1}, curvature of the surface
+is a measure of how much the surface bends.
+
+The triangulation of the surface should be accurate enough, but also memory efficient.
+This can be achieved by creating a triangulation which is locally adaptive to the
+curvature of the surface. Therefore having smaller triangles in the places where
+the surface is curved and having bigger triangles where surface is flatter.
+
+In this section we will present our implementation of the triangulation adaptive
+to the local curvature.
+
+In the original algorithm, the height of the triangle which is projected
+to the surface is set to the constant value $\frac{\sqrt{3}}{2}e$, where $e$ 
+is the required length of the side of the triangle. To achieve the adaptivity
+of the triangles size, we set the height of the triangle to depend on the curvature in
+the given point, as shown in the image \ref{img:15}.
+
+\begin{figure}
+    \centerline{\includegraphics[width=1\textwidth]{images/img15}}
+    \caption[Adaptive height of the new triangle]
+    {Adaptive height of the new triangle.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:15}
+\end{figure}
+
 \section{Triangulation of ADE singularities}
 \label{sub3.2}
 
@@ -17,11 +42,14 @@ In this section we will discuss geometric structure of other ADE surface singula
 
 \begin{definition} (TODO rewrite)
     Let's define branch of ADE singularity as the part of the surface,
+\begin{definition} (TODO rewrite)
+    Let's define branch of ADE singularity as the part of the surface,
     which is connected to the rest only by the singular point.
 \end{definition}
 
 \begin{comment}
 \begin{definition}
+    Let's define triangulation direction of ADE singularity $A$ with radius $r$ as 
     Let's define triangulation direction of ADE singularity $A$ with radius $r$ as 
     a direction $\overrightarrow{v}$ for which 
     $$F\bigg(A+t \overrightarrow{v} \cap S_{r}(A)\bigg) < 0,$$
@@ -34,7 +62,12 @@ As we can see, there are infinitely many axes of each ADE singularity.
 For our needs, we will pick one triangulation vector for each branch of
 each ADE singularity. This triangulation vector is normalized vector
 either in the direction
+each ADE singularity. This triangulation vector is normalized vector
+either in the direction
 of rotation symmetry axis or an intersection of reflection symmetry planes
+of the corresponding branch. If the branch has only one reflection symmetry
+plane, the triangulation vector will be picked to lie in the reflection
+symmetry plane.
 of the corresponding branch. If the branch has only one reflection symmetry
 plane, the triangulation vector will be picked to lie in the reflection
 symmetry plane.
@@ -47,12 +80,16 @@ is in the same half-space as the corresponding branch.
 In the general case, triangulation vectors will serve us
 as a partial information about the orientation of a singularity with 
 respect to its normal form.
+In the general case, triangulation vectors will serve us
+as a partial information about the orientation of a singularity with 
+respect to its normal form.
 
 \subsubsection*{$A_n$ singularities}
 
 As we can see from the equations 
 $F(x,y,z)=x^{n+1}\pm y^2\pm z^2$, $A_{n-+}$
 singularities are just rotated $A_{n+-}$ singularities and $A_{n++}$ singularities
+are a single point if $n$ is odd and reflected $A_{n--}$ singularities if $n$ is even. 
 are a single point if $n$ is odd and reflected $A_{n--}$ singularities if $n$ is even. 
 We will therefore only discuss geometry of $A_{n--}$ and $A_{n+-}$ singularities.
 
@@ -63,6 +100,7 @@ they have a single branch.
 As $n$ gets bigger, the tip of the cone gets sharper. As $A_{n--}$ singularities
 are rotationally symmetrical, we will pick the direction of
 axis of symmetry as triangulation vector. For a normal form, the triangulation vectors
+are $(1, 0, 0)$ (and $(-1, 0, 0)$ if $n$ is odd).
 are $(1, 0, 0)$ (and $(-1, 0, 0)$ if $n$ is odd).
 First four $A_{n--}$ singularities can be seen on image \ref{img:4}.
 
@@ -78,11 +116,11 @@ First four $A_{n--}$ singularities can be seen on image \ref{img:4}.
 $A_{n+-}$ singularities are topologically equivalent to a cone if $n$ is odd, therefore
 they have two branches.
 In the contrary with the previous singularities, as $n$ gets bigger, the tip
-of the cone gets less sharp and flatter. Branches of these singualrities have 
+of the cone gets less sharp and flatter. Branches of these singularities have 
 reflection symmetry planes $x=0$ and $y=0$, therefore we will pick the vectors
 $(0, 0, 1)$ and $(0, 0, -1)$ as the triangulation vectors.
 
-If $n$ is even, $A_{n+-}$ singualrities are topologically equivalent to a plane
+If $n$ is even, $A_{n+-}$ singularities are topologically equivalent to a plane
 with shape similar to hyperbolic paraboloid, therefore they have a single branch.
 First four $A_{n+-}$ singularities can be seen on image \ref{img:5}.
 For this case, we will pick the vector $(1, 0, 0)$ as a triangulation vector as
@@ -100,8 +138,8 @@ these singularities have reflection symmetry planes $y=0$ and $z=0$.
 
 Given by equations $F(x,y,z)=yx^2\pm y^{n-1}\pm z^2$, we will consider 8 categories.
 For given sign combination and parity of n, the singularities are topologically
-equivalent, with sharper(or flatter) features around the singualrities for increasing
-value of $n$ similar to $A_n$ singualrities.
+equivalent, with sharper(or flatter) features around the singularities for increasing
+value of $n$ similar to $A_n$ singularities.
 
 We can therefore say that $D_n$ singularities can be classified into 8 categories
 locally represented by the following equations:
@@ -122,7 +160,7 @@ $D_{5++}$ singularity is reflected $D_{5--}$ singularity.
 $D_{5-+}$ singularity is reflected $D_{5+-}$ singularity.
 $D_{4-+}$ singularity is reflected $D_{4--}$ singularity.
 
-We will therefore only analyze geometry of $D_{n+-}$ singualrities and
+We will therefore only analyze geometry of $D_{n+-}$ singularities and
 $D_{n--}$ singularities.
 
 $D_{n+-}$ singularities are topologically equivalent to a plane when $n$ is
@@ -170,6 +208,8 @@ we will pick the triangulation vectors as $(r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$
 and $(-r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$. The resulting vectors are
 displayed on image \ref{img:9} by blue arrow. Parameter $r$ is changed based
 on the length of the edge of triangulation triangle.
+displayed on image \ref{img:9} by blue arrow. Parameter $r$ is changed based
+on the length of the edge of triangulation triangle.
 
 \begin{figure}
     \centerline{\includegraphics[width=0.35\textwidth]{images/img9}}
@@ -202,12 +242,12 @@ singularities. These singularities are displayed on the image \ref{img:12}.
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:12}
 \end{figure}
-
 Both $E_{6++}$ and $E_{6+-}$ are topologically equivalent to a plane, thus
 they each have only one branch. The planes of symmetry of both of these 
 branches are $y=0$ and $z=0$, therefore we pick $(-1, 0, 0)$ as the
 triangulation vector.
 
+$E_{7++}$ singularity is topologically equivalent to a cone, therefore it has
 $E_{7++}$ singularity is topologically equivalent to a cone, therefore it has
 two branches. The plane of symmetry of this singularity is $z=0$.
 
@@ -236,10 +276,11 @@ These vectors are displayed on the image \ref{img:10} as blue arrows.
 For given edge size $e$, we want to calculate the local triangulation of ADE
 singularities, such that edges on the border of the local triangulation
 have length $e$.
-\subsubsection*{$A_{n--}$ singualrities}
+\subsubsection*{$A_{n--}$ singularities}
 For $A_{n--}$ singularities, we create a disc of $6$ isosceles triangles
 with vertex in the singular point. The bases of these triangles create regular
 hexagon in the plane $P$ parallel to the plane $x=0$, as showed on the image
+\ref{img:11}.
 \ref{img:11}.
 \begin{figure}
     \centerline{\includegraphics[width=0.6\textwidth]{images/img11}}

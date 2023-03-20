@@ -69,6 +69,139 @@ singularities.
     \label{img:2}
 \end{figure}
 
+\subsection*{Curvature of a surface}
+
+Curvature is a fundamental concept in differential geometry of curves and surfaces.
+In case of curves, curvature is a measure of how much does the curve differ from a 
+straight line. It is defined as the inverse of the radius of the osculating circle,
+which is the second order approximation of the curve.
+
+For surfaces, curvature is a measure of how much does the surface differ from a 
+plane. The definition of the curvature of a surface is not as straightforward
+as in the case of curves, as the curvature depends on the choice of the direction
+in which we measure the curvature.
+
+The idea of measuring the curvature of a surface has a long history in mathematics.
+One of the first contributors was a mathematician Carl Friedrich Gauss, who developed
+the idea of the Gaussian curvature of surfaces. In this subsection, we are drawing from
+the summary presented by Tiago Novello et al.\cite{novello2021differential}.
+
+\subsubsection*{Normal curvature of the surface}
+
+Let $S$ be a parametric surface $$S(u, v): \R^2 \to \R^3$$ $$S(u, v) = (S_x(u,v), S_y(u,v), S_z(u,v)).$$
+Let us denote the normal vector of the surface $S$ in the point $S(u, v)$ as $\overrightarrow{n(u, v)}$.
+
+We will define the normal curvature of the surface as a function of the location of the point
+on the surface given by parameters $u$ and $v$ and the unit tangent vector in that point $\overrightarrow{u}$. 
+
+\begin{definition}
+Normal cut of a surface $S$ in the regular point $P$ in the direction of the unit tangent vector 
+$\overrightarrow{u}$ is defined as an intersection of the surface $S$ and a plane
+given by the vectors $\overrightarrow{u}$ and $\overrightarrow{n(u, v)}$. 
+\end{definition}
+
+The visualisation of the normal cut is shown on the image \ref{img:14}.
+It is clear, that the
+normal cut is a plane curve lying on the surface, we will denote this normal cut as $\nu_S(u, v, \overrightarrow{u})$.
+
+\begin{figure}
+    \centerline{\includegraphics[width=0.6\textwidth]{images/img14}}
+    \caption[Normal cut]
+    {Normal cut of the parametric surface $S(u,v)$.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:14}
+\end{figure}
+
+\begin{definition}
+    Oriented normal curvature of the surface in the regular point $P$ in the direction of the unit tangent vector
+    $\overrightarrow{u}$ is defined as the curvature of the normal cut $\nu_S(u, v, \overrightarrow{u})$.
+    Non-oriented normal curvature is defined as an absolute value of the oriented normal curvature.
+\end{definition}
+
+\begin{definition}
+    Minimal and maximal curvature in the point $P = S(u,v)$ are defined as
+    $$\kappa_{min}(u,v) = \min_{\overrightarrow{u} \in T_P(u, v)} \nu_S(u, v, \overrightarrow{u}),$$
+    $$\kappa_{max}(u,v) = \max_{\overrightarrow{u} \in T_P(u, v)} \nu_S(u, v, \overrightarrow{u}),$$
+    where $T_S(u, v)$ is a tangent plane of the surface $S$ in the point $P$.
+
+    Minimal and maximal curvature are called principal curvatures. 
+\end{definition}
+
+\begin{definition}
+    Gaussian curvature is defined as a product of principal curvatures:
+    $$\kappa_G(u, v) = \kappa_{min}(u,v) \kappa_{max}(u,v).$$
+\end{definition}
+
+Gaussian curvature describes the shape of the suface in the local neighborhood of the point.
+The points where Gaussian curvature is positive are called eliptic points.
+The points where Gaussian curvature is negative are called hyperbolic points.
+The points where only one of $\kappa_{min}, \kappa_{max}$ is zero are called parabolic and
+the points where both $\kappa_{min}$ and $\kappa_{max}$ are zero are called planar.
+The shape of the surface in the local neigborhoods of the points is as follows:
+\begin{itemize}
+    \item {elliptic points $\longrightarrow$ sufrace is curved like a sphere,}
+    \item {hyperbolic points $\longrightarrow$ surface is curved like a saddle,}
+    \item {parabolic points $\longrightarrow$ surface is curved like a parabolic cylinder,}
+    \item {planar points $\longrightarrow$ surface is flat.}
+
+\end{itemize}
+Gaussian curvature is an
+instrinsic propery, which means it is independent of the placement of the surface in the space.
+
+\begin{definition}
+    Mean curvature is defined as an arithmetic mean of principal curvatures:
+    $$\kappa_M(u, v) = \frac{\kappa_{min}(u,v) + \kappa_{max}(u,v)}{2}.$$
+\end{definition}
+
+Minimal, maximal, Gaussian and mean curvature are visualized on the image \ref{img:16}.
+
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{images/img16}}
+    \caption[Visualisation of curvature of the double-torus]
+    {Visualisation of curvature of the double-torus.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:16}
+\end{figure}
+
+\subsection*{Curvature formulas for implicit surface}
+
+A version of curvature formulas for implicit surfaces appeared in \cite{spivak1975comprehensive}
+and were reformulated, summarized and prooved by Ron Goldman \cite{goldman2005curvature}.
+In this subsection we will point out these formulas.
+
+Let $F:\R^3 \to R$ be an implicit function which defines surface by the equation $F(x, y, z) = 0$. 
+Let us denote $F_t = \frac{\partial F}{\partial t}$ and $F_{ts} = \frac{\partial^2 F}{\partial t \partial s}$.
+Hessian matrix - the matrix of second derivatives is defined as 
+$$
+H(F) = 
+\begin{pmatrix}
+    F_{xx} & F_{xy} & F_{xz}\\
+    F_{yx} & F_{yy} & F_{yz}\\
+    F_{zx} & F_{zy} & F_{zz}
+\end{pmatrix},
+$$
+and the adjoint of the Hessian is defined as
+$$
+H^*(F) = 
+\begin{pmatrix}
+    F_{yy} F_{zz} - F_{yz} F_{zy} & F_{yz} F_{zx} - F_{yx} F_{zz} & F_{yx} F_{zy} - F_{yy} F_{zx}\\
+    F_{xz} F_{zy} - F_{xy} F_{zz} & F_{xx} F_{zz} - F_{xz} F_{zx} & F_{xy} F_{zx} - F_{xx} F_{zy}\\
+    F_{xy} F_{yz} - F_{yx} F_{zy} & F_{yx} F_{xz} - F_{xx} F_{yz} & F_{xx} F_{yy} - F_{xy} F_{yx}
+\end{pmatrix}.
+$$
+
+We can now formulate the formulas of Gaussian, mean, minimal and maximal curvature.
+
+Gaussian curvature of the implicit surface defined by function $F$ is given by 
+$$\kappa_G = \frac{\nabla F * H^*(F) * \nabla F^T}{|\nabla F|^4}.$$
+
+Mean curvature of the implicit surface defined by function $F$ is given by 
+$$\kappa_M = \frac{\nabla F * H^*(F) * \nabla F^T - | \nabla F |^2 Trace(H)}{2|\nabla F|^3}.$$
+
+The principal curvatures $\kappa_{min}$ and $\kappa_{max}$ can be calculated from Gaussian curvature and
+mean curvature as 
+$$\kappa_{min}, \kappa_{max} = \kappa_M \pm \sqrt{\kappa_M^2-\kappa_G}.$$
+
 \section{ADE singularities}
 \label{sub2.2}
 
