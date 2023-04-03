@@ -12,7 +12,7 @@ This can be achieved by creating a triangulation which is locally adaptive to th
 curvature of the surface. Therefore having smaller triangles in the places where
 the surface is curved and having bigger triangles where surface is flatter.
 
-In this section we will present our implementation of the triangulation adaptive
+In this section we present our implementation of the triangulation adaptive
 to the local curvature.
 
 In the original algorithm, the height of the triangle which is projected
@@ -29,6 +29,24 @@ the given point, as shown in the image \ref{img:15}.
     \label{img:15}
 \end{figure}
 
+To identify the curved areas, we decided to use the maximal curvature. As the minimal
+and maximal curvature are both signed, we want to identify the areas depending on 
+the absolute value of these curvatures.
+
+We do not allow arbitrary height of the triangle to avoid edge-cases. We decided
+to restrict the allowed height to $\frac{1}{4}\frac{\sqrt{3}}{2}e>h>4\frac{\sqrt{3}}{2}e$.
+We create a variable $m-$multiplicator, depending on $\kappa_T$ and set the height of
+the new triangle to $h=m\frac{\sqrt{3}}{2}e$.
+
+As $\kappa_T$ has values in range $\langle 0, \infty \rangle$.
+
+\begin{definition}
+    Let us define triangulation curvature of the surface $S$ in the point $P=S(u, v)$ as
+    $\kappa_T(u, v) = max(|\kappa_{min}|, |\kappa_{max}|).$
+\end{definition}
+
+NOT FINISHED YET
+
 \section{Triangulation of ADE singularities}
 \label{sub3.2}
 
@@ -38,19 +56,17 @@ ADE singularities are simple, isolated surface singularities, which can be
 expressed by corresponding implicit equations.
 
 We already know, that $A_{1--}$ singularity is locally represented as a cone.
-In this section we will discuss geometric structure of other ADE surface singularities.
+In this section we discuss geometric structure of other ADE surface singularities.
 
 \begin{definition} (TODO rewrite)
-    Let's define branch of ADE singularity as the part of the surface,
-\begin{definition} (TODO rewrite)
-    Let's define branch of ADE singularity as the part of the surface,
+    Let us define branch of ADE singularity as the part of the surface,
     which is connected to the rest only by the singular point.
 \end{definition}
 
 \begin{comment}
 \begin{definition}
-    Let's define triangulation direction of ADE singularity $A$ with radius $r$ as 
-    Let's define triangulation direction of ADE singularity $A$ with radius $r$ as 
+    Let us define triangulation direction of ADE singularity $A$ with radius $r$ as 
+    Let us define triangulation direction of ADE singularity $A$ with radius $r$ as 
     a direction $\overrightarrow{v}$ for which 
     $$F\bigg(A+t \overrightarrow{v} \cap S_{r}(A)\bigg) < 0,$$
     where $F$ is the implicit equation defining the singularity $A$
@@ -59,17 +75,17 @@ In this section we will discuss geometric structure of other ADE surface singula
 As we can see, there are infinitely many axes of each ADE singularity.
 \end{comment}
 
-For our needs, we will pick one triangulation vector for each branch of
+For our needs, we pick one triangulation vector for each branch of
 each ADE singularity. This triangulation vector is normalized vector
 either in the direction
 each ADE singularity. This triangulation vector is normalized vector
 either in the direction
 of rotation symmetry axis or an intersection of reflection symmetry planes
 of the corresponding branch. If the branch has only one reflection symmetry
-plane, the triangulation vector will be picked to lie in the reflection
+plane, the triangulation vector is picked to lie in the reflection
 symmetry plane.
 of the corresponding branch. If the branch has only one reflection symmetry
-plane, the triangulation vector will be picked to lie in the reflection
+plane, the triangulation vector is picked to lie in the reflection
 symmetry plane.
 
 \begin{comment}
@@ -77,10 +93,10 @@ Moreover, when placed to the singular point, triangulation vector of a branch
 is in the same half-space as the corresponding branch.
 \end{comment}
 
-In the general case, triangulation vectors will serve us
+In the general case, triangulation vectors serve us
 as a partial information about the orientation of a singularity with 
 respect to its normal form.
-In the general case, triangulation vectors will serve us
+In the general case, triangulation vectors serve us
 as a partial information about the orientation of a singularity with 
 respect to its normal form.
 
@@ -91,14 +107,14 @@ $F(x,y,z)=x^{n+1}\pm y^2\pm z^2$, $A_{n-+}$
 singularities are just rotated $A_{n+-}$ singularities and $A_{n++}$ singularities
 are a single point if $n$ is odd and reflected $A_{n--}$ singularities if $n$ is even. 
 are a single point if $n$ is odd and reflected $A_{n--}$ singularities if $n$ is even. 
-We will therefore only discuss geometry of $A_{n--}$ and $A_{n+-}$ singularities.
+We therefore only discuss geometry of $A_{n--}$ and $A_{n+-}$ singularities.
 
 $A_{n--}$ singularities are topologically equivalent to a cone if $n$ is odd, therefore
 they have two branches.
 If $n$ is even, they are topologically equivalent to a half cone or a plane, therefore
 they have a single branch.
 As $n$ gets bigger, the tip of the cone gets sharper. As $A_{n--}$ singularities
-are rotationally symmetrical, we will pick the direction of
+are rotationally symmetrical, we pick the direction of
 axis of symmetry as triangulation vector. For a normal form, the triangulation vectors
 are $(1, 0, 0)$ (and $(-1, 0, 0)$ if $n$ is odd).
 are $(1, 0, 0)$ (and $(-1, 0, 0)$ if $n$ is odd).
@@ -117,13 +133,13 @@ $A_{n+-}$ singularities are topologically equivalent to a cone if $n$ is odd, th
 they have two branches.
 In the contrary with the previous singularities, as $n$ gets bigger, the tip
 of the cone gets less sharp and flatter. Branches of these singularities have 
-reflection symmetry planes $x=0$ and $y=0$, therefore we will pick the vectors
+reflection symmetry planes $x=0$ and $y=0$, therefore we pick the vectors
 $(0, 0, 1)$ and $(0, 0, -1)$ as the triangulation vectors.
 
 If $n$ is even, $A_{n+-}$ singularities are topologically equivalent to a plane
 with shape similar to hyperbolic paraboloid, therefore they have a single branch.
 First four $A_{n+-}$ singularities can be seen on image \ref{img:5}.
-For this case, we will pick the vector $(1, 0, 0)$ as a triangulation vector as
+For this case, we pick the vector $(1, 0, 0)$ as a triangulation vector as
 these singularities have reflection symmetry planes $y=0$ and $z=0$.
 
 \begin{figure}
@@ -136,7 +152,7 @@ these singularities have reflection symmetry planes $y=0$ and $z=0$.
 
 \subsubsection*{$D_n$ singularities}
 
-Given by equations $F(x,y,z)=yx^2\pm y^{n-1}\pm z^2$, we will consider 8 categories.
+Given by equations $F(x,y,z)=yx^2\pm y^{n-1}\pm z^2$, we consider 8 categories.
 For given sign combination and parity of n, the singularities are topologically
 equivalent, with sharper(or flatter) features around the singularities for increasing
 value of $n$ similar to $A_n$ singularities.
@@ -154,13 +170,13 @@ locally represented by the following equations:
     \item $D_{5--}$ \hspace{5mm} $yx^2 - y^4 - z^2$.
 \end{itemize}
 
-Now we will look at some equivalences between these 8 categories.
+Now we look at some equivalences between these 8 categories.
 $D_{4++}$ singularity is reflected $D_{4+-}$ singularity.
 $D_{5++}$ singularity is reflected $D_{5--}$ singularity.
 $D_{5-+}$ singularity is reflected $D_{5+-}$ singularity.
 $D_{4-+}$ singularity is reflected $D_{4--}$ singularity.
 
-We will therefore only analyze geometry of $D_{n+-}$ singularities and
+We therefore only analyze geometry of $D_{n+-}$ singularities and
 $D_{n--}$ singularities.
 
 $D_{n+-}$ singularities are topologically equivalent to a plane when $n$ is
@@ -204,7 +220,7 @@ the intersection of the surface and plane $z=0$ is displayed on image \ref{img:6
 
 For $D_{n--}$ singularity, the intersections of the two branches where
 $y \geq 0$ are bounded by curves $y=0$ and $x^2=y^{n-2}$. For given $r$,
-we will pick the triangulation vectors as $(r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$
+we pick the triangulation vectors as $(r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$
 and $(-r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$. The resulting vectors are
 displayed on image \ref{img:9} by blue arrow. Parameter $r$ is changed based
 on the length of the edge of triangulation triangle.
@@ -231,7 +247,7 @@ $E_{6+-}$ singularity is reflected $E_{6-+}$ singularity.
 $E_{7+-}, E_{7-+}$ and $E_{7--}$ are all reflected $E_{7++}$ singularity.
 $E_{8+-}, E_{8-+}$ and $E_{8--}$ are all reflected $E_{8++}$ singularity.
 
-We will only analyze geometry of $E_{6++}$, $E_{6+-}$, $E_{7++}$ and $E_{8++}$
+We only analyze geometry of $E_{6++}$, $E_{6+-}$, $E_{7++}$ and $E_{8++}$
 singularities. These singularities are displayed on the image \ref{img:12}.
 
 
@@ -254,7 +270,7 @@ two branches. The plane of symmetry of this singularity is $z=0$.
 $E_{8++}$ singularity is also topologically equivalent to a plane, therefore
 it has only one branch. This branch has only one plane of symmetry $z=0$.
 
-We will again look at the intersection of the surfaces with the plane of 
+We again look at the intersection of the surfaces with the plane of 
 symmetry, this is displayed on image \ref{img:10}.
 
 \begin{figure}
@@ -267,9 +283,9 @@ symmetry, this is displayed on image \ref{img:10}.
     \label{img:10}
 \end{figure}
 
-For $E_{7++}$ singularity, we will pick $(-1, 0, 0)$ and 
+For $E_{7++}$ singularity, we pick $(-1, 0, 0)$ and 
 $(\frac{1}{2}r^{\frac{3}{2}}, -r, 0)$ as triangulation vectors.
-For $E_{8++}$ singularity, we will pick $(-1, -1, 0)$ as a triangulation vector.
+For $E_{8++}$ singularity, we pick $(-1, -1, 0)$ as a triangulation vector.
 These vectors are displayed on the image \ref{img:10} as blue arrows.
 
 \subsection*{Analytical calculation of local triangulation of some ADE singularities}
@@ -289,7 +305,7 @@ hexagon in the plane $P$ parallel to the plane $x=0$, as showed on the image
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:11}
 \end{figure}
-Given by equation $x^{n+1}-y^2-z^2=0$, we will find the distance of the 
+Given by equation $x^{n+1}-y^2-z^2=0$, we find the distance of the 
 plane $P$ from the plane $x=0$ for the given length $e$ of the sides of
 the hexagon.
 
@@ -305,10 +321,10 @@ $$a^2=h^2+e^2 \implies a = \sqrt{e^{\frac{4}{n+1}} + e^2}$$
 \subsubsection*{$D_n$ singualrities}
 Some $D_n$ singularities have branches with elliptical intersection with 
 a plane parallel to the plane $y=0$. As ellipses have 2 axes of symmetry,
-we will create 8 triangles for these branches.
+we create 8 triangles for these branches.
 
-Let's have an ellipse $E$ with semi-major axis $a$ and semi-minor axis $b$.
-We'll create eight triangles with apex in the singular point. The other
+Let us have an ellipse $E$ with semi-major axis $a$ and semi-minor axis $b$.
+We are going to create eight triangles with apex in the singular point. The other
 points of the triangles lie on the ellipse and they have the same length
 of the base.
 
@@ -330,6 +346,48 @@ $$4b^2(a^2+2atb+t^2b^2)+4a^2(b^2+2atb+t^2a^2)-a^2b^2=0$$
 $$4(b^4+a^4)t^2+8ab(b^2+a^2)t+7a^2b^2=0$$
 $$t=\frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{a^4+b^4}$$
 
+$$P=\frac{1}{2}(a,b) + \frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{2(a^4+b^4)}(b,a)$$
+
+TODO binary search for height
+
+Given edge length $e$, we are not able to calculate the height in which the distance
+between points $P1$ and $P$ is $e$. The visualization showing this is on the image \ref{img:17}.
+
+\begin{figure}
+    \centerline{\includegraphics[width=0.7\textwidth]{images/img17}}
+    \caption[TODO.]
+    {TODO.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:17}
+\end{figure}
+
+We use binary search to find such height.
+Given the height and the singularity class, we can calculate the semi-major axis
+and semi-minor axis as 
+
+$$D_{n+-} \hspace{3mm} :\hspace{3mm}  -hx^2+h^{n-1}-z^2 = 0 \hspace{5mm} h>0$$
+$$x^2 + \frac{z^2}{h} = h^{n-2}$$
+$$\frac{x^2}{h^{n-2}} + \frac{z^2}{h^{n-1}} = 1 \implies a_h=max(h^\frac{n-2}{2}, h^\frac{n-1}{2}) \land b_h=min(h^\frac{n-2}{2}, h^\frac{n-1}{2}).$$
+
+As we can see, we get the same ellipse for $D_{n--}$ singularities:
+
+$$D_{n--} \hspace{3mm} :\hspace{3mm}  -hx^2-h^{n-1}-z^2 = 0 \hspace{5mm} h>0$$
+$$2|n \land x^2 + \frac{z^2}{h} = -h^{n-2} \implies x^2 + \frac{z^2}{h} = h^{n-2}.$$
+
+
+Then 
+
+$$P_h=\frac{1}{2}(h^\frac{n-2}{2},h^\frac{n-1}{2}) + \frac{h^\frac{2n-3}{2}(\sqrt{3h^{2n-4}+2h^{2n-3}+3h^{2n-2}}-h^{n-2}-h^{n-1})}{2(h^{2n-4}+h^{2n-2})}(h^\frac{n-1}{2},h^\frac{n-2}{2})$$
+
+$$P_h=\frac{1}{2}(h^\frac{n-2}{2},h^\frac{n-1}{2}) + \frac{h^\frac{1}{2}(\sqrt{3+2h+3h^2}-1-h)}{2(1+h^2)}(h^\frac{n-1}{2},h^\frac{n-2}{2})$$
+
+and we can calculate $e_h=||P_h-P_1||$.
+
+As $e \leq a_h$, we can start the binary search on the interval
+$\langle 0, a^\frac{2}{n-2}\rangle$ or $\langle 0, a^\frac{2}{n-1}\rangle$
+and finish, when required precision is reached.
+
+TODO want to try to prove that $||P_h-P_1||$ is monotone in h.
 
 \subsubsection*{$E_6, E_7$ and $E_8$ singualrities}
 

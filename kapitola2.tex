@@ -26,14 +26,14 @@ image \ref{img:1}.
     \label{img:1}
 \end{figure}
 
-Normal vector of the implicit surface in point $(x_0, y_0, z_0)$ is
+Unit normal vector of the implicit surface in point $(x_0, y_0, z_0)$ is
 normalized gradient of the implicit function in that point.
 
 \begin{definition}
     Gradient vector of an implicit function $F:\R^3 \to \R$ is defined as 
     $$\nabla F(x, y, z) = \bigg(\frac{\partial F(x, y, z)}{\partial x}, \frac{\partial F(x, y, z)}{\partial y}, 
     \frac{\partial F(x, y, z)}{\partial z}\bigg).$$
-    If $\nabla F(x,y,z) \neq 0$, we can define normal vector of $F$ as 
+    If $\nabla F(x,y,z) \neq 0$, we can define the unit normal vector of $F$ as 
     a normalized gradient vector
     $$N(F(x, y, z))  = \frac{\nabla F(x, y, z)}{\| \nabla F(x, y, z) \|} \,\,\,\,\,\, for \,\,\,\,\,\,
     \nabla F(x,y,z) \neq 0.$$
@@ -89,9 +89,9 @@ the summary presented by Tiago Novello et al.\cite{novello2021differential}.
 \subsubsection*{Normal curvature of the surface}
 
 Let $S$ be a parametric surface $$S(u, v): \R^2 \to \R^3$$ $$S(u, v) = (S_x(u,v), S_y(u,v), S_z(u,v)).$$
-Let us denote the normal vector of the surface $S$ in the point $S(u, v)$ as $\overrightarrow{n(u, v)}$.
+Let us denote the unit normal vector of the surface $S$ in the point $S(u, v)$ as $\overrightarrow{n(u, v)}$.
 
-We will define the normal curvature of the surface as a function of the location of the point
+We define the normal curvature of the surface as a function of the location of the point
 on the surface given by parameters $u$ and $v$ and the unit tangent vector in that point $\overrightarrow{u}$. 
 
 \begin{definition}
@@ -102,7 +102,7 @@ given by the vectors $\overrightarrow{u}$ and $\overrightarrow{n(u, v)}$.
 
 The visualisation of the normal cut is shown on the image \ref{img:14}.
 It is clear, that the
-normal cut is a plane curve lying on the surface, we will denote this normal cut as $\nu_S(u, v, \overrightarrow{u})$.
+normal cut is a plane curve lying on the surface, we denote this normal cut as $\nu_S(u, v, \overrightarrow{u})$.
 
 \begin{figure}
     \centerline{\includegraphics[width=0.6\textwidth]{images/img14}}
@@ -146,7 +146,7 @@ The shape of the surface in the local neigborhoods of the points is as follows:
 
 \end{itemize}
 Gaussian curvature is an
-instrinsic propery, which means it is independent of the placement of the surface in the space.
+instrinsic propery, which means that it is also independent of the placement of the surface in the space.
 
 \begin{definition}
     Mean curvature is defined as an arithmetic mean of principal curvatures:
@@ -157,8 +157,8 @@ Minimal, maximal, Gaussian and mean curvature are visualized on the image \ref{i
 
 \begin{figure}
     \centerline{\includegraphics[width=0.8\textwidth]{images/img16}}
-    \caption[Visualisation of curvature of the double-torus]
-    {Visualisation of curvature of the double-torus.}
+    \caption[Visualisation of the curvature of the double-torus]
+    {Visualisation of the curvature of the double-torus.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:16}
 \end{figure}
@@ -167,7 +167,7 @@ Minimal, maximal, Gaussian and mean curvature are visualized on the image \ref{i
 
 A version of curvature formulas for implicit surfaces appeared in \cite{spivak1975comprehensive}
 and were reformulated, summarized and prooved by Ron Goldman \cite{goldman2005curvature}.
-In this subsection we will point out these formulas.
+In this subsection we point out these formulas.
 
 Let $F:\R^3 \to R$ be an implicit function which defines surface by the equation $F(x, y, z) = 0$. 
 Let us denote $F_t = \frac{\partial F}{\partial t}$ and $F_{ts} = \frac{\partial^2 F}{\partial t \partial s}$.
