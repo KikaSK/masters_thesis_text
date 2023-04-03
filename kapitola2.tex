@@ -206,70 +206,16 @@ $$\kappa_{min}, \kappa_{max} = \kappa_M \pm \sqrt{\kappa_M^2-\kappa_G}.$$
 \label{sub2.2}
 
 ADE singularities, also reffered to as du Val singularities are a specific
-class of simple, isolated surface singularities. They were first TODO.
-
-\subsection*{ADE classification and simply laced Dynkin diagrams}
-\label{subs2.2.1}
-
-\begin{definition} \cite{humphreys2012introduction}
-    A vector space $L$ over field $F$, with an operation $L \times L \to L$,
-    denoted $(x, y) = [xy]$ and called the bracket or commutator of x and y,
-    is called Lie algebra over $F$ if the following axioms are satisfied:
-    \begin{itemize}
-        \item The bracket operation is bilinear.
-        \item $[xx] = 0$ for all $x$ in $L$.
-        \item $[x[yz]]+[y[zx]]+[z[xy]] = 0$ for all $x, y, z \in L$.
-    \end{itemize}
-
-    Simple Lie algebra is non-abelian Lie algebra, which contains no
-    nonzero proper ideals.
-
-    Semisimple Lie algebra is a direct sum of simple Lie algebras.
-\end{definition}
-
-There is a one-to-one Correspondence between Lie algebras and Lie groups.
-
-Dynkin diagrams are graphs which classify semisimple Lie algebras (or
-equivalently semisimple Lie groups).
-Simply laced Dynkin diagrams are undirected diagrams with
-no multiple edges. Lie algebras which correspond to simply laced
-Dynkin diagrams are called simply laced Lie algebras.
-
-ADE in ADE singularities reffers to ADE classification, which is used when
-some objects have a pattern that corresponds to simply laced Dynkin diagrams.
-
-Simple Lie algebras over algebraically closed field 
-(and their corresponding Lie groups) are
-classified based on their Dynkin diagrams as
-\begin{itemize}
-\item $A_n$ \hspace{3mm}  $n>=1$,
-\item $B_n$ \hspace{3mm}  $n>=2$,
-\item $C_n$ \hspace{3mm}  $n>=3$,
-\item $D_n$ \hspace{3mm}  $n>=4$,
-\item $E_6, E_7, E_8, F_4, G_2$.
-\end{itemize}
-The corresponding Dynkin diagrams can be seen on image \ref{img:3}.
-
-\begin{figure}
-    \centerline{\includegraphics[width=0.3\textwidth]{images/img3}}
-    \caption[Finite Dynkin diagrams]
-    {Finite Dynkin diagrams\cite{wikidynkindiagram}.}
-    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
-    \label{img:3}
-\end{figure}
-
-Simply laced Dynkin diagrams are simple Dynkin diagrams with no directed
-and no multiple edges. $A_n, D_n, E_6, E_7$ and $E_8$ are therefore all
-simply laced Dynkin diagrams.
-
-ADE singularities are in correspondence with simply laced Dynkin
-diagrams, each ADE singularity has its corresponding simply laced Dynkin
-diagram and equivalently, each simply laced Dynkin diagram corresponds
-to an ADE singularity. These singularities are denoted based on their
-corresponding Dynkin diagram.
-
-The ADE surface singualrities were classified by Arnold's
-\cite{arnol1972normal} and they are specified by their normal forms.
+class of simple, isolated surface singularities.
+They were classified by Arnold's
+\cite{arnol1972normal} according to ADE classification
+\cite{hazewinkel1977ubiquity} based on
+correspondence of these singualrities to simply laced Dynkin diagrams
+\cite{dynkin1947structure}.
+We know infinitely many $A$ singularities -- $A_1, A_2, ...$,
+infinitely many $D$ singularities -- $D_4, D_5, ...$ and three $E$
+singularities -- $E_6, E_7$ and $E_8$.
+ADE singularities are specified by their normal forms.
 When working in complex space, each singularity has a single normal form:
 \begin{itemize}
     \item $A_n$ \hspace{5mm} $F(x,y,z)=x^{n+1}+y^2+z^2$,
@@ -331,7 +277,7 @@ $SO(3,\R)$ are the rotational symmetry groups of
     \end{itemize}
 \end{itemize}
 
-These correspond to simply laced Dynkin diagrams:
+The correspondence is as follows:
 \begin{itemize}
     \item $A_n \iff \overline{C}_{n+1}$,
     \item $D_n \iff \overline{D}_{n+2}$,
@@ -351,3 +297,75 @@ $SO(3, \R)$, which represent certain types of symmetries in $\R^3$.
 
 \section{Data structures for triangulation algorithm}
 \label{sub2.5}
+
+\section{CSG modelling for implcit surfaces}
+\label{sub2.6}
+In this section we will discuss how constructive solid geometry can be used for
+modelling complex implicit surfaces. First major publication regarding constructive
+solid geometry was published in 1977 by Requicha and Voelcker \cite{requicha1977constructive}.
+More detailed mathematical foundations were published a year later, in 1978 by
+Requicha and Tilove \cite{requicha1978mathematical}.
+\subsection*{Constructive solid geometry (CSG)}
+Constructive solid geometry is a technique used for modelling complex geometric
+objects using boolean operations on sets of points -- union, intersection and
+difference. It gained populatity in 1980s as a powerful tool to create complex
+shapes from sets of geometrical primitives, such as cylinders, spheres and cones.
+The resulting model can be represented as a CSG tree, which contains geometrical
+primitives in its leaves and boolean operations in its internal nodes 
+\cite{foley1996computer}. An example of such CSG tree can be seen on figure 
+\ref{img:18}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img18}}
+    \caption[Example of CSG tree]
+    {Example of CSG tree \cite{foley1996computer}.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:18}
+\end{figure}
+
+\subsubsection*{CSG for implcit surfaces}
+As the implicit surface divides space into inside $(F(x, y, z) < 0)$ and
+outside $(F(x, y, z) > 0)$, one can easily combine the idea of
+implicit surfaces and CSG modelling. Given two implicit surfaces represented
+by implicit functions $F$ and $G$, the surface of the
+intersection of the interiors can be defined by implicit fuction $H=min(F, G)$.
+Similarly, the surface of the union of the interiors can be defined
+by implicit function $H=max(F, G)$ and lastly, the surface of the difference of
+the interiors can be defined by implicit function $H=max(F, -G)$. Two dimensional
+example of this idea can be seen on figure \ref{img:19}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img19}}
+    \caption[Boolean operations on implicit curves]
+    {Boolean operations on implicit curves.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:19}
+\end{figure}
+
+\begin{theorem}
+    The minimum function $min(F, G)$ of two functions $F:\R^3 \to \R$ and
+    $G:\R^3 \to \R$ is defined as $$min(F, G) = F + G - \sqrt{F^2+G^2}$$.
+    The maximum function $max(F, G)$ of two functions $F:\R^3 \to \R$ and
+    $G:\R^3 \to \R$ is defined as $$max(F, G) = F + G + \sqrt{F^2+G^2}$$.
+\end{theorem}
+
+These formulas allow us to model implicit surfaces which are the result of
+performing finite number of operations union, intersection and difference
+on arbitrary implicit functions.
+
+An easy example is creating an implicit equation representing a half of
+a sphere. Let us have an implicit function 
+$F(x, y, z) = x^2+y^2+z^2-1$, which represents a unit sphere and another
+implicit function $G(x, y, z) = z$ which represents the $xy$ plane.
+The minimum function of these two functions
+$$min(F, G) = x^2+y^2+y^2-1+z-\sqrt{(x^2+y^2+y^2-1)^2+z^2}$$ represents the
+surface of a half sphere. The visualisation of these surfaces can be seen on
+figure
+\ref{img:20}.
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img20}}
+    \caption[Intersection of a sphere and a plane]
+    {Intersection of a sphere and a plane.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:20}
+\end{figure}
