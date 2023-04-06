@@ -277,3 +277,6 @@ TSWLatexianTemp*
 
 # Bachelor's thesis images
 images_old/
+
+# virtual environment for plotting
+plotting/venv/

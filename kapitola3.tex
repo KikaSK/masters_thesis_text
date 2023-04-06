@@ -391,6 +391,137 @@ TODO want to try to prove that $||P_h-P_1||$ is monotone in h.
 
 \subsubsection*{$E_6, E_7$ and $E_8$ singualrities}
 
+\subsection*{Triangulation of a plane with multiple $A_{n--}$ singularities}
+In this section, we present an approach for creating an implicit equation of a
+surface which consists of a plane and arbitrary many $A_{n--}$ singularities
+$C^1$ smoothly connected to this plane. 
+\subsubsection*{Input and output}
+In this section, the following data are provided on the input:
+\begin{enumerate}
+    \item the number of singularities - $m$,
+    \item $m$ discrete points on a plane - $(x_1, y_1), ..., (x_m, y_m)$,
+    \item $m$ degrees of the singularities - $n_1, ..., n_m$,
+    \item $m$ heights at which each singularity is connected - $h_1, ..., h_m$.
+\end{enumerate}
+The visualisation of desired output function can be seen on the figure \ref{img:22}. 
+On this figure, the singularity is displayed by green color, the red color is used to
+display the function which connects the singularity to a plane - the bump function.
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img22}}
+    \caption[Plane with singularities.]
+    {Plane with singularities.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:22}
+\end{figure}
+There are some limitations on the input data. As we do not want the singularities 
+or the bump functions to intsect, we require that each pair of input points is
+distanced $d_{ij}$ from each other. We specify the value of $d_{ij}$ in the section TODO.
+\subsubsection*{Bump function}
+\begin{definition}
+The support $supp(f)$ of a function $f: \R^n \to \R$ is a set of points where $f$ is not
+zero: $$supp(f) = \{ x\in \R^n : f(x)\neq 0 \}.$$
+The closed support of the function $f$ is defined as a closure of $supp(f)$.
+\end{definition}
+Bump function if a function $f:\R^n \to \R$ which is smooth ($C^\infty$) and
+compactly supported (the closed support of the function $f$ is a compact subset
+of $\R^n$).
+
+The most common example of such bump function is the function 
+$$f(x)= \left\{
+    \begin{array}{ll}
+        e^{-\frac{1}{1-x^2}}, & x \in (-1, 1) \\
+          0, & otherwise,\\
+    \end{array} 
+    \right. $$
+which is both $C^\infty$ and compactly supported.
+
+The bump function can be used to smoothly connect a curve to a line or a surface to a
+plane in higher dimension. If we only need to connect a curve and a line $C^n$ smoothly, 
+we only need a bump function which connects $C^n$ smoothly to a line.
+
+In our work, we connect two surfaces with $C^1$ continuity and for this purpose
+we use the function
+$$f(x)= \left\{
+    \begin{array}{ll}
+        -q \cdot cos(k \cdot x)-q, & x \in (-\frac{\pi}{k}, \frac{\pi}{k}) \\
+        0, & otherwise,\\
+    \end{array} 
+    \right. $$
+rotated about $z$-axis.
+The result of the rotation is the following function:
+$$f(x, y) = \left\{
+    \begin{array}{ll}
+        -q \cdot cos(k \cdot (x^2+y^2))-q, & x^2+y^2<=(\frac{\pi}{k})^2 \\
+        0, & otherwise.\\
+    \end{array} 
+    \right. $$
+Both of these functions can be seen on the figure \ref{img:21}.
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img21}}
+    \caption[$C^1$ cosine bump function.]
+    {$C^1$ cosine bump function.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:21}
+\end{figure}
+
+\subsubsection*{Implicit equation of the cosine bump function}
+To construct the implicit equation of the cosine bump function, we use CSG
+- constructive solid geometry, which is described in the section \ref{sub2.6}.
+
+First, we cut out the part of the rotated cosine, where
+$x^2+y^2<(\frac{\pi}{k})^2$ using cylinder and intersection operation. Next,
+we use a plane and the union operation to \textit{glue} the bump to the plane.
+The described process is displayed on the figure \ref{img:24} in the form of CSG tree.
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img24}}
+    \caption[Construction of the cosine bump function using CSG]
+    {Construction of the cosine bump function using CSG.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:24}
+\end{figure}
+We use the following equations of the surfaces to model the cosine bump function:
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline\hline
+    Funcion name            & Implicit equation                                        \\ \hline\hline
+    Rotated cosine function & $x+q \cdot cos(k \cdot \sqrt{(y-p_y)^2+(z-p_z)^2})+q=0$  \\ \hline
+    Cylinder                & $(y-p_y)^2+(z-p_z)^2-(\frac{\pi}{k})^2=0$                \\ \hline
+    Plane                   & x=0                                                      \\ \hline\hline
+    \end{tabular}
+    \caption[Implicit equations for bump function modeling]
+    {Implicit equations for bump function modeling.}
+    \label{tab:1}
+    \end{table}
+
+Parameters $q$ and $k$ allow us to change the amplitude and the frequency of
+the cosine function, parameters $p_y$ and $p_z$ are used to move the bump function
+to the given point $(p_y, p_z)$.
+
+\subsubsection*{Attaching singularities to the plane using the cosine bump function}
+
+Given the type of the singularity - $n$ and given height - $h$, we calculate the
+constants of the cosine bump function to connect $C^1$ smoothly to the given
+singularity.
+
+The singularity given by the implicit equation $x^{n+1}-y^2-z^2$ intersected with 
+the plane $x=h$ produces a circle with the radius $r=\sqrt{h^{n+1}}$.
+The cosine bump function is scaled using $q$ and $k$ to smoothly connect the
+singularity in the middle of the cosine bump function. This approach is displayed
+on the figure \ref{img:25}. As the singularity is attached in the middle of the
+bump function, we get the equality $r=\frac{\pi}{2k}$ and therefore
+$\sqrt{h^{n+1}}=\frac{\pi}{2k} \implies k=\frac{\pi}{2\sqrt{h^{n+1}}}$.
+The parameter $q$ is calculated from $C^1$ continuity requirement. 
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img25}}
+    \caption[Attaching the singularity to a plane using the cosine bump function]
+    {Attaching the singularity to a plane using the cosine bump function.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:25}
+\end{figure}
+
 \subsection*{Numerical calculation of local triangulation of ADE singularities}
 
 
