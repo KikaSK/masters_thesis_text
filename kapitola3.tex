@@ -297,7 +297,6 @@ For $A_{n--}$ singularities, we create a disc of $6$ isosceles triangles
 with vertex in the singular point. The bases of these triangles create regular
 hexagon in the plane $P$ parallel to the plane $x=0$, as showed on the image
 \ref{img:11}.
-\ref{img:11}.
 \begin{figure}
     \centerline{\includegraphics[width=0.6\textwidth]{images/img11}}
     \caption[Triangulation of $A_{n--}$ singularity.]
@@ -509,10 +508,7 @@ The singularity given by the implicit equation $x^{n+1}-y^2-z^2$ intersected wit
 the plane $x=h$ produces a circle with the radius $r=\sqrt{h^{n+1}}$.
 The cosine bump function is scaled using $q$ and $k$ to smoothly connect the
 singularity in the middle of the cosine bump function. This approach is displayed
-on the figure \ref{img:25}. As the singularity is attached in the middle of the
-bump function, we get the equality $r=\frac{\pi}{2k}$ and therefore
-$\sqrt{h^{n+1}}=\frac{\pi}{2k} \implies k=\frac{\pi}{2\sqrt{h^{n+1}}}$.
-The parameter $q$ is calculated from $C^1$ continuity requirement. 
+on the figure \ref{img:25}. 
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img25}}
@@ -520,6 +516,37 @@ The parameter $q$ is calculated from $C^1$ continuity requirement.
     {Attaching the singularity to a plane using the cosine bump function.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:25}
+\end{figure}
+
+As the singularity is attached in the middle of the
+bump function, we get the equality $r=\frac{\pi}{2k}$ and therefore
+$\sqrt{h^{n+1}}=\frac{\pi}{2k} \implies k=\pi/(2\sqrt{h^{n+1}})$.
+The parameter $q$ is calculated from $C^1$ continuity requirement. We require the
+gradients to be linearly dependent in the points of connection. Due to the rotation
+symmetry, we check it only for the intersection with the plane $z=0$
+for the point $(-q, \frac{\pi}{2k})$.
+$$F=(x+h+q)^{n+1}-y^2 \implies \nabla F = \left[(n+1)(x+h+q)^n, -2y\right]$$
+$$\nabla F \left(-q, \frac{\pi}{2k}\right) = \left[(n+1) h^n, -\frac{\pi}{k}\right]$$
+$$G=x+q \cdot cos(k y)+q \implies \nabla G = \left[1, -qk \cdot sin(k y)\right]$$
+$$\nabla G \left(-q, \frac{\pi}{2k}\right) = \left[1, -qk \right]$$
+
+Requiring $\nabla F (-q, \frac{\pi}{2k}) = s \cdot \nabla G (-q, \frac{\pi}{2k})$
+and knowing $k=\pi/(2\sqrt{h^{n+1}})$, we get $s=(n+1)h^n$ and therefore $q=4h/(\pi(n+1))$.
+
+After calculating the parameters $q$ and $k$ of the cosine bump function, 
+we proceed to connect the singularity to the bump function.
+We use intersection with the plane $x=-q$ to get the sections of the singularity
+and the section of the bump function and lastly, we use union of these two 
+surfaces. The described process is displayed on the figure \ref{img:26}.
+Curious reader can find the detailed calculation of the implicit equation in
+the appendix \ref{appA}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img26}}
+    \caption[Attaching the singularity to a plane using CSG]
+    {Attaching the singularity to a plane using CSG.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:26}
 \end{figure}
 
 \subsection*{Numerical calculation of local triangulation of ADE singularities}
