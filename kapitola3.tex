@@ -78,12 +78,7 @@ As we can see, there are infinitely many axes of each ADE singularity.
 For our needs, we pick one triangulation vector for each branch of
 each ADE singularity. This triangulation vector is normalized vector
 either in the direction
-each ADE singularity. This triangulation vector is normalized vector
-either in the direction
 of rotation symmetry axis or an intersection of reflection symmetry planes
-of the corresponding branch. If the branch has only one reflection symmetry
-plane, the triangulation vector is picked to lie in the reflection
-symmetry plane.
 of the corresponding branch. If the branch has only one reflection symmetry
 plane, the triangulation vector is picked to lie in the reflection
 symmetry plane.
@@ -96,16 +91,12 @@ is in the same half-space as the corresponding branch.
 In the general case, triangulation vectors serve us
 as a partial information about the orientation of a singularity with 
 respect to its normal form.
-In the general case, triangulation vectors serve us
-as a partial information about the orientation of a singularity with 
-respect to its normal form.
 
 \subsubsection*{$A_n$ singularities}
 
 As we can see from the equations 
 $F(x,y,z)=x^{n+1}\pm y^2\pm z^2$, $A_{n-+}$
-singularities are just rotated $A_{n+-}$ singularities and $A_{n++}$ singularities
-are a single point if $n$ is odd and reflected $A_{n--}$ singularities if $n$ is even. 
+singularities are just rotated $A_{n+-}$ singularities and $A_{n++}$ singularities 
 are a single point if $n$ is odd and reflected $A_{n--}$ singularities if $n$ is even. 
 We therefore only discuss geometry of $A_{n--}$ and $A_{n+-}$ singularities.
 
@@ -116,7 +107,6 @@ they have a single branch.
 As $n$ gets bigger, the tip of the cone gets sharper. As $A_{n--}$ singularities
 are rotationally symmetrical, we pick the direction of
 axis of symmetry as triangulation vector. For a normal form, the triangulation vectors
-are $(1, 0, 0)$ (and $(-1, 0, 0)$ if $n$ is odd).
 are $(1, 0, 0)$ (and $(-1, 0, 0)$ if $n$ is odd).
 First four $A_{n--}$ singularities can be seen on image \ref{img:4}.
 
@@ -264,7 +254,6 @@ branches are $y=0$ and $z=0$, therefore we pick $(-1, 0, 0)$ as the
 triangulation vector.
 
 $E_{7++}$ singularity is topologically equivalent to a cone, therefore it has
-$E_{7++}$ singularity is topologically equivalent to a cone, therefore it has
 two branches. The plane of symmetry of this singularity is $z=0$.
 
 $E_{8++}$ singularity is also topologically equivalent to a plane, therefore
@@ -388,7 +377,43 @@ and finish, when required precision is reached.
 
 TODO want to try to prove that $||P_h-P_1||$ is monotone in h.
 
-\subsubsection*{$E_6, E_7$ and $E_8$ singualrities}
+\subsection*{Numerical calculation of local triangulation of ADE singularities}
+
+For other types of ADE singularities, the exact analytical calculations become more
+complicated. In this section we present an approach for triangulation of all types
+of ADE singularities using numerical algorithms such as binary search.
+
+We begin by dividing ADE singularities into three categories.
+\begin{enumerate}
+    \item Singularities topologically equivalent to a plane:
+    \begin{itemize}
+        \item $A_{n--}$, where $2|n$,
+        \item $A_{n+-}$, where $2|n$,
+        \item $D_{n+-}$, where $2|n$,
+        \item $E_{6++}$, 
+        \item $E_{6+-}$,
+        \item $E_{8++}$.
+    \end{itemize}
+    \item Singularities topologically equivalent to a cone except $E_{7++}$:
+    \begin{itemize}
+        \item $A_{n--}$, where $2 \nmid n$,
+        \item $A_{n+-}$, where $2 \nmid n$,
+        \item $D_{n+-}$, where $2 \nmid n$,
+        \item $D_{n--}$, where $2 \nmid n$
+    \end{itemize}
+    \item Other singularities:
+    \begin{itemize}
+        \item $D_{n--}$, where $2|n$,
+        \item $E_{7++}$.
+    \end{itemize}
+\end{enumerate}
+
+We propose a general solution for first and second categories and we treat the
+singularities in the third category as a special cases.
+
+\subsubsection*{Singularities topologically equivalent to a plane}
+\subsubsection*{Singularities topologically equivalent to a cone except $E_{7++}$}
+\subsubsection*{Other singularities - special cases}
 
 \subsection*{Triangulation of a plane with multiple $A_{n--}$ singularities}
 In this section, we present an approach for creating an implicit equation of a
@@ -549,8 +574,28 @@ the appendix \ref{appA}.
     \label{img:26}
 \end{figure}
 
-\subsection*{Numerical calculation of local triangulation of ADE singularities}
+To connect multiple singularities to the same plane, we construct the implicit
+equation for each of these singularities and then use the union operation to
+create a surface with multiple singularities. This procedure is displayed on
+the image \ref{img:28}.
 
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img28}}
+    \caption[Plane with multiple attached singularities]
+    {Plane with multiple attached singularities.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:28}
+\end{figure}
+
+\subsubsection*{Limitations on the input data}
+As we already mentioned, we require that each pair of input points is
+distanced $d_{ij}$ from each other. As the radius of the closed support
+of the cosine bump function is $r=\frac{\pi}{k}=2\sqrt{h^{n+1}}$, the 
+distance between two input points $p_j, p_j$ must be at least
+$d_{ij} = 2\sqrt{h_i^{n_i+1}}+2\sqrt{h_j^{n_j+1}}$. This way, both singularities
+and the corresponding bump functions do not intersect. 
+
+\subsubsection*{Visualization of results of the triangulated surfaces}
 
 \section{Triangulation of non-isolated singularities of translation surfaces}
 \label{sub3.3}
