@@ -8,18 +8,18 @@ Implicit functions are a tool for surface representation and manipulation.
 In computer graphics, they can be used for modelling of complex surfaces
 using boolean operations, realistic animations, rendering and other.
 
-Implicit functions do not define the boundary explicitly, instead
+Implicit functions do not define the surface explicitly, instead
 the surface is defined as a zero set of a function.
 \begin{definition}
     Given a function $F: \R^3 \to \R$, one can define an implicit surface
-    as a set of points that fullfil $F(x, y, z) = 0$.
+    as a set of points $(x, y, z)\in \R^3$ that satisfy $F(x, y, z) = 0$.
 \end{definition}
 
 Some examples of implicit surfaces and their equations can be seen on
-image \ref{img:1}.
+the Figure \ref{img:1}.
 
 \begin{figure}
-    \centerline{\includegraphics[width=0.85\textwidth]{images/img1}}
+    \centerline{\includegraphics[scale=0.5]{images/img1}}
     \caption[Implicit surfaces with corresponding equations]
     {Implicit surfaces with corresponding equations.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
@@ -27,20 +27,20 @@ image \ref{img:1}.
 \end{figure}
 
 Unit normal vector of the implicit surface in point $(x_0, y_0, z_0)$ is
-normalized gradient of the implicit function in that point.
+normalized gradient of the implicit function in that point, provided it is
+non-zero.
 
 \begin{definition}
-    Gradient vector of an implicit function $F:\R^3 \to \R$ is defined as 
+    Gradient vector of a function $F:\R^3 \to \R$ is defined as 
     $$\nabla F(x, y, z) = \bigg(\frac{\partial F(x, y, z)}{\partial x}, \frac{\partial F(x, y, z)}{\partial y}, 
     \frac{\partial F(x, y, z)}{\partial z}\bigg).$$
     If $\nabla F(x,y,z) \neq 0$, we can define the unit normal vector of $F$ as 
     a normalized gradient vector
-    $$N(F(x, y, z))  = \frac{\nabla F(x, y, z)}{\| \nabla F(x, y, z) \|} \,\,\,\,\,\, for \,\,\,\,\,\,
-    \nabla F(x,y,z) \neq 0.$$
+    $$N(F(x, y, z))  = \frac{\nabla F(x, y, z)}{\| \nabla F(x, y, z) \|}.$$
     \\*
 \end{definition}
 
-Points lying on the implcit surface can be classified as regular or
+Points lying on the implicit surface can be classified as regular or
 singular based on the value of the gradient vector in that point.
 
 \begin{definition}
@@ -49,20 +49,20 @@ singular based on the value of the gradient vector in that point.
     singular, if $\nabla F(x, y, z) = 0$.
 \end{definition}
 
-Singular points can be further classified as isolated or non-isolated
-based on their surroundings.
+Singular points can be further classified as isolated or non-isolated.
 
 \begin{definition}
-    Singular point $P$ is said to be isolated, if there exists an open ball
-    $B_\varepsilon(P)$, which does not contain any other singular point.
+    Singular point $P$ of a surface S is said to be isolated,
+    if there exists an open ball $B_\varepsilon(P)$, which does not 
+    contain any other singular point of $S$.
     Singular point P is said to be non-isolated if it is not isolated.
 \end{definition}
 
-On the image \ref{img:2} we can see example of isolated and non-isolated
+On the Figure \ref{img:2}, one can see an example of isolated and non-isolated
 singularities.
 
 \begin{figure}
-    \centerline{\includegraphics[width=0.6\textwidth]{images/img2}}
+    \centerline{\includegraphics[scale=0.5]{images/img2}}
     \caption[Isolated and non-isolated singularity]
     {Isolated and non-isolated singularity.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
@@ -78,8 +78,8 @@ which is the second order approximation of the curve.
 
 For surfaces, curvature is a measure of how much does the surface differ from a 
 plane. The definition of the curvature of a surface is not as straightforward
-as in the case of curves, as the curvature depends on the choice of the direction
-in which we measure the curvature.
+as in the case of curves. The curvature of a curve on a surface depends on the 
+choice of the tangent direction of a measured point.
 
 The idea of measuring the curvature of a surface has a long history in mathematics.
 One of the first contributors was a mathematician Carl Friedrich Gauss, who developed
@@ -88,24 +88,26 @@ the summary presented by Tiago Novello et al.\cite{novello2021differential}.
 
 \subsubsection*{Normal curvature of the surface}
 
-Let $S$ be a parametric surface $$S(u, v): \R^2 \to \R^3$$ $$S(u, v) = (S_x(u,v), S_y(u,v), S_z(u,v)).$$
-Let us denote the unit normal vector of the surface $S$ in the point $S(u, v)$ as $\overrightarrow{n(u, v)}$.
+Let $S$ be a parametric surface $$S: D \subseteq \R^2 \to \R^3$$ 
+$$S(u, v) = (S_x(u,v), S_y(u,v), S_z(u,v)), \hspace{3mm} (u,v)\in \R^2$$
+Let the unit normal vector of the surface $S$ at the point $S(u, v)$ be $\vec{n}(u, v)$.
 
 We define the normal curvature of the surface as a function of the location of the point
-on the surface given by parameters $u$ and $v$ and the unit tangent vector in that point $\overrightarrow{u}$. 
+on the surface given by parameters $u$ and $v$ and the unit tangent vector in that point $\vec{u}$. 
 
 \begin{definition}
 Normal cut of a surface $S$ in the regular point $P$ in the direction of the unit tangent vector 
-$\overrightarrow{u}$ is defined as an intersection of the surface $S$ and a plane
-given by the vectors $\overrightarrow{u}$ and $\overrightarrow{n(u, v)}$. 
+$\vec{u}$ is defined as an intersection of the surface $S$ and a plane
+given by the vectors $\vec{u}$ and $\vec{n}(u, v)$ shifted to 
+the point $S(u, v)$. 
 \end{definition}
 
-The visualisation of the normal cut is shown on the image \ref{img:14}.
+The visualisation of the normal cut is shown on the Figure \ref{img:14}.
 It is clear, that the
-normal cut is a plane curve lying on the surface, we denote this normal cut as $\nu_S(u, v, \overrightarrow{u})$.
+normal cut is a plane curve lying on the surface, we denote this normal cut as $\nu_S(u, v, \vec{u})$.
 
 \begin{figure}
-    \centerline{\includegraphics[width=0.6\textwidth]{images/img14}}
+    \centerline{\includegraphics[scale=0.5]{images/img14}}
     \caption[Normal cut]
     {Normal cut of the parametric surface $S(u,v)$.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
@@ -113,52 +115,67 @@ normal cut is a plane curve lying on the surface, we denote this normal cut as $
 \end{figure}
 
 \begin{definition}
-    Oriented normal curvature of the surface in the regular point $P$ in the direction of the unit tangent vector
-    $\overrightarrow{u}$ is defined as the curvature of the normal cut $\nu_S(u, v, \overrightarrow{u})$.
+    Oriented normal curvature of the surface at the regular point $P$ in the direction of the unit tangent vector
+    $\vec{u}$ is defined as the oriented curvature of the normal cut $\nu_S(u, v, \vec{u})$.
     Non-oriented normal curvature is defined as an absolute value of the oriented normal curvature.
 \end{definition}
 
 \begin{definition}
-    Minimal and maximal curvature in the point $P = S(u,v)$ are defined as
-    $$\kappa_{min}(u,v) = \min_{\overrightarrow{u} \in T_P(u, v)} \nu_S(u, v, \overrightarrow{u}),$$
-    $$\kappa_{max}(u,v) = \max_{\overrightarrow{u} \in T_P(u, v)} \nu_S(u, v, \overrightarrow{u}),$$
-    where $T_S(u, v)$ is a tangent plane of the surface $S$ in the point $P$.
+    Minimal and maximal curvature at the point $P = S(u,v)$ are defined as
+    $$\kappa_{min}(u,v) = \min_{\vec{u} \in T_PS} \nu_S(u, v, \vec{u}),$$
+    $$\kappa_{max}(u,v) = \max_{\vec{u} \in T_PS} \nu_S(u, v, \vec{u}),$$
+    where $T_PS$ is a tangent plane of the surface $S$ in the point $P$.
 
-    Minimal and maximal curvature are called principal curvatures. 
+    Minimal and maximal curvatures are called principal.
 \end{definition}
 
 \begin{definition}
-    Gaussian curvature is defined as a product of principal curvatures:
+    Gaussian curvature at a point $S(u, v)$ is defined as a product of principal curvatures
+    at that point, i.e.
     $$\kappa_G(u, v) = \kappa_{min}(u,v) \kappa_{max}(u,v).$$
 \end{definition}
 
 Gaussian curvature describes the shape of the suface in the local neighborhood of the point.
-The points where Gaussian curvature is positive are called eliptic points.
-The points where Gaussian curvature is negative are called hyperbolic points.
-The points where only one of $\kappa_{min}, \kappa_{max}$ is zero are called parabolic and
-the points where both $\kappa_{min}$ and $\kappa_{max}$ are zero are called planar.
-The shape of the surface in the local neigborhoods of the points is as follows:
+Points of the surface S, where the Gaussian curvature is positive, are called elliptic.
+Points of the surface S, where the Gaussian curvature is negative are called hyperbolic.
+Points of the surface S, where only one of $\kappa_{min}, \kappa_{max}$ is zero, are called
+parabolic and points, where both $\kappa_{min}$ and $\kappa_{max}$ are zero, are called planar.
+The shape of the surface in the local neigborhoods of the points, visualized on the
+Figure \ref{img:33}, is as follows:
 \begin{itemize}
-    \item {elliptic points $\longrightarrow$ sufrace is curved like a sphere,}
+    \item {elliptic points $\longrightarrow$ sufrace is curved like an ellipsoid,}
     \item {hyperbolic points $\longrightarrow$ surface is curved like a saddle,}
     \item {parabolic points $\longrightarrow$ surface is curved like a parabolic cylinder,}
     \item {planar points $\longrightarrow$ surface is flat.}
-
 \end{itemize}
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img33}}
+    \caption[Categorization of the surface points based on Gaussian curvature]
+    {Categorization of the surface points based on Gaussian curvature.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:33}
+\end{figure}
+
 Gaussian curvature is an
-instrinsic propery, which means that it is also independent of the placement of the surface in the space.
+instrinsic propery, which means that it is also independent of the isometric image of the surface.
 
 \begin{definition}
-    Mean curvature is defined as an arithmetic mean of principal curvatures:
+    Mean curvature of a surface $S$ at a point $P=S(u,v)$ is defined as an
+    arithmetic mean of corresponding principal curvatures:
     $$\kappa_M(u, v) = \frac{\kappa_{min}(u,v) + \kappa_{max}(u,v)}{2}.$$
 \end{definition}
 
-Minimal, maximal, Gaussian and mean curvature are visualized on the image \ref{img:16}.
+Minimal, maximal, Gaussian and mean curvature are visualized in the Figure \ref{img:16},
+where blue color indicates positive value of the corresponding visualized curvature,
+red color indicates negative value of the corresponding visualized curvature
+and white color indicates zero value of the corresponding visualized curvature.
 
 \begin{figure}
-    \centerline{\includegraphics[width=0.8\textwidth]{images/img16}}
-    \caption[Visualisation of the curvature of the double-torus]
-    {Visualisation of the curvature of the double-torus.}
+    \centerline{\includegraphics[scale=0.5]{images/img16}}
+    \caption[Visualisation of the curvatures of the double-torus]
+    {Visualisation of minimal, maximal, Gaussian and mean curvatures of the double-torus \cite{novello2021differential}.
+    Blue/white/red color correspond to positive/zero/negative value of the corresponding curvature.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:16}
 \end{figure}
@@ -166,37 +183,46 @@ Minimal, maximal, Gaussian and mean curvature are visualized on the image \ref{i
 \subsection*{Curvature formulas for implicit surface}
 
 A version of curvature formulas for implicit surfaces appeared in \cite{spivak1975comprehensive}
-and were reformulated, summarized and prooved by Ron Goldman \cite{goldman2005curvature}.
-In this subsection we point out these formulas.
+and were reformulated, summarized and proved by Ron Goldman \cite{goldman2005curvature}.
+In this subsection, we point out these formulas.
 
 Let $F:\R^3 \to R$ be an implicit function which defines surface by the equation $F(x, y, z) = 0$. 
 Let us denote $F_t = \frac{\partial F}{\partial t}$ and $F_{ts} = \frac{\partial^2 F}{\partial t \partial s}$.
-Hessian matrix - the matrix of second derivatives is defined as 
+Hessian matrix -- the matrix of the second order derivatives is defined as 
 $$
 H(F) = 
 \begin{pmatrix}
-    F_{xx} & F_{xy} & F_{xz}\\
-    F_{yx} & F_{yy} & F_{yz}\\
+    F_{xx} & F_{xy} & F_{xz} \\
+    F_{yx} & F_{yy} & F_{yz} \\
     F_{zx} & F_{zy} & F_{zz}
 \end{pmatrix},
 $$
-and the adjoint of the Hessian is defined as
+and the adjoint of the Hessian is defined as a transpose of its cofactor matrix.
 $$
 H^*(F) = 
 \begin{pmatrix}
-    F_{yy} F_{zz} - F_{yz} F_{zy} & F_{yz} F_{zx} - F_{yx} F_{zz} & F_{yx} F_{zy} - F_{yy} F_{zx}\\
-    F_{xz} F_{zy} - F_{xy} F_{zz} & F_{xx} F_{zz} - F_{xz} F_{zx} & F_{xy} F_{zx} - F_{xx} F_{zy}\\
-    F_{xy} F_{yz} - F_{yx} F_{zy} & F_{yx} F_{xz} - F_{xx} F_{yz} & F_{xx} F_{yy} - F_{xy} F_{yx}
+    \begin{vmatrix} F_{yy} & F_{yz} \\ F_{zy} & F_{zz} \end{vmatrix} & 
+    -\begin{vmatrix} F_{xy} & F_{xz} \\ F_{zy} & F_{zz} \end{vmatrix} &
+    \begin{vmatrix} F_{xy} & F_{xz} \\ F_{yy} & F_{yz} \end{vmatrix} \\
+
+    -\begin{vmatrix} F_{yx} & F_{yz} \\ F_{zx} & F_{zz} \end{vmatrix} &
+    \begin{vmatrix} F_{xx} & F_{xz} \\ F_{zx} & F_{zz} \end{vmatrix} & 
+    -\begin{vmatrix} F_{xx} & F_{xz} \\ F_{yx} & F_{yz} \end{vmatrix} \\
+
+    \begin{vmatrix} F_{yx} & F_{yy} \\ F_{zx} & F_{zy} \end{vmatrix} & 
+    -\begin{vmatrix} F_{xx} & F_{xy} \\ F_{zx} & F_{zy} \end{vmatrix} & 
+    \begin{vmatrix} F_{xx} & F_{xy} \\ F_{yx} & F_{yy} \end{vmatrix}
 \end{pmatrix}.
 $$
 
-We can now formulate the formulas of Gaussian, mean, minimal and maximal curvature.
+Now, one can find the formulas of Gaussian, mean, minimal and maximal curvature
+for an implicit surface $F=0$ at a regular point.
 
-Gaussian curvature of the implicit surface defined by function $F$ is given by 
-$$\kappa_G = \frac{\nabla F * H^*(F) * \nabla F^T}{|\nabla F|^4}.$$
+Gaussian curvature is given by 
+$$\kappa_G = \frac{\nabla F \cdot H^*(F) \cdot \nabla F^T}{|\nabla F|^4}.$$
 
 Mean curvature of the implicit surface defined by function $F$ is given by 
-$$\kappa_M = \frac{\nabla F * H^*(F) * \nabla F^T - | \nabla F |^2 Trace(H)}{2|\nabla F|^3}.$$
+$$\kappa_M = \frac{\nabla F \cdot H^*(F) \cdot \nabla F^T - | \nabla F |^2 Tr(H)}{2|\nabla F|^3}.$$
 
 The principal curvatures $\kappa_{min}$ and $\kappa_{max}$ can be calculated from Gaussian curvature and
 mean curvature as 
@@ -233,7 +259,7 @@ surfaces and therefore, ADE singualrities can be further classified by their
 signature.
 
 \begin{definition}
-    Let's mark real surface singularities based on their signature as follows:
+    Let real surface singularities based on their signature be denoted as follows:
     \begin{itemize}
         \item $A_{n\pm\pm}$ \hspace{5mm} $F(x,y,z)=x^{n+1}\pm y^2\pm z^2$,
               
@@ -256,7 +282,7 @@ singularity.
 \label{subs2.2.2}
 $SO(3, \R)$ is special orthogonal group over the field of real numbers 
 in three dimensions. It is also called $3D$ rotation group, as it is a group
-of all rotations about the origin in $R^3$.
+of all rotations around axes passing through the origin in $R^3$.
 \begin{definition}
     $SO(3, \R)$ is a group of $3\times3$ orthogonal matrices
     of real numbers with determinant $1$.
@@ -267,15 +293,23 @@ Simply laced Dynkin diagrams correspond to all finite subgroups of
 $SO(3,\R)$. Finite subgroups of
 $SO(3,\R)$ are the rotational symmetry groups of
 \begin{itemize}
-    \item pyramid with $n$ vertices (cyclic subgroup $\overline{C}_n$),
-    \item double pyramid with $n$ vertices (dihedral subgroup $\overline{D}_n$),
-    \item platonic solids
+    \item pyramid with $n$ vertices (cyclic subgroup $\overline{C}_n$) -- Figure \ref{img:34} a),
+    \item double pyramid with $n$ vertices (dihedral subgroup $\overline{D}_n$) -- Figure \ref{img:34} b),
+    \item platonic solids:
     \begin{itemize}
-        \item tetrahedron (tetrahedral subgroup $\overline{T}$)
-        \item octahedron (octahedral subgroup $\overline{O}$)
-        \item icosahedron (icosahedral subgroup $\overline{I}$)
+        \item tetrahedron (tetrahedral subgroup $\overline{T}$) -- Figure \ref{img:34} c),
+        \item octahedron (octahedral subgroup $\overline{O}$) -- Figure \ref{img:34} d),
+        \item icosahedron (icosahedral subgroup $\overline{I}$) -- Figure \ref{img:34} e).
     \end{itemize}
 \end{itemize}
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img34}}
+    \caption[Shapes representing the $SO(3,\R)$ group]
+    {Shapes representing the $SO(3,\R)$ group.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:34}
+\end{figure}
 
 The correspondence is as follows:
 \begin{itemize}
@@ -302,7 +336,7 @@ The algorithm creates triangles iteratively, one at a time. The new triangle is
 created at the edge of the existing triangle. The new point is projected on the
 surface using the Newton-Rhapson method. This method finds the root of the implicit
 function lying on the line, which is in the direction of the gradient of the implicit
-function. This approach is displayed on the figure \ref{img:29}.
+function. This approach is displayed on the Figure \ref{img:29}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img29}}
     \caption[TODO]
@@ -349,7 +383,7 @@ In the winged edge representation, each edge is represented as oriented line seg
 and stores references to its vertices, both incident faces, left and right traverse. 
 Each vertex stores a reference to one of the outgoing edges and each
 face stores a reference to one of its incident edge. An example of such representation
-is shown on the figure \ref{img:30} and tables \ref{tab:2}, \ref{tab:3}, \ref{tab:4}.
+is shown on the Figure \ref{img:30} and tables \ref{tab:2}, \ref{tab:3}, \ref{tab:4}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img30}}
@@ -371,7 +405,7 @@ is shown on the figure \ref{img:30} and tables \ref{tab:2}, \ref{tab:3}, \ref{ta
     $e_4$ & $V_2$        & $V_4$        & $F_2$       &             & $e_3$            & $e_5$           &                  &                  \\ \hline
     $e_5$ & $V_4$        & $V_3$        & $F_2$       &             & $e_4$            & $e_3$           &                  &                  \\ \hline\hline
     \end{tabular}
-\caption{Edge table of a winged edge data structure for the figure \ref{img:30}.}
+\caption{Edge table of a winged edge data structure for the Figure \ref{img:30}.}
 \label{tab:2}
 \end{table}
 
@@ -387,7 +421,7 @@ is shown on the figure \ref{img:30} and tables \ref{tab:2}, \ref{tab:3}, \ref{ta
     $V_3$ & $x_3$        & $y_3$        & $z_3$       & $e_2$           \\ \hline
     $V_4$ & $x_4$        & $y_4$        & $z_4$       & $e_5$           \\ \hline\hline
     \end{tabular}
-\caption{Vertex table of a winged edge data structure for the figure \ref{img:30}.}
+\caption{Vertex table of a winged edge data structure for the Figure \ref{img:30}.}
 \label{tab:3}
 \end{table}
 
@@ -400,15 +434,15 @@ is shown on the figure \ref{img:30} and tables \ref{tab:2}, \ref{tab:3}, \ref{ta
     $F_1$ & $e_1$           \\ \hline
     $F_2$ & $e_4$           \\ \hline\hline
     \end{tabular}
-\caption{Face table of a winged edge data structure for the figure \ref{img:30}.}
+\caption{Face table of a winged edge data structure for the Figure \ref{img:30}.}
 \label{tab:4}
 \end{table}
 
 In the half-edge representation, edges are split into two halves. Each half-edge
 stores reference to its initial vertex, left face, opposite half-edge and left
 traverse - predecessing and successing half-edge. A visualisation of the
-half-edge is displayed on the figure \ref{img:32}. An example of half-edge
-representation is shown on the figure \ref{img:31} and tables 
+half-edge is displayed on the Figure \ref{img:32}. An example of half-edge
+representation is shown on the Figure \ref{img:31} and tables 
 \ref{tab:5}, \ref{tab:6}, \ref{tab:7}.
 
 \begin{figure}
@@ -441,7 +475,7 @@ representation is shown on the figure \ref{img:31} and tables
     $e_6$ & $V_4$        & $F_2$       & $e_5$            & $e_4$           &                  \\ \hline\hline
     
     \end{tabular}
-\caption{Edge table of a half-edge data structure for the figure \ref{img:31}.}
+\caption{Edge table of a half-edge data structure for the Figure \ref{img:31}.}
 \label{tab:5}
 \end{table}
 
@@ -457,7 +491,7 @@ representation is shown on the figure \ref{img:31} and tables
     $V_3$ & $x_3$        & $y_3$        & $z_3$       & $e_2$           \\ \hline
     $V_4$ & $x_4$        & $y_4$        & $z_4$       & $e_6$           \\ \hline\hline
     \end{tabular}
-\caption{Vertex table of a half-edge data structure for the figure \ref{img:31}.}
+\caption{Vertex table of a half-edge data structure for the Figure \ref{img:31}.}
 \label{tab:6}
 \end{table}
 
@@ -470,7 +504,7 @@ representation is shown on the figure \ref{img:31} and tables
     $F_1$ & $e_1$           \\ \hline
     $F_2$ & $e_4$           \\ \hline\hline
     \end{tabular}
-\caption{Face table of a half-edge data structure for the figure \ref{img:31}.}
+\caption{Face table of a half-edge data structure for the Figure \ref{img:31}.}
 \label{tab:7}
 \end{table}
 
@@ -519,6 +553,7 @@ Face consists of
 \end{itemize}
 
 \subsection*{Implementation}
+TODO
 
 \section{CSG modelling for implcit surfaces}
 \label{sub2.6}
@@ -534,7 +569,7 @@ difference. It gained populatity in 1980s as a powerful tool to create complex
 shapes from sets of geometrical primitives, such as cylinders, spheres and cones.
 The resulting model can be represented as a CSG tree, which contains geometrical
 primitives in its leaves and boolean operations in its internal nodes 
-\cite{foley1996computer}. An example of such CSG tree can be seen on figure 
+\cite{foley1996computer}. An example of such CSG tree can be seen on the Figure 
 \ref{img:18}.
 
 \begin{figure}
@@ -554,7 +589,7 @@ intersection of the interiors can be defined by implicit fuction $H=min(F, G)$.
 Similarly, the surface of the union of the interiors can be defined
 by implicit function $H=max(F, G)$ and lastly, the surface of the difference of
 the interiors can be defined by implicit function $H=max(F, -G)$. Two dimensional
-example of this idea can be seen on figure \ref{img:19}.
+example of this idea can be seen on the Figure \ref{img:19}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img19}}
@@ -582,8 +617,7 @@ implicit function $G(x, y, z) = z$ which represents the $xy$ plane.
 The minimum function of these two functions
 $$min(F, G) = x^2+y^2+y^2-1+z-\sqrt{(x^2+y^2+y^2-1)^2+z^2}$$ represents the
 surface of a half sphere. The visualisation of these surfaces can be seen on
-figure
-\ref{img:20}.
+the Figure \ref{img:20}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img20}}
     \caption[Intersection of a sphere and a plane]
