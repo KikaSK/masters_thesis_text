@@ -639,15 +639,14 @@ the second part of the singular curve by iteratively creating points in the
 opposite direction, starting from point $P_0$. Let $m$ be number of points
 in the polyline, the second part of the polyline consists of the points
 $P_m, P_{m+1}, ...$, where
-$$Q_m = P_0 - e \cdot \vec{T}_C(P_0),$$
+$$Q_m = P_0 - e \cdot \vec{t}_C(P_0),$$
 $$P_m = proj_C(Q_m),$$
 and again, iteratively
-$$Q_{n+1} = P_n - e \cdot \vec{T}_C(P_{n}), \hspace{5mm} n = m, m+1, ...$$
+$$Q_{n+1} = P_n - e \cdot \vec{t}_C(P_{n}), \hspace{5mm} n = m, m+1, ...$$
 $$P_{n+1} = proj_C(Q_{n+1}), \hspace{5mm} n = m, m+1, ...$$
 
-The presented approach is visualized on the Figure \ref{img:37}.
+The presented approach is visualized in two dimensions on the Figure \ref{img:37}.
 
-TODO too big image
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img37}}
     \caption[Approximation of the implicit curve by polyline]
@@ -655,3 +654,41 @@ TODO too big image
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:37}
 \end{figure}
+
+After obtaining the polyline approximation of the curve on the intersection
+of the two surfaces, one may create the local mesh. Let us rename the polyline 
+points to $P_0, P_1, ..., P_k$, such that $l_i = \overline{P_i P_{i+1}}$ is a 
+line segment of the polyline for $i=0, ..., k-1$ (and $l_k = \overline{P_k P_0}$ is a 
+line segment of the polyline for closed curve).
+
+For each line segment $l_i$ we create two adjacent triangles containing $l_i$.
+
+We start by calculating the midpoint $M_i = \frac{P_i+P_{i+1}}{2}$.
+By projecting the point $M_i$ to the surface $S_1$, we obtain the point $M_i^1$,
+by projecting it to the surface $S_2$, we obtain the point $M_i^2$. The defiined points
+are visualized on the Figure \ref{img:38}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img38}}
+    \caption[Definition of the points]
+    {Definition of the points $M_i$, $M_i^1$ and $M_i^2$.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:38}
+\end{figure}
+
+As the point $M_i^1$ is lying on the surface, the tangent plane $T_{S_1}(M_i^1)$ 
+of the surface $S_1$ in the point $M_i^1$ is well defined. The same holds for the 
+point $M_i^2$ lying on the surface $S_2$. 
+
+We first define points $R_i^1$ and $R_i^2$ close to the surface. After projecting
+these points on the surface, we obtain the third point for each of the two 
+adjacent triangles.
+
+For the point $M_i$, the plane $H_i$ passing through $M_i$, perpendicular to the
+line segment $l_i$ is defined:
+$$H_i : \vec{P_i P_{i+1}} \cdot (X-M_i) = 0.$$
+
+The point $R_i^1$ is obtained by moving from the point $M_i$ in the direction 
+perpendicular to both $H_i$ and $T_{S_1}(M_i^1)$ by the given edge length $e$:
+
+$$R_i^1 = M_i + e \cdot \frac{\nabla{S_1}(M_1) \times \overrightarrow{P_{i} P_{i+1}}}{||\nabla{S_1}(M_1) \times \overrightarrow{P_i P_{i+1}}||}.$$
