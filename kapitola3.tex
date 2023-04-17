@@ -608,3 +608,50 @@ and the corresponding bump functions do not intersect.
 
 \section{Triangulation of non-isolated singularities}
 \label{sub3.3}
+
+We present an approach for triangulation of implicit surfaces with singular
+curves which are
+a result of performimg intersection operation on the interiors of two
+regular implicit surfaces.
+
+We start by creating a local mesh for the surroundings of these singular
+curves and finish the mesh in the regular parts.
+
+\subsection{Creating the local mesh around the singular curves}
+
+We start by approximating the singular curve by a polyline.
+On the input, one point close to the singular curve is given. This point serves as
+a starting point $P_0$. The tangent vector $\vec{t}_C(P_0)$ of the curve is computed as
+the cross product of the unit normal vectors of the two surfaces $S_1$ and $S_2$.
+Given the required approximate edge length $e$, a point $Q_1$ is computed as
+$Q_1 = P_0 + e \cdot \vec{t}_C(P_0)$. We obtain the point $P_1$ by projecting the point 
+$Q_1$ to the curve $C$ using an approach described in the section \ref{sub2.3}.
+Other points are then created iteratively by the same approach:
+$$Q_{n+1} = P_n + e \cdot \vec{t}_C(P_n),$$
+$$P_{n+1} = proj_C(Q_{n+1}),$$
+while checking if the new point is inside the axis-aligned bounding box.
+We stop once the new point is outside of the axis-aligned bounding box or
+if the new point is close to the starting point $P_0$, which means the approximated
+curve is a closed curve.
+
+In case of the open curve, to complete the whole polyline, we also approximate 
+the second part of the singular curve by iteratively creating points in the 
+opposite direction, starting from point $P_0$. Let $m$ be number of points
+in the polyline, the second part of the polyline consists of the points
+$P_m, P_{m+1}, ...$, where
+$$Q_m = P_0 - e \cdot \vec{T}_C(P_0),$$
+$$P_m = proj_C(Q_m),$$
+and again, iteratively
+$$Q_{n+1} = P_n - e \cdot \vec{T}_C(P_{n}), \hspace{5mm} n = m, m+1, ...$$
+$$P_{n+1} = proj_C(Q_{n+1}), \hspace{5mm} n = m, m+1, ...$$
+
+The presented approach is visualized on the Figure \ref{img:37}.
+
+TODO too big image
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img37}}
+    \caption[Approximation of the implicit curve by polyline]
+    {Approximation of the implicit curve by polyline.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:37}
+\end{figure}
