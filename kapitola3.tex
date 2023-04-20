@@ -113,7 +113,7 @@ First four $A_{n--}$ singularities can be seen on the Figure \ref{img:4}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img4}}
     \caption[$A_{n--}$ singularities]
-    {$A_{n--}$ singularities. \cite{singsurf}}
+    {$A_{n--}$ singularities. \cite{morris2003client}}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:4}
 \end{figure}
@@ -135,7 +135,7 @@ these singularities have reflection symmetry planes $y=0$ and $z=0$.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img5}}
     \caption[$A_{n+-}$ singularities]
-    {$A_{n+-}$ singularities. \cite{singsurf}}
+    {$A_{n+-}$ singularities. \cite{morris2003client}}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:5}
 \end{figure}
@@ -173,13 +173,13 @@ $D_{n+-}$ singularities are topologically equivalent to a plane when $n$ is
 even and to a cone when $n$ is odd. Again, as $n$ gets bigger, the features
 around singularities get sharper. Symmetry planes of these singularities
 are $x=0$ and $z=0$, therefore we pick $(0, 1, 0)$ (and $(0, -1, 0)$ when $n$ is odd)
-as trinauglation vectors. First four $D_{n+-}$ singularities can be seen on
+as triangulation vectors. First four $D_{n+-}$ singularities can be seen on
 the Figure \ref{img:7}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img7}}
     \caption[$D_{n+-}$ singularities]
-    {$D_{n+-}$ singularities. \cite{singsurf}}
+    {$D_{n+-}$ singularities. \cite{morris2003client}}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:7}
 \end{figure}
@@ -192,7 +192,7 @@ First four $D_{n--}$ singularities can be seen on the Figure \ref{img:8}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img8}}
     \caption[$D_{n--}$ singularities]
-    {$D_{n--}$ singularities. \cite{singsurf}}
+    {$D_{n--}$ singularities. \cite{morris2003client}}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:8}
 \end{figure}
@@ -244,7 +244,7 @@ singularities. These singularities are displayed on the the Figure \ref{img:12}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img12}}
     \caption[$E_n$ singularities.]
-    {$E_n$ singularities. \cite{singsurf}}
+    {$E_n$ singularities \cite{morris2003client}.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:12}
 \end{figure}
@@ -350,8 +350,6 @@ $$t=\frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{a^4+b^4},$$
 therefore 
 $$P=\frac{1}{2}(a,b) + \frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{2(a^4+b^4)}(b,a).$$
 
-TODO binary search for height
-
 Given edge length $e$, we are not able to calculate the height in which the distance
 between points $P1$ and $P$ is $e$. The visualization showing this is on the Figure \ref{img:17}.
 
@@ -384,7 +382,37 @@ As $e \leq a_h$, we can start the binary search on the interval
 $\langle 0, a^\frac{2}{n-2}\rangle$ or $\langle 0, a^\frac{2}{n-1}\rangle$
 and finish, when required precision is reached.
 
-TODO want to try to prove that $||P_h-P_1||$ is monotone in h.
+\textbf{Proof that $e_h$ is monotone in $h$:} Let us consider a general ellipse
+with the semi-major axis $a$, semi-minor axis $b$ and center in the point $(0, 0)$. 
+Let us denote the points as follows: $A=(a, 0)$, $B=(0, b)$, $M=(\frac{a}{2}, \frac{b}{2})$ 
+and $C$ - point in the first quadrant of the ellipse equidistant from $A$ and $B$, the points
+are displayed on the Figure \ref{img:40}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img40}}
+    \caption[Notation used in the proof]
+    {Notation used in the proof that $e_h$ is monotone in $h$.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:40}
+\end{figure}
+
+As we calculated, it holds, that
+$$C = M + \frac{t}{2} \cdot (b, a) \hspace{5mm} \textrm{for} \hspace{5mm} t=\frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{a^4+b^4}.$$
+
+As length of the vector $(b,a)$ is $\sqrt{a^2+b^2}$, the distance 
+$|MC|$ is $\frac{t}{2} \cdot \sqrt{a^2+b^2}$.
+
+After substituing for $t$, one gets 
+$$|MC|=\sqrt{a^2+b^2}\cdot\frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{2(a^4+b^4)},$$
+the derivative $\frac{\partial|MC|}{\partial a}$ is positive for all $b>0$ and
+$\frac{\partial|MC|}{\partial b}$ is positive for all $a>0$.
+
+This means that $|MC|$ is increasing in both $a$ and $b$. As the distance $|MA|=|MB|$ is 
+also increasing in $a$ and $b$, it follows from Pythagorean theorem, that $|AC|=|BC|$
+is increasing in $a$ and $b$.
+
+When the height $h$ increases, both semi-major and semi-minor axis of the ellipse increase,
+thus $e_h$ is increasing in $h$.
 
 \subsection*{Numerical calculation of local triangulation of ADE singularities}
 
@@ -394,7 +422,7 @@ of ADE singularities using numerical algorithms such as binary search.
 
 We begin by dividing ADE singularities into three categories.
 \begin{enumerate}
-    \item Singularities topologically equivalent to a plane:
+    \item Singularities topologically equivalent to a plane, displayed on the Figure \ref{img:42}:
     \begin{itemize}
         \item $A_{n--}$, where $2|n$,
         \item $A_{n+-}$, where $2|n$,
@@ -403,26 +431,113 @@ We begin by dividing ADE singularities into three categories.
         \item $E_{6+-}$,
         \item $E_{8++}$.
     \end{itemize}
-    \item Singularities topologically equivalent to a cone except $E_{7++}$:
+    \begin{figure}
+        \centerline{\includegraphics[scale=0.5]{images/img42}}
+        \caption[Singularities topologically equivalent to a plane]
+        {Singularities topologically equivalent to a plane \cite{morris2003client}.}
+        %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+        \label{img:42}
+    \end{figure}
+    \item Singularities topologically equivalent to a cone except $E_{7++}$, displayed on the Figure \ref{img:43}:
     \begin{itemize}
         \item $A_{n--}$, where $2 \nmid n$,
         \item $A_{n+-}$, where $2 \nmid n$,
         \item $D_{n+-}$, where $2 \nmid n$,
         \item $D_{n--}$, where $2 \nmid n$
     \end{itemize}
-    \item Other singularities:
+    \begin{figure}
+        \centerline{\includegraphics[scale=0.5]{images/img43}}
+        \caption[Singularities topologically equivalent to a cone except $E_{7++}$]
+        {Singularities topologically equivalent to a cone except $E_{7++}$ \cite{morris2003client}.}
+        %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+        \label{img:43}
+    \end{figure}
+    \item Other singularities, displayed on the Figure \ref{img:44}:
     \begin{itemize}
         \item $D_{n--}$, where $2|n$,
         \item $E_{7++}$.
     \end{itemize}
+    \begin{figure}
+        \centerline{\includegraphics[scale=0.5]{images/img44}}
+        \caption[Other singularities]
+        {Other singularities \cite{morris2003client}.}
+        %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+        \label{img:44}
+    \end{figure}
 \end{enumerate}
 
 We propose a general solution for first and second categories and we treat the
 singularities in the third category as a special cases.
 
 \subsubsection*{Singularities topologically equivalent to a plane}
+For all of the singularities, we have defined the triangulation vector,
+let us denote the normalized triangulation vector for the singularity of the type $T$
+as $\vec{t}_T$, resp. $\vec{t}_T^1, .., \vec{t}_T^i$ if the singularity has
+$i$ triangulation vectors.
+Let us assume that the singular point is located in the point $O = (0, 0, 0).$
+For the singularities topologically equivalent to a plane, given by the implicit
+equation $F(x, y, z) = 0$ it holds, that $F(O+\vec{t}_T) \cdot F(O-\vec{t}_T)<0$.
+This means, that we can perform binary search to find a point on the surface.
+Given the required approximate edge length $e$, we perform binary search to find
+an angle, for which the endpoint of the rotated vector $e \cdot \vec{t}_T$ lies on 
+the surface with given precision as displayed on the Figure \ref{img:41}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img41}}
+    \caption[Binary search for the point on the surface]
+    {Binary search for the point on the surface.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:41}
+\end{figure}
+
+Using this approach, we create $k$ points on the surface, while each time
+rotating the half-plane in which the binary search is performed by $\frac{2\pi}{k}$
+about the axis given by $\vec{t}_T$ as displayed on the Figure \ref{img:rotating-planes}.
+
+For singularities with rotation symmetry, we create six
+triangles near the singular point. We only need to perform the binary search once,
+other points are obtained by rotating the point on the surface about the vector 
+$\vec{t}_T$ by $\frac{2 \pi}{6}$.
+
+In case of singularities with two planes of symmetry, we create eight triangles and only
+need to perform the binary search three times.
+
+In case of singularity with only one plane of symmetry (only $E_{8++}$ singularity),
+we create eight triangles, while performing the binary search five times. 
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.3]{images/rotating-planes}}
+    \caption[Rotating the plane about the vector]
+    {Rotating the plane about the vector $\vec{t}_T$.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:rotating-planes}
+\end{figure}
+
 \subsubsection*{Singularities topologically equivalent to a cone except $E_{7++}$}
-\subsubsection*{Other singularities - special cases}
+For the singularities in the second category it holds, that the branches lie in 
+the opposite half-spaces. The half-spaces are separated by the plane given by
+the points equidistant from the endpoints of normalized triangulation vectors
+$O+\vec{t}_T^1$ and $O+\vec{t}_T^2$. We can therefore perform binary search
+separately in the two half-spaces as visualized on the Figure \ref{img:45}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img45}}
+    \caption[Double binary search for the point on the surface]
+    {Double binary search for the point on the surface.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:45}
+\end{figure}
+
+For the singularities with symmetrical branches, we only need to perform binary
+search in one of the half-spaces. In case of the singularities with rotation
+symmetry, we again create six triangles and only need to perform the binary search once.
+In case of other singularities, we create eight triangles, while again making use of the
+potential planes of symmetry.
+
+\subsubsection*{Other singularities - special cases} 
+Singularities in third group are treated as a special cases.
+In case of $D_{2k--}$ singularities, 
+
 
 \subsection*{Triangulation of a plane with multiple $A_{n--}$ singularities}
 In this section, we present an approach for creating an implicit equation of a
@@ -611,7 +726,7 @@ and the corresponding bump functions do not intersect.
 
 We present an approach for triangulation of implicit surfaces with singular
 curves which are
-a result of performimg intersection operation on the interiors of two
+a result of performing intersection operation on the interiors of two
 regular implicit surfaces.
 
 We start by creating a local mesh for the surroundings of these singular
@@ -622,7 +737,8 @@ curves and finish the mesh in the regular parts.
 We start by approximating the singular curve by a polyline.
 On the input, one point close to the singular curve is given. This point serves as
 a starting point $P_0$. The tangent vector $\vec{t}_C(P_0)$ of the curve is computed as
-the cross product of the unit normal vectors of the two surfaces $S_1$ and $S_2$.
+the cross product of the unit normal vectors of the two surfaces $S_1$ and $S_2$ given
+by the implicit equations $F_1=0$ and $F_2=0$, respectively.
 Given the required approximate edge length $e$, a point $Q_1$ is computed as
 $Q_1 = P_0 + e \cdot \vec{t}_C(P_0)$. We obtain the point $P_1$ by projecting the point 
 $Q_1$ to the curve $C$ using an approach described in the section \ref{sub2.3}.
@@ -684,11 +800,40 @@ We first define points $R_i^1$ and $R_i^2$ close to the surface. After projectin
 these points on the surface, we obtain the third point for each of the two 
 adjacent triangles.
 
+The point $R_i^1$ is obtained by moving from the point $M_i$ in the direction 
+perpendicular to both $\overrightarrow{P_{i} P_{i+1}}$ and 
+$\nabla{F_1}(M_1)$ by the given edge length $e$.
+
+$$R_i^1 = M_i + e \cdot \frac{\nabla{F_1}(M_1) \times \overrightarrow{P_{i} P_{i+1}}}{||\nabla{F_1}(M_1) \times \overrightarrow{P_i P_{i+1}}||}.$$
+
+The described situation is displayed on the Figure \ref{img:39}.
 For the point $M_i$, the plane $H_i$ passing through $M_i$, perpendicular to the
 line segment $l_i$ is defined:
-$$H_i : \vec{P_i P_{i+1}} \cdot (X-M_i) = 0.$$
+$$H_i : \overrightarrow{P_i P_{i+1}} \cdot (X-M_i) = 0.$$
+For better understanding the Figure \ref{img:39} is the projection of the surroundings
+of the point $M_i$ to the plane $H_i$. Generally, points $M_i^1$ and $M_i^2$ do not lie in
+the plane $H_i$. 
 
-The point $R_i^1$ is obtained by moving from the point $M_i$ in the direction 
-perpendicular to both $H_i$ and $T_{S_1}(M_i^1)$ by the given edge length $e$:
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img39}}
+    \caption[Definition of the points]
+    {Definition of the points $R_i^1$ and $R_i^2$ in the plane $H_i$.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:39}
+\end{figure}
 
-$$R_i^1 = M_i + e \cdot \frac{\nabla{S_1}(M_1) \times \overrightarrow{P_{i} P_{i+1}}}{||\nabla{S_1}(M_1) \times \overrightarrow{P_i P_{i+1}}||}.$$
+The points $R_i^1$ and $R_i^2$ are projected to the surface given by the intersection
+of the interiors of the two surfaces. The equation defining the surface is 
+$$F_{1 \cap 2} = F_1 + F_2 + \sqrt{F_1^2+F_2^2}.$$
+
+An example of the resulting local mesh for an open curve is displayed on the image
+\ref{img:local-mesh-sing-curve}. This curve is a part of the singular curve on the surface 
+given by the intersection of the interiors of a sphere and a hyperboloid.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.3]{images/local-mesh-sing-curve}}
+    \caption[Local mesh around the singular curve]
+    {Local mesh around the singular curve.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:local-mesh-sing-curve}
+\end{figure}

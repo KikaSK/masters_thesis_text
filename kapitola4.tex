@@ -1,8 +1,93 @@
 \chapter{Results}
 \label{chap4}
 
+In this chapter, we present the results achieved in triangulation of
+ADE singularities, surfaces with ADE singularities and surfaces with 
+sungular curves arised from CSG operations on the regular surfaces.
+We measure some of the quality criteria proposed in \cite{korecova2021triangulation}
+and compare our meshes in terms of quality with the meshes produced by a software 
+for visualization of the implicit surfaces with ADE singularities implemented
+based on the article by Richard Morris \cite{morris2003client}.
+We compare the computational speed of the algorithm after the reimplementation
+with the algorithm for the regular parts of the implicit surfaces 
+implemented in \cite{korecova2021triangulation}.
+
 \section{Quality criteria}
 \label{sub4.1}
 
+The following quality criteria \cite{korecova2021triangulation} are evaluated 
+for the resulting mesh with uniform edge size:
+
+\begin{enumerate}
+    \item \textit{The mean ratio of the length of the sides of the triangle}
+    
+    The mean ratio of the length of the longest side of the triangle
+    and the shortest side of the triangle shows the unoiforminy of the 
+    triangles. 
+    For equilateral triangle, the ratio equals exactly one. The ratio is
+    greater than one for isosceles and scalene triangles. 
+    The further the triangle is from equilateral triangle, the greater is the ratio.
+    The number close to one indicates triangles close to the equilateral triangles,
+    whereas the number greater than one indicates more non-uniform triangles in the mesh.
+
+    \item \textit{Discrete approximation of the Hausdorff distance}
+    
+    To define the discrete approximation of the Hausdorff distance of the mesh and
+    the implicit surface, one needs to introduce the notion of the distance of two sets
+    of points.
+\begin{definition} The distance $\delta$ of the point $a\in \R^3$ and the set
+    $M \subset \R^3$ is defined as 
+    \begin{equation}
+        \delta(a, M) = \inf_{b \in M} \, d(a, b),
+    \end{equation}
+    where $d(a, b)$ is the Euclidean distance of two points in $\R^3$. 
+\end{definition}
+\begin{definition} The Hausdorff distance of two sets $N \subset \R^3$ and
+    $M \subset \R^3$ is defined as
+    \begin{equation}
+        h(M, N) = \max \big \{\sup_{a \in M} \, \delta(a, N), \sup_{b \in N} \, \delta(M, b) \big \}.
+    \end{equation}
+\end{definition}
+    The Hausdorff distance is numerically aproximated by taking the maximum distance
+    of the gravity center of a triangle of the mesh and perpendicular projection of
+    the gravity center to the triangulated surface.
+    This approximation is based on the assumption, that the point on the surface
+    closest to the gravity center of the triangle is the perpendicular projection of
+    that point to the surface.
+
+    The Hausdorff distance measures the accuracy of the triangulation by picking the 
+    triangle, which approximates the surface the worst.
+
+    \item \textit{The mean distance of the gravity center and its perpendicular projection}
+    
+    Measuring the mean distance of the gravity center and its perpendicular 
+    projection shows the accuracy of the approximation globally, by taking into
+    accout all triangles of the mesh rather than picking out the worst approximating 
+    triangle.
+
+    \item \textit{The mean distance of the neighbour vertices from the vertex and the 
+    standard deviation of the distance from the mean}
+
+    The standard deviation of the values from the mean value says about the 
+    distibution of the values around the mean value. Small standard deviation indicates,
+    that the values are close to the mean. On the contrary, bigger standard deviation
+    indicates, that the values are further distributed from the mean value.
+
+    \begin{definition}
+        Given $N$ values -- $x_1, ..., x_N$, let us denote the arithmetical mean 
+        of the values as $\overline{x}$. The standard deviation $\sigma$ can be calculated
+        as
+        \begin{equation}
+            \sigma = \sqrt{\frac{1}{N} \sum\limits_{i=1}^{N}(x_i - \overline{x})^2}. 
+        \end{equation}
+    \end{definition}
+
+    For the whole mesh, we are calculating the mean standard deviation from the 
+    standard deviation of all points and its neighbour points in the mesh.
+\end{enumerate}
+
 \section{Comparison with TODO}
 \label{sub4.2}
+
+\section{Computational speed comparison of the reimplemented solution}
+\label{sub4.3}
