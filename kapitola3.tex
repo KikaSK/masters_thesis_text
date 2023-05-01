@@ -178,7 +178,7 @@ the Figure \ref{img:7}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img7}}
-    \caption[$D_{n+-}$ singularities]
+    \caption[$D_{n+-}$ singularities TODO the coordinates are wrong!!]
     {$D_{n+-}$ singularities. \cite{morris2003client}}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:7}
@@ -191,7 +191,7 @@ First four $D_{n--}$ singularities can be seen on the Figure \ref{img:8}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img8}}
-    \caption[$D_{n--}$ singularities]
+    \caption[$D_{n--}$ singularities TODO the coordinates are wrong!!]
     {$D_{n--}$ singularities. \cite{morris2003client}}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:8}
@@ -418,62 +418,47 @@ thus $e_h$ is increasing in $h$.
 
 For other types of ADE singularities, the exact analytical calculations become more
 complicated. In this section we present an approach for triangulation of all types
-of ADE singularities using numerical algorithms such as binary search.
+of ADE singularities using iterative numerical algorithms based on the idea of binary 
+search.
 
-We begin by dividing ADE singularities into three categories.
+We begin by dividing ADE singularities into two categories.
 \begin{enumerate}
-    \item Singularities topologically equivalent to a plane, displayed on the Figure \ref{img:42}:
+    \item Category singularities -- displayed on the Figure \ref{img:42}:
     \begin{itemize}
-        \item $A_{n--}$, where $2|n$,
-        \item $A_{n+-}$, where $2|n$,
-        \item $D_{n+-}$, where $2|n$,
+        \item $A_{n--}$,
+        \item $A_{n+-}$,
+        \item $D_{n+-}$, where $n=2k$,
         \item $E_{6++}$, 
         \item $E_{6+-}$,
         \item $E_{8++}$.
     \end{itemize}
     \begin{figure}
         \centerline{\includegraphics[scale=0.5]{images/img42}}
-        \caption[Singularities topologically equivalent to a plane]
-        {Singularities topologically equivalent to a plane \cite{morris2003client}.}
+        \caption[1. Category singualrities]
+        {1. Category singularities \cite{morris2003client}.}
         %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
         \label{img:42}
     \end{figure}
-    \item Singularities topologically equivalent to a cone except $E_{7++}$, displayed on the Figure \ref{img:43}:
+    \item Category singularities -- displayed on the Figure \ref{img:43}:
     \begin{itemize}
-        \item $A_{n--}$, where $2 \nmid n$,
-        \item $A_{n+-}$, where $2 \nmid n$,
-        \item $D_{n+-}$, where $2 \nmid n$,
-        \item $D_{n--}$, where $2 \nmid n$
-    \end{itemize}
-    \begin{figure}
-        \centerline{\includegraphics[scale=0.5]{images/img43}}
-        \caption[Singularities topologically equivalent to a cone except $E_{7++}$]
-        {Singularities topologically equivalent to a cone except $E_{7++}$ \cite{morris2003client}.}
-        %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
-        \label{img:43}
-    \end{figure}
-    \item Other singularities, displayed on the Figure \ref{img:44}:
-    \begin{itemize}
-        \item $D_{n--}$, where $2|n$,
+        \item $D_{n+-}$, where $n=2k+1$,
+        \item $D_{n--}$,,
         \item $E_{7++}$.
     \end{itemize}
     \begin{figure}
-        \centerline{\includegraphics[scale=0.5]{images/img44}}
-        \caption[Other singularities]
-        {Other singularities \cite{morris2003client}.}
+        \centerline{\includegraphics[scale=0.5]{images/img43}}
+        \caption[2. Category singularities]
+        {2. Category singularities \cite{morris2003client}.}
         %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
-        \label{img:44}
+        \label{img:43}
     \end{figure}
 \end{enumerate}
 
-We propose a general solution for first and second categories and we treat the
-singularities in the third category as a special cases.
-
-\subsubsection*{Singularities topologically equivalent to a plane}
+\subsubsection*{Triangulation of 1. category singularities}
 For all of the singularities, we have defined the triangulation vector,
-let us denote the normalized triangulation vector for the singularity of the type $T$
-as $\vec{t}_T$, resp. $\vec{t}_T^1, .., \vec{t}_T^i$ if the singularity has
-$i$ triangulation vectors.
+let us denote the normalized triangulation vector for the singularity of the 
+type $T$ as $\vec{t}_T$, resp. $\vec{t}_T^1, .., \vec{t}_T^i$ if the 
+singularity has $i$ triangulation vectors.
 Let us assume that the singular point is located in the point $O = (0, 0, 0).$
 For the singularities topologically equivalent to a plane, given by the implicit
 equation $F(x, y, z) = 0$ it holds, that $F(O+\vec{t}_T) \cdot F(O-\vec{t}_T)<0$.
@@ -494,17 +479,6 @@ Using this approach, we create $k$ points on the surface, while each time
 rotating the half-plane in which the binary search is performed by $\frac{2\pi}{k}$
 about the axis given by $\vec{t}_T$ as displayed on the Figure \ref{img:rotating-planes}.
 
-For singularities with rotation symmetry, we create six
-triangles near the singular point. We only need to perform the binary search once,
-other points are obtained by rotating the point on the surface about the vector 
-$\vec{t}_T$ by $\frac{2 \pi}{6}$.
-
-In case of singularities with two planes of symmetry, we create eight triangles and only
-need to perform the binary search three times.
-
-In case of singularity with only one plane of symmetry (only $E_{8++}$ singularity),
-we create eight triangles, while performing the binary search five times. 
-
 \begin{figure}
     \centerline{\includegraphics[scale=0.3]{images/rotating-planes}}
     \caption[Rotating the plane about the vector]
@@ -513,6 +487,31 @@ we create eight triangles, while performing the binary search five times.
     \label{img:rotating-planes}
 \end{figure}
 
+For singularities with rotation symmetry, we create six
+triangles near the singular point. We only need to perform the binary search once,
+other points are obtained by rotating the point on the surface about the vector 
+$\vec{t}_T$ by $\frac{2 \pi}{6}$.
+
+In case of other singualrities, we create different number of triangles:
+\begin{itemize}
+    \item $A_{2k+-}$ -- 8 triangles,
+    \item $A_{(2k+1)+-}$ -- 6 triangles for each branch,
+    \item $D_{2k+-}$ -- 8 triangles for the branch given by the 
+    triangulation vector $(0,1,0)$ and 4 triangles for the branch
+    given by the triangulation vector $(0,-1,0)$,
+    \item $D_{(2k+1)+-}$ -- 8 triangles,
+    \item $D_{2k--}$ -- 4 triangles for each branch,
+    \item $E_{6++}$ -- 6 triangles,
+    \item $E_{6+-}$ -- 8 triangles,
+    \item $E_{7++}$ -- 6 triangles for the branch, given by the
+    triangulation vector $(-1, 0, 0)$ and 4 trianfles for the other
+    branch,
+    \item $E_{8++}$ -- 6 triangles.
+\end{itemize}
+
+TODO possible optimization thanks to symmetries.
+
+TODO rewrite subsubsection
 \subsubsection*{Singularities topologically equivalent to a cone except $E_{7++}$}
 For the singularities in the second category it holds, that the branches lie in 
 the opposite half-spaces. The half-spaces are separated by the plane given by
@@ -534,10 +533,14 @@ symmetry, we again create six triangles and only need to perform the binary sear
 In case of other singularities, we create eight triangles, while again making use of the
 potential planes of symmetry.
 
-\subsubsection*{Other singularities - special cases} 
-Singularities in third group are treated as a special cases.
-In case of $D_{2k--}$ singularities, 
+\subsubsection*{Layers}
 
+\subsubsection*{Optimization of the quality of the local mesh for some singularities}
+For some of the singularities, it is not convinient to look for the points on
+the surface on the planes rotated by identical angles as seen on the Figure
+\ref{img:rotating-planes}. An example of such singularities are $D_{n+-}$
+singularities. The local mesh created with 8 triangles using the described 
+approach is displayed on the Figure TODO. 
 
 \subsection*{Triangulation of a plane with multiple $A_{n--}$ singularities}
 In this section, we present an approach for creating an implicit equation of a
@@ -638,8 +641,8 @@ We use the following equations of the surfaces to model the cosine bump function
     Cylinder                & $(y-p_y)^2+(z-p_z)^2-(\frac{\pi}{k})^2=0$                \\ \hline
     Plane                   & x=0                                                      \\ \hline\hline
     \end{tabular}
-    \caption[Implicit equations for bump function modeling]
-    {Implicit equations for bump function modeling.}
+    \caption[Implicit equations for bump function modelling]
+    {Implicit equations for bump function modelling.}
     \label{tab:1}
     \end{table}
 
