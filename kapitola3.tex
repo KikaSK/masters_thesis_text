@@ -30,7 +30,7 @@ the given point, as shown in the Figure \ref{img:15}.
 \end{figure}
 
 To identify the curved areas, we decided to use the maximal curvature. As the minimal
-and maximal curvature are both signed, we want to identify the areas depending on 
+and maximal curvature are both signed, we identify the areas depending on 
 the absolute value of these curvatures.
 
 We do not allow arbitrary height of the triangle to avoid edge-cases. We decided
@@ -50,7 +50,7 @@ NOT FINISHED YET
 \section{Triangulation of ADE singularities}
 \label{sub3.2}
 
-\subsection*{Analysis of the geometry of ADE singularities}
+\subsection{Analysis of the geometry of ADE singularities}
 
 ADE singularities are simple, isolated surface singularities, which can be
 expressed by corresponding implicit equations.
@@ -277,8 +277,8 @@ $(\frac{1}{2}r^{\frac{3}{2}}, -r, 0)$ as triangulation vectors.
 For $E_{8++}$ singularity, we pick $(-1, -1, 0)$ as a triangulation vector.
 These vectors are displayed on the Figure \ref{img:10} as blue arrows.
 
-\subsection*{Analytical calculation of local triangulation of some ADE singularities}
-For given edge size $e$, we want to calculate the local triangulation of ADE
+\subsection{Analytical calculation of local triangulation of some ADE singularities}
+For given edge size $e$, we calculate the local triangulation of ADE
 singularities, such that edges on the border of the local triangulation
 have length $e$.
 \subsubsection*{$A_{n--}$ singularities}
@@ -305,6 +305,63 @@ $r=h^{\frac{n+1}{2}}$, which emerges $h=e^{\frac{2}{n+1}}$. Knowing the
 distance of the plane, one can easily calculate the length of the arms of
 the triangles using Pythagorean theorem: 
 $$a^2=h^2+e^2 \implies a = \sqrt{e^{\frac{4}{n+1}} + e^2}$$
+
+\textbf{Layers for $A_{n--}$ singularities:}
+The resulting mesh with uniform triangles for $A_{5--}$ singularity is displayed
+on the Figure \ref{img:A5-uniform}.  
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.25]{images/A5-uniform}}
+    \caption[Resulting uniform triangulation of the $A_{5--}$ singularity]
+    {Resulting uniform triangulation of the $A_{5--}$ singularity.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:A5-uniform}
+\end{figure}
+
+As one may see, the approximation around the singular
+point is not as accurate as for the rest of the surface.
+For this problem, we introduce layers -- the surroundings of sungularities are
+triangulated in multiple layers of triangles and only after that, the algorithm for
+regular parts is used.
+
+Given the edge length $e$ and number of the layers, we calculate the height $h_e$ 
+at which the bases of the triangles
+have the length $e$. We divide the height by the number of layers to obtain the
+layer height $h_l$. Now, $i$--th layer of points is obtained by using the height
+$h = i\cdot h_l$. As we want to connect these points into triangles, every second
+layer is rotated by $\frac{\pi}{6}$. The resulting 3 layers of triangles
+for the $A_{1--}$ singularity as viewed from the point $(1, 0, 0)$ is displayed on
+the Figure \ref{img:52}. 
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img52}}
+    \caption[Three layers of triangles for the $A_{1--}$ singularity]
+    {Three layers of triangles for the $A_{1--}$ singularity.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:52}
+\end{figure}
+
+The local mesh with 1 layer, 4 layers and 8 layers (from left to right) 
+for $A_{5--}$ singularity is displayed
+on the Figure \ref{img:53}. 
+\begin{figure}
+    \centerline{\includegraphics[scale=0.4]{images/img53}}
+    \caption[Local mesh with layers for the $A_{5--}$ singularity]
+    {Local mesh with 1 layer, 4 layers and 8 layers (from left to right) 
+    for the $A_{5--}$ singularity.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:53}
+\end{figure}
+
+The resulting mesh with 4 layers is displayed on the
+Figure \ref{A5-uniform-layers}.
+\begin{figure}
+    \centerline{\includegraphics[scale=0.25]{images/A5-uniform-layers}}
+    \caption[Resulting mesh for the $A_{5--}$ singularity]
+    {Resulting mesh for the $A_{5--}$ singularity - 5 layers.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:A5-uniform-layers}
+\end{figure}
 
 \subsubsection*{$D_n$ singualrities}
 Some $D_n$ singularities have branches with elliptical intersection with 
@@ -414,7 +471,7 @@ is increasing in $a$ and $b$.
 When the height $h$ increases, both semi-major and semi-minor axis of the ellipse increase,
 thus $e_h$ is increasing in $h$.
 
-\subsection*{Numerical calculation of local triangulation of ADE singularities}
+\subsection{Numerical calculation of local triangulation of ADE singularities}
 
 For other types of ADE singularities, the exact analytical calculations become more
 complicated. In this section we present an approach for triangulation of all types
@@ -460,11 +517,15 @@ let us denote the normalized triangulation vector for the singularity of the
 type $T$ as $\vec{t}_T$, resp. $\vec{t}_T^1, .., \vec{t}_T^i$ if the 
 singularity has $i$ triangulation vectors.
 Let us assume that the singular point is located in the point $O = (0, 0, 0).$
-For the singularities topologically equivalent to a plane, given by the implicit
+For the singularities from 1. category, 
+topologically equivalent to a plane, given by the implicit
 equation $F(x, y, z) = 0$ it holds, that $F(O+\vec{t}_T) \cdot F(O-\vec{t}_T)<0$.
-This means, that we can perform binary search to find a point on the surface.
-Given the required approximate edge length $e$, we perform binary search to find
-an angle, for which the endpoint of the rotated vector $e \cdot \vec{t}_T$ lies on 
+For the singularities from 2. category, topologically equivalent to a cone,
+it holds, that $F(O+\vec{t}_T) \cdot F(O+\vec{t}_T^\bot)$.
+This means, that in both cases, we can perform binary search to find a point on 
+the surface.
+Given the required approximate length $l$, we perform binary search to find
+an angle, for which the endpoint of the rotated vector $l \cdot \vec{t}_T$ lies on 
 the surface with given precision as displayed on the Figure \ref{img:41}.
 
 \begin{figure}
@@ -475,6 +536,8 @@ the surface with given precision as displayed on the Figure \ref{img:41}.
     \label{img:41}
 \end{figure}
 
+The binary search is performed in the half-planes passing through the point
+$O$ and with the vector $\vec{t}_T$ lying in the half-planes.
 Using this approach, we create $k$ points on the surface, while each time
 rotating the half-plane in which the binary search is performed by $\frac{2\pi}{k}$
 about the axis given by $\vec{t}_T$ as displayed on the Figure \ref{img:rotating-planes}.
@@ -487,7 +550,7 @@ about the axis given by $\vec{t}_T$ as displayed on the Figure \ref{img:rotating
     \label{img:rotating-planes}
 \end{figure}
 
-For singularities with rotation symmetry, we create six
+For $A_{n--}$ singularities, we create six
 triangles near the singular point. We only need to perform the binary search once,
 other points are obtained by rotating the point on the surface about the vector 
 $\vec{t}_T$ by $\frac{2 \pi}{6}$.
@@ -509,15 +572,43 @@ In case of other singualrities, we create different number of triangles:
     \item $E_{8++}$ -- 6 triangles.
 \end{itemize}
 
-TODO possible optimization thanks to symmetries.
+As some singularities have symmetries, we can use these symmetries
+to perform the binary search less times and find the remaining points
+as the mirror symmetries of the points found by binary search.
 
 TODO rewrite subsubsection
-\subsubsection*{Singularities topologically equivalent to a cone except $E_{7++}$}
-For the singularities in the second category it holds, that the branches lie in 
-the opposite half-spaces. The half-spaces are separated by the plane given by
-the points equidistant from the endpoints of normalized triangulation vectors
-$O+\vec{t}_T^1$ and $O+\vec{t}_T^2$. We can therefore perform binary search
-separately in the two half-spaces as visualized on the Figure \ref{img:45}.
+\subsubsection*{Triangulation of 2. category singularities}
+For the singularities in the 2. category, we create more general, slower solution.
+Again, we find the points on the surface, lying in the rotated half-planes
+as displayed on the Figure \ref{img:rotating-planes}.
+For these singularities, we do not have the general rule for the start 
+and end agle to begin the binary search with. We have the triangulation vector,
+whose endpoint is lying inside of the space volume bounded by the respective branch.
+We consider this triangulation vector as a start vector to start the binary 
+search. We find the end vector by rotating the triangulation vector $\vec{t}_T$ 
+around the vector $\vec{p}_T$ -- vector perpendicular to $\vec{t}_T$, by small increments, 
+until the endpoint of the vector is outside of the space volume bounded by the branch,
+let us denote this vector $\vec{r}_T$.
+To find the point of surface, we perform an angular binary search between $\vec{t}_T$
+and $\vec{r}_T$. We proceed to find other points by rotating $\vec{p}_T$
+around $\vec{t}_T$ by $\frac{2\pi}{k}$.
+By using the small increments, we ensure that the rotated vector does not end up in
+the space volume bounded by another branch, but it slows down the process of creating
+the local mesh.
+For the illustration, on the Figure \ref{img:54} on the left one can see the iterative
+process to find the vector $\vec{r}_T$ by rotating $\vec{t}_T$ around $\vec{p}_T$.
+On the right, one can see the rotation of $\vec{p}_T$ around $\vec{t}_T$ by 
+$\frac{2pi}{k}$ to find the remainding points on the surface.
+
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img54}}
+    \caption[TODO]
+    {TODO.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:54}
+\end{figure}
+
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img45}}
@@ -537,12 +628,50 @@ potential planes of symmetry.
 
 \subsubsection*{Optimization of the quality of the local mesh for some singularities}
 For some of the singularities, it is not convinient to look for the points on
-the surface on the planes rotated by identical angles as seen on the Figure
+the surface in the planes rotated by identical angles as seen on the Figure
 \ref{img:rotating-planes}. An example of such singularities are $D_{n+-}$
 singularities. The local mesh created with 8 triangles using the described 
-approach is displayed on the Figure TODO. 
+approach is displayed on the Figure \ref{img:D4-before}. 
 
-\subsection*{Triangulation of a plane with multiple $A_{n--}$ singularities}
+\begin{figure}
+    \centerline{\includegraphics[scale=0.25]{images/D4-before}}
+    \caption[Uneven triangles in the local mesh around $D_{4+-}$ singularity]
+    {Uneven triangles in the local mesh around $D_{4+-}$ singularity.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:D4-before}
+\end{figure}
+
+The problem is significant on the singularities with 8 triangles near
+the singular point.
+Our solution is to use binary search to find the angle where the triangles are
+close to isosceles triangles. The points given by the angles 
+$0, \frac{\pi}{2}, \pi$ and $\frac{3\pi}{4}$ are unchanged.
+The points in between these points are iteratively changed until the
+triangles are isosceles with required precision. Starting on the interval 
+of angles $(0, \frac{\pi}{2})$, in each step, 
+the new angle is calculated as an angle in the middle 
+between the two angles, the new point is then calculated using the binary 
+search to find a point on the surface as displayed on the Figure \ref{img:41}.
+
+As all singularities using this optimization are symmetrical by two coordinate
+planes, we only need to perform this binary search once for each layer of a
+singularity and use mirroring to obtain the remaining points.
+
+The result of the binary 
+search of an angle on the $D_{4+-}$ singularity is displayed 
+on the Figure \ref{img:D4-after}. The triangles around the singularity
+are closer to isosceles triangles in comparison with the Figure 
+\ref{img:D4-before}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.25]{images/D4-after}}
+    \caption[Optimized local mesh around $D_{4+-}$ singularity]
+    {Optimized local mesh around $D_{4+-}$ singularity.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:D4-after}
+\end{figure}
+
+\subsection{Triangulation of a plane with multiple $A_{n--}$ singularities}
 In this section, we present an approach for creating an implicit equation of a
 surface which consists of a plane and arbitrary many $A_{n--}$ singularities
 $C^1$ smoothly connected to this plane. 
