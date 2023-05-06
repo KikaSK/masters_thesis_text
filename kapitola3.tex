@@ -1,5 +1,5 @@
 \chapter{Our contributions}
-\label{chap3}
+\label{chap2}
 
 \section{Triangulation adaptive to the local curvature}
 \label{sub3.1}
@@ -29,23 +29,97 @@ the given point, as shown in the Figure \ref{img:15}.
     \label{img:15}
 \end{figure}
 
-To identify the curved areas, we decided to use the maximal curvature. As the minimal
-and maximal curvature are both signed, we identify the areas depending on 
-the absolute value of these curvatures.
+To identify the curved areas, we decided to use the curvedness defined by 
+Koendering and Doorn in 1992 \cite{koenderink1992surface}. As the authors 
+explained, the Gaussian curvature and the mean curvature, are not very descriptive
+about the local shape of the surface. Principal curvatures taken as a pair
+are more informative. The curvedness was introduced to allow to measure 
+the amount of curvature in the given point by a single number, instead of a
+pair of numbers. The authors defined the curvedness as 
+$$c=\sqrt{\frac{\kappa_1^2+\kappa_2^2}{2}},$$
+where $\kappa_1$ and $\kappa_2$ are the principal curvatures in the given point.
 
-We do not allow arbitrary height of the triangle to avoid edge-cases. We decided
-to restrict the allowed height to $\frac{1}{4}\frac{\sqrt{3}}{2}e>h>4\frac{\sqrt{3}}{2}e$.
-We create a variable $m-$multiplicator, depending on $\kappa_T$ and set the height of
-the new triangle to $h=m\frac{\sqrt{3}}{2}e$.
+Curvedness has some obvious properties:
+\begin{itemize}
+    \item if $\kappa_1 == \pm\kappa_2$, then $c=|\kappa_1|=|\kappa_2|$,
+    \item if $|\kappa_1|<|\kappa_2|$, then $|\kappa_1|<c<|\kappa_2|$,
+    \item $c=0$ only in planar points,
+    \item $c\geq0$. 
+\end{itemize}
 
-As $\kappa_T$ has values in range $\langle 0, \infty \rangle$.
+One could say, that curvedness says only about the amount of the curvature
+in the given point, not about the way the surface is curved in that point.
 
-\begin{definition}
-    Let us define triangulation curvature of the surface $S$ in the point $P=S(u, v)$ as
-    $\kappa_T(u, v) = max(|\kappa_{min}|, |\kappa_{max}|).$
-\end{definition}
+As an example, we describe the curvedness of sphere and cylinder:
+\begin{itemize}
+    \item \textbf{Sphere:} As the principal curvatures of a sphere are both 
+    equal to the inverse of the radius of the sphere, curvedness is also equal 
+    to the inverse of the radius of the sphere.
+    \item \textbf{Cylinder:} One of the principal curvatures of a cylinder
+    is equal to zero and the other is equal to the inverse of the radius of 
+    the cylinder, curvedness is therefore equal to a half of the inverse of 
+    the radius of the cylinder.
+\end{itemize}
+ 
+Let us define the curvedness radius as $r_c = \frac{1}{c}$. It can be percieved as
+the radius of a sphere, with curvedness $c$.
 
-NOT FINISHED YET
+For the triangulation adaptive to the local curvature of the surface, an input
+size of the edge $e$ is not percieved as the approximate side of the triangulation
+triangle. Instead, it is percieved as a measure of the level of detail.
+For the given edge size $e$, the level of detail for the triangulated surface
+is the same, as if we wanted to triangulate the unit sphere uniformly using
+the triangles with the edge size $e$.
+
+Let us define the constant of detial as $k_d = \frac{1}{e}$. It can be percieved
+as the number of times the edge size $e$ would fit into the radius of the unit
+sphere.
+
+Then, for given point $P$, lying on the surface, the size of the edge which
+should be used around that point to achieve the desired detial is 
+calculated as the size of the edge which would fit $k_d$--times int $r_c$.
+To avoid the edge case in the planar point, a maximum edge size is set.
+
+During the algorithm, for a given edge $E$ with the length $l_E$, the point
+$P_E$ is created as displayed on the Figure \ref{img:57}, the point $P_E$ lies
+in the plane of the incident triangle of the edge $E$ on the line perpendicular
+to $E$ and passing through $M_E$--midpoint of the edge $E$. The distance between
+$M_E$ and $P_E$ is half of the height of the equilateral triangle with the edge $E$.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img57}}
+    \caption[Creating the point $P_E$]
+    {Creating the point $P_E$ for the given edge $E$.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:57}
+\end{figure}
+
+We calculate the edge length for the given constant of detial as $\frac{r_c}{k_d}$
+which is equal to $\frac{e}{c}$, where $e$ is the size of the edge on the input 
+and $c$ is curvedness in the point $P_E$. The new point is then created on the same
+line perpendicular to the edge $E$ in the distance $\frac{\sqrt{3}e}{2c}$ from the point
+$M_E$.
+
+The result of the adaptive triangulation is best visible on a torus, as the curvedness
+of the torus is maximal in the inner part of torus and minimal in the outer part of torus.
+The resulting mesh for 4 different constants of detial for a torus is displayed on the
+Figure \ref{img:58} in the top row. One may note the differece in the sizes of the 
+triangles in the inner
+part of the torus and in the outer part of the torus.
+
+\begin{figure}[h!]
+    \centerline{\includegraphics[scale=0.5]{images/img58}}
+    \caption[Adaptive triangulation of a torus]
+    {Adaptive triangulation of a torus with 4 different constants of detail (top row).
+    Uniform triangulation of a torus with 4 different constants of detail (bottom row).}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:58}
+\end{figure}
+
+For the contrast, the unfiform triangulation of the same torus for 4 different edge lengths
+is displayed on the Figure \ref{img:58} in the bottom row. One may note that the 
+triangles in the inner part of the torus are approximately of the same 
+size as the triangles in the outer part of the torus.
 
 \section{Triangulation of ADE singularities}
 \label{sub3.2}
@@ -363,7 +437,7 @@ Figure \ref{A5-uniform-layers}.
     \label{img:A5-uniform-layers}
 \end{figure}
 
-\subsubsection*{$D_n$ singualrities}
+\subsubsection*{$D_n$ singularities}
 Some $D_n$ singularities have branches with elliptical intersection with 
 a plane parallel to the plane $y=0$. As ellipses have two axes of symmetry,
 we create eight triangles with apex in the singular point for these branches.
@@ -491,7 +565,7 @@ We begin by dividing ADE singularities into two categories.
     \end{itemize}
     \begin{figure}
         \centerline{\includegraphics[scale=0.5]{images/img42}}
-        \caption[1. Category singualrities]
+        \caption[1. Category singularities]
         {1. Category singularities \cite{morris2003client}.}
         %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
         \label{img:42}
@@ -513,19 +587,20 @@ We begin by dividing ADE singularities into two categories.
 
 \subsubsection*{Triangulation of 1. category singularities}
 For all of the singularities, we have defined the triangulation vector,
-let us denote the normalized triangulation vector for the singularity of the 
-type $T$ as $\vec{t}_T$, resp. $\vec{t}_T^1, .., \vec{t}_T^i$ if the 
+let us denote the normalized triangulation vector of the singularity 
+as $\vec{t}$, resp. $\vec{t}_1, .., \vec{t}_i$ if the 
 singularity has $i$ triangulation vectors.
 Let us assume that the singular point is located in the point $O = (0, 0, 0).$
 For the singularities from 1. category, 
 topologically equivalent to a plane, given by the implicit
-equation $F(x, y, z) = 0$ it holds, that $F(O+\vec{t}_T) \cdot F(O-\vec{t}_T)<0$.
+equation $F(x, y, z) = 0$ it holds, that $F(O+\vec{t}) \cdot F(O-\vec{t})<0$.
 For the singularities from 2. category, topologically equivalent to a cone,
-it holds, that $F(O+\vec{t}_T) \cdot F(O+\vec{t}_T^\bot)$.
+it holds, that $F(O+\vec{t}_j) \cdot F(O+\vec{t}_j^\bot) <0$ for $j = 0, 1$.
 This means, that in both cases, we can perform binary search to find a point on 
 the surface.
-Given the required approximate length $l$, we perform binary search to find
-an angle, for which the endpoint of the rotated vector $l \cdot \vec{t}_T$ lies on 
+Given the required length $l$ -- the length of the leg of the isosceles triangle 
+created around the singularity, we perform binary search to find
+an angle, for which the endpoint of the rotated vector $l \cdot \vec{t}$ lies on 
 the surface with given precision as displayed on the Figure \ref{img:41}.
 
 \begin{figure}
@@ -536,16 +611,27 @@ the surface with given precision as displayed on the Figure \ref{img:41}.
     \label{img:41}
 \end{figure}
 
+The binary search for singularities topologically equivalent to a cone, is displayed
+on the Figure \ref{img:45}.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.5]{images/img45}}
+    \caption[Double binary search for the point on the surface]
+    {Double binary search for the point on the surface.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:45}
+\end{figure}
+
 The binary search is performed in the half-planes passing through the point
-$O$ and with the vector $\vec{t}_T$ lying in the half-planes.
+$O$ and with the vector $\vec{t}$ lying in the half-planes.
 Using this approach, we create $k$ points on the surface, while each time
 rotating the half-plane in which the binary search is performed by $\frac{2\pi}{k}$
-about the axis given by $\vec{t}_T$ as displayed on the Figure \ref{img:rotating-planes}.
+about the axis given by $\vec{t}$ as displayed on the Figure \ref{img:rotating-planes}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.3]{images/rotating-planes}}
     \caption[Rotating the plane about the vector]
-    {Rotating the plane about the vector $\vec{t}_T$.}
+    {Rotating the plane about the vector $\vec{t}$.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:rotating-planes}
 \end{figure}
@@ -553,9 +639,13 @@ about the axis given by $\vec{t}_T$ as displayed on the Figure \ref{img:rotating
 For $A_{n--}$ singularities, we create six
 triangles near the singular point. We only need to perform the binary search once,
 other points are obtained by rotating the point on the surface about the vector 
-$\vec{t}_T$ by $\frac{2 \pi}{6}$.
+$\vec{t}$ by $\frac{2 \pi}{6}$.
 
-In case of other singualrities, we create different number of triangles:
+For $A_{n--}$ singularities with two branches, the same approach is used,
+we perform the binary search only once and use rotation and
+reflection to create the remainding points on the surface.
+
+In case of other singularities, we create different number of triangles:
 \begin{itemize}
     \item $A_{2k+-}$ -- 8 triangles,
     \item $A_{(2k+1)+-}$ -- 6 triangles for each branch,
@@ -567,7 +657,7 @@ In case of other singualrities, we create different number of triangles:
     \item $E_{6++}$ -- 6 triangles,
     \item $E_{6+-}$ -- 8 triangles,
     \item $E_{7++}$ -- 6 triangles for the branch, given by the
-    triangulation vector $(-1, 0, 0)$ and 4 trianfles for the other
+    triangulation vector $(-1, 0, 0)$ and 4 triangles for the other
     branch,
     \item $E_{8++}$ -- 6 triangles.
 \end{itemize}
@@ -576,7 +666,6 @@ As some singularities have symmetries, we can use these symmetries
 to perform the binary search less times and find the remaining points
 as the mirror symmetries of the points found by binary search.
 
-TODO rewrite subsubsection
 \subsubsection*{Triangulation of 2. category singularities}
 For the singularities in the 2. category, we create more general, slower solution.
 Again, we find the points on the surface, lying in the rotated half-planes
@@ -585,53 +674,86 @@ For these singularities, we do not have the general rule for the start
 and end agle to begin the binary search with. We have the triangulation vector,
 whose endpoint is lying inside of the space volume bounded by the respective branch.
 We consider this triangulation vector as a start vector to start the binary 
-search. We find the end vector by rotating the triangulation vector $\vec{t}_T$ 
-around the vector $\vec{p}_T$ -- vector perpendicular to $\vec{t}_T$, by small increments, 
-until the endpoint of the vector is outside of the space volume bounded by the branch,
-let us denote this vector $\vec{r}_T$.
-To find the point of surface, we perform an angular binary search between $\vec{t}_T$
-and $\vec{r}_T$. We proceed to find other points by rotating $\vec{p}_T$
-around $\vec{t}_T$ by $\frac{2\pi}{k}$.
+search. We find the end vector by rotating the triangulation vector $\vec{t}$ 
+around the vector $\vec{p}$ -- vector perpendicular to $\vec{t}$, by small increments, 
+until the endpoint of the rotated vector is outside of the space volume bounded by the branch,
+let us denote this vector $\vec{r}$.
+To find the point of surface, we perform an angular binary search between $\vec{t}$
+and $\vec{r}$. We proceed to find other points by rotating $\vec{p}$
+around $\vec{t}$ by $\frac{2\pi}{k}$.
 By using the small increments, we ensure that the rotated vector does not end up in
 the space volume bounded by another branch, but it slows down the process of creating
 the local mesh.
 For the illustration, on the Figure \ref{img:54} on the left one can see the iterative
-process to find the vector $\vec{r}_T$ by rotating $\vec{t}_T$ around $\vec{p}_T$.
-On the right, one can see the rotation of $\vec{p}_T$ around $\vec{t}_T$ by 
-$\frac{2pi}{k}$ to find the remainding points on the surface.
-
+process to find the vector $\vec{r}$ by rotating $\vec{t}$ around $\vec{p}$.
+On the right, one can see the rotation of $\vec{p}$ around $\vec{t}$ by 
+$\frac{2\pi}{k}$ to find the remainding points on the surface.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img54}}
-    \caption[TODO]
-    {TODO.}
+    \caption[Triangulation of 2. category singularities]
+    {Iterative process of finding the vector $\vec{r}$ 
+    by rotating $\vec{t}$ around $\vec{p}$ (left).
+    Rotating the vector $\vec{p}$ around $\vec{t}$ by 
+    $\frac{2\pi}{k}$ (right).}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:54}
 \end{figure}
 
-
-\begin{figure}
-    \centerline{\includegraphics[scale=0.5]{images/img45}}
-    \caption[Double binary search for the point on the surface]
-    {Double binary search for the point on the surface.}
-    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
-    \label{img:45}
-\end{figure}
-
+TODO rewrite this odsek
 For the singularities with symmetrical branches, we only need to perform binary
-search in one of the half-spaces. In case of the singularities with rotation
-symmetry, we again create six triangles and only need to perform the binary search once.
-In case of other singularities, we create eight triangles, while again making use of the
+search for one of the branches. In case of the singularities with rotation
+symmetry, we again create the remainding points by using the rotation symmetry.
+In case of other singularities, we again make use of the
 potential planes of symmetry.
 
-\subsubsection*{Layers}
+\subsubsection*{Layers for ADE singularities}
+We already introduced the concept of creating multiple layers of triangles around
+$A_{n--}$ singularities. In this section we explain the extension of this concept
+to remainding ADE singularities. For a given singularity, we create $l$ layers of
+points for each branch. In contrast with $A_{n--}$ singularities, we do not 
+rotate every second layer by $\frac{\pi}{k}$. The reason is, that the midpoints of
+the edges connecting a particular layer of points do not lie on the surface. This results
+in insufficient approximation of the curves lying in the intersection of the surface 
+and coordinate planes. In some cases, it even results in incorrect local mesh with 
+overlapping triangles.
+
+On the Figure \ref{img:56} on the left, one may see the insufficient approximation
+of $D_{4+-}$ singularity with
+four layers of triangles and rotation by $\frac{\pi}{k}$. On the right, one
+may see the local mesh of the same singularity with four layers of triangles
+without rotation by the angle $\frac{\pi}{k}$.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.4]{images/img56}}
+    \caption[Insufficient and sufficient local approximation]
+    {Insufficient (left) and sufficient (right) local approximation of $D_{4+-}$ singularity.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:56}
+\end{figure}
+
+On the Figure \ref{img:55} on the left, one may see the incorrect local mesh
+of $A_{2+-}$ singularity with
+two layers of triangles and rotation by $\frac{\pi}{k}$. On the right, one
+may see the local mesh of the same singularity with two layers of triangles
+without rotation by the angle $\frac{\pi}{k}$.
+
+\begin{figure}
+    \centerline{\includegraphics[scale=0.4]{images/img55}}
+    \caption[Incorrect and correct local mesh]
+    {Incorrect (left) and correct (right) local mesh for $A_{2+-}$ singularity.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:55}
+\end{figure}
+
 
 \subsubsection*{Optimization of the quality of the local mesh for some singularities}
 For some of the singularities, it is not convinient to look for the points on
 the surface in the planes rotated by identical angles as seen on the Figure
 \ref{img:rotating-planes}. An example of such singularities are $D_{n+-}$
 singularities. The local mesh created with 8 triangles using the described 
-approach is displayed on the Figure \ref{img:D4-before}. 
+approach is displayed on the Figure \ref{img:D4-before}. One may see that the
+outer edges of the triangles have a significant length differece.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.25]{images/D4-before}}
@@ -644,21 +766,21 @@ approach is displayed on the Figure \ref{img:D4-before}.
 The problem is significant on the singularities with 8 triangles near
 the singular point.
 Our solution is to use binary search to find the angle where the triangles are
-close to isosceles triangles. The points given by the angles 
-$0, \frac{\pi}{2}, \pi$ and $\frac{3\pi}{4}$ are unchanged.
+close to isosceles triangles. The points found in rotated half-spaces given by 
+the angles $0, \frac{\pi}{2}, \pi$ and $\frac{3\pi}{4}$ are unchanged.
 The points in between these points are iteratively changed until the
 triangles are isosceles with required precision. Starting on the interval 
 of angles $(0, \frac{\pi}{2})$, in each step, 
 the new angle is calculated as an angle in the middle 
-between the two angles, the new point is then calculated using the binary 
+between the two angles. The new point is then calculated using the binary 
 search to find a point on the surface as displayed on the Figure \ref{img:41}.
 
 As all singularities using this optimization are symmetrical by two coordinate
-planes, we only need to perform this binary search once for each layer of a
-singularity and use mirroring to obtain the remaining points.
+planes, we only need to perform this binary search once for each layer of 
+points and use mirror symmetry to obtain the remaining points.
 
 The result of the binary 
-search of an angle on the $D_{4+-}$ singularity is displayed 
+search of an angle for the $D_{4+-}$ singularity is displayed 
 on the Figure \ref{img:D4-after}. The triangles around the singularity
 are closer to isosceles triangles in comparison with the Figure 
 \ref{img:D4-before}.
@@ -819,8 +941,8 @@ we proceed to connect the singularity to the bump function.
 We use intersection with the plane $x=-q$ to get the sections of the singularity
 and the section of the bump function and lastly, we use union of these two 
 surfaces. The described process is displayed on the Figure \ref{img:26}.
-Curious reader can find the detailed calculation of the implicit equation in
-the appendix \ref{appA}.
+The information about the detailed calculation of the implicit equation 
+can be found in the appendix \ref{appA}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img26}}
