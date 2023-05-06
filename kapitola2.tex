@@ -4,21 +4,21 @@
 \section{Triangulation adaptive to the local curvature}
 \label{sub3.1}
 
-As we explained in the begining of chapeter \ref{sub2.1}, curvature of the surface
-is a measure of how much the surface bends.
+As we explained at the beginning of chapter \ref{sub2.1}, the curvature of a surface
+measures how much the surface bends.
 
-The triangulation of the surface should be accurate enough, but also memory efficient.
-This can be achieved by creating a triangulation which is locally adaptive to the
-curvature of the surface. Therefore having smaller triangles in the places where
-the surface is curved and having bigger triangles where surface is flatter.
+The triangulation of the surface should be accurate enough but also memory efficient.
+It can be achieved by creating a triangulation which is locally adaptive to the
+curvature of the surface. Therefore, having smaller triangles where
+the surface is curved and bigger triangles where the surface is flatter.
 
-In this section we present our implementation of the triangulation adaptive
+In this section, we present our implementation of the triangulation adaptive
 to the local curvature.
 
 In the original algorithm, the height of the triangle which is projected
 to the surface is set to the constant value $\frac{\sqrt{3}}{2}e$, where $e$ 
 is the required length of the side of the triangle. To achieve the adaptivity
-of the triangles size, we set the height of the triangle to depend on the curvature in
+of the size of the triangles, we set the height of the triangle to depend on the curvature in
 the given point, as shown in the Figure \ref{img:15}.
 
 \begin{figure}
@@ -31,11 +31,11 @@ the given point, as shown in the Figure \ref{img:15}.
 
 To identify the curved areas, we decided to use the curvedness defined by 
 Koendering and Doorn in 1992 \cite{koenderink1992surface}. As the authors 
-explained, the Gaussian curvature and the mean curvature, are not very descriptive
-about the local shape of the surface. Principal curvatures taken as a pair
-are more informative. The curvedness was introduced to allow to measure 
-the amount of curvature in the given point by a single number, instead of a
-pair of numbers. The authors defined the curvedness as 
+explained, the Gaussian curvature and the mean curvature are not very descriptive
+of the local shape of the surface. Principal curvatures taken as a pair
+are more informative. The curvedness was introduced to measure 
+the curvature in the given point by a single number instead of a
+pair of numbers. The authors defined curvedness as 
 $$c=\sqrt{\frac{\kappa_1^2+\kappa_2^2}{2}},$$
 where $\kappa_1$ and $\kappa_2$ are the principal curvatures in the given point.
 
@@ -47,44 +47,44 @@ Curvedness has some obvious properties:
     \item $c\geq0$. 
 \end{itemize}
 
-One could say, that curvedness says only about the amount of the curvature
-in the given point, not about the way the surface is curved in that point.
+One could say that curvedness says only about the amount of the curvature
+in the given point, not about the way the surface is curved at that point.
 
-As an example, we describe the curvedness of sphere and cylinder:
+As an example, we describe the curvedness of the sphere and cylinder:
 \begin{itemize}
     \item \textbf{Sphere:} As the principal curvatures of a sphere are both 
     equal to the inverse of the radius of the sphere, curvedness is also equal 
     to the inverse of the radius of the sphere.
     \item \textbf{Cylinder:} One of the principal curvatures of a cylinder
-    is equal to zero and the other is equal to the inverse of the radius of 
-    the cylinder, curvedness is therefore equal to a half of the inverse of 
+    is equal to zero, and the other is equal to the inverse of the radius of 
+    the cylinder, curvedness is therefore equal to half of the inverse of 
     the radius of the cylinder.
 \end{itemize}
  
-Let us define the curvedness radius as $r_c = \frac{1}{c}$. It can be percieved as
+Let us define the curvedness radius as $r_c = \frac{1}{c}$. It can be perceived as
 the radius of a sphere, with curvedness $c$.
 
 For the triangulation adaptive to the local curvature of the surface, an input
-size of the edge $e$ is not percieved as the approximate side of the triangulation
-triangle. Instead, it is percieved as a measure of the level of detail.
+size of the edge $e$ is not perceived as the approximate size of the triangulation
+triangle. Instead, it is perceived as a measure of the level of detail.
 For the given edge size $e$, the level of detail for the triangulated surface
-is the same, as if we wanted to triangulate the unit sphere uniformly using
+is the same as if we wanted to triangulate the unit sphere uniformly using
 the triangles with the edge size $e$.
 
-Let us define the constant of detial as $k_d = \frac{1}{e}$. It can be percieved
+Let us define the constant of detail as $k_d = \frac{1}{e}$. It can be perceived
 as the number of times the edge size $e$ would fit into the radius of the unit
 sphere.
 
-Then, for given point $P$, lying on the surface, the size of the edge which
-should be used around that point to achieve the desired detial is 
+Then, for given point $P$, lying on the surface, the size of the edge, which
+should be used around that point to achieve the desired detail, is 
 calculated as the size of the edge which would fit $k_d$--times int $r_c$.
-To avoid the edge case in the planar point, a maximum edge size is set.
+A maximum edge size is set to avoid the edge case in the planar point.
 
 During the algorithm, for a given edge $E$ with the length $l_E$, the point
 $P_E$ is created as displayed on the Figure \ref{img:57}, the point $P_E$ lies
 in the plane of the incident triangle of the edge $E$ on the line perpendicular
 to $E$ and passing through $M_E$--midpoint of the edge $E$. The distance between
-$M_E$ and $P_E$ is half of the height of the equilateral triangle with the edge $E$.
+$M_E$ and $P_E$ is half the height of the equilateral triangle with the edge $E$.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img57}}
@@ -94,76 +94,75 @@ $M_E$ and $P_E$ is half of the height of the equilateral triangle with the edge 
     \label{img:57}
 \end{figure}
 
-We calculate the edge length for the given constant of detial as $\frac{r_c}{k_d}$
+We calculate the edge length for the given constant of detail as $\frac{r_c}{k_d}$
 which is equal to $\frac{e}{c}$, where $e$ is the size of the edge on the input 
 and $c$ is curvedness in the point $P_E$. The new point is then created on the same
 line perpendicular to the edge $E$ in the distance $\frac{\sqrt{3}e}{2c}$ from the point
 $M_E$.
 
 The result of the adaptive triangulation is best visible on a torus, as the curvedness
-of the torus is maximal in the inner part of torus and minimal in the outer part of torus.
-The resulting mesh for 4 different constants of detial for a torus is displayed on the
-Figure \ref{img:58} in the top row. One may note the differece in the sizes of the 
+of the torus is maximal in the inner part of the torus and minimal in the outer part of the torus.
+The resulting mesh for four different constants of detail for a torus is displayed on the
+Figure \ref{img:58} in the top row. One may note the difference in the sizes of the 
 triangles in the inner
-part of the torus and in the outer part of the torus.
+part of the torus and the outer part of the torus.
 
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img58}}
     \caption[Adaptive triangulation of a torus]
-    {Adaptive triangulation of a torus with 4 different constants of detail (top row).
-    Uniform triangulation of a torus with 4 different constants of detail (bottom row).}
+    {Adaptive triangulation of a torus with four different constants of detail (top row).
+    Uniform triangulation of a torus with four different constants of detail (bottom row).}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:58}
 \end{figure}
 
-For the contrast, the unfiform triangulation of the same torus for 4 different edge lengths
-is displayed on the Figure \ref{img:58} in the bottom row. One may note that the 
-triangles in the inner part of the torus are approximately of the same 
-size as the triangles in the outer part of the torus.
+In contrast, the uniform triangulation of the same torus for four different edge lengths
+is displayed in the bottom row in the Figure \ref{img:58}. One may note that the 
+triangles in the inner part of the torus are approximately the same 
+size as those in the outer part.
 
 \section{Triangulation of ADE singularities}
 \label{sub3.2}
 
 \subsection{Analysis of the geometry of ADE singularities}
 
-ADE singularities are simple, isolated surface singularities, which can be
+ADE singularities are simple, isolated surface singularities which can be
 expressed by corresponding implicit equations.
 
-We already know, that $A_{1--}$ singularity is locally represented as a cone.
-In this section we discuss geometric structure of other ADE surface singularities.
+We already know that $A_{1--}$ singularity is locally represented as a cone.
+This section discusses the geometric structure of other ADE surface singularities.
 
 \begin{definition} (TODO rewrite)
-    Let us define branch of ADE singularity as the part of the surface,
-    which is connected to the rest only by the singular point.
+    Let us define the branch of ADE singularity as the part of the surface
+    connected to the rest only by the singular point.
 \end{definition}
 
 \begin{comment}
 \begin{definition}
-    Let us define triangulation direction of ADE singularity $A$ with radius $r$ as 
-    Let us define triangulation direction of ADE singularity $A$ with radius $r$ as 
+    Let us define the triangulation direction of ADE singularity $A$ with radius $r$ as
     a direction $\vec{v}$ for which 
     $$F\bigg(A+t \vec{v} \cap S_{r}(A)\bigg) < 0,$$
     where $F$ is the implicit equation defining the singularity $A$
     and $t,r \in \R^+$.
 \end{definition}
-As we can see, there are infinitely many axes of each ADE singularity.
+As we can see, each ADE singularity has infinitely many triangulation directions.
 \end{comment}
 
 For our needs, we pick one triangulation vector for each branch of
-each ADE singularity. This triangulation vector is normalized vector
+each ADE singularity. This triangulation vector is a normalized vector
 either in the direction
-of rotation symmetry axis or an intersection of reflection symmetry planes
+of the rotation symmetry axis or an intersection of reflection symmetry planes
 of the corresponding branch. If the branch has only one reflection symmetry
 plane, the triangulation vector is picked to lie in the reflection
 symmetry plane.
 
 \begin{comment}
-Moreover, when placed to the singular point, triangulation vector of a branch 
+Moreover, when placed at the singular point, the triangulation vector of a branch 
 is in the same half-space as the corresponding branch.
 \end{comment}
 
 In the general case, triangulation vectors serve us
-as a partial information about the orientation of a singularity with 
+as partial information about the orientation of a singularity with 
 respect to its normal form.
 
 \subsubsection*{$A_n$ singularities}
@@ -180,9 +179,9 @@ If $n$ is even, they are topologically equivalent to a half cone or a plane, the
 they have a single branch.
 As $n$ gets bigger, the tip of the cone gets sharper. As $A_{n--}$ singularities
 are rotationally symmetrical, we pick the direction of
-axis of symmetry as triangulation vector. For a normal form, the triangulation vectors
+the axis of symmetry as a triangulation vector. For a normal form, the triangulation vectors
 are $(1, 0, 0)$ (and $(-1, 0, 0)$ if $n$ is odd).
-First four $A_{n--}$ singularities can be seen on the Figure \ref{img:4}.
+The first four $A_{n--}$ singularities can be seen in the Figure \ref{img:4}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img4}}
@@ -195,14 +194,14 @@ First four $A_{n--}$ singularities can be seen on the Figure \ref{img:4}.
 
 $A_{n+-}$ singularities are topologically equivalent to a cone if $n$ is odd, therefore
 they have two branches.
-In the contrary with the previous singularities, as $n$ gets bigger, the tip
+On the contrary with the previous singularities, as $n$ gets bigger, the tip
 of the cone gets less sharp and flatter. Branches of these singularities have 
-reflection symmetry planes $x=0$ and $y=0$, therefore we pick the vectors
+reflection symmetry planes $x=0$ and $y=0$. Therefore we pick the vectors
 $(0, 0, 1)$ and $(0, 0, -1)$ as the triangulation vectors.
 
 If $n$ is even, $A_{n+-}$ singularities are topologically equivalent to a plane
-with shape similar to hyperbolic paraboloid, therefore they have a single branch.
-First four $A_{n+-}$ singularities can be seen on the Figure \ref{img:5}.
+with a shape similar to a hyperbolic paraboloid, therefore, they have a single branch.
+The first four $A_{n+-}$ singularities can be seen in the Figure \ref{img:5}.
 For this case, we pick the vector $(1, 0, 0)$ as a triangulation vector as
 these singularities have reflection symmetry planes $y=0$ and $z=0$.
 
@@ -221,7 +220,7 @@ For given sign combination and parity of n, the singularities are topologically
 equivalent, with sharper(or flatter) features around the singularities for increasing
 value of $n$ similar to $A_n$ singularities.
 
-We can therefore say that $D_n$ singularities can be classified into 8 categories
+We can therefore say that $D_n$ singularities can be classified into eight categories
 locally represented by the following equations:
 \begin{itemize}
     \item $D_{4++}$ \hspace{5mm} $yx^2 + y^3 + z^2$
@@ -234,7 +233,7 @@ locally represented by the following equations:
     \item $D_{5--}$ \hspace{5mm} $yx^2 - y^4 - z^2$.
 \end{itemize}
 
-Now we look at some equivalences between these 8 categories.
+Now we look at some equivalences between these eight categories.
 $D_{4++}$ singularity is reflected $D_{4+-}$ singularity.
 $D_{5++}$ singularity is reflected $D_{5--}$ singularity.
 $D_{5-+}$ singularity is reflected $D_{5+-}$ singularity.
@@ -247,7 +246,7 @@ $D_{n+-}$ singularities are topologically equivalent to a plane when $n$ is
 even and to a cone when $n$ is odd. Again, as $n$ gets bigger, the features
 around singularities get sharper. Symmetry planes of these singularities
 are $x=0$ and $z=0$, therefore we pick $(0, 1, 0)$ (and $(0, -1, 0)$ when $n$ is odd)
-as triangulation vectors. First four $D_{n+-}$ singularities can be seen on
+as triangulation vectors. The first four $D_{n+-}$ singularities can be seen in
 the Figure \ref{img:7}.
 
 \begin{figure}
@@ -260,8 +259,8 @@ the Figure \ref{img:7}.
 
 
 $D_{n--}$ singularities are topologically equivalent to a cone when $n$ is
-odd and to a 3 halfcones connected in the singular point when $n$ is even.
-First four $D_{n--}$ singularities can be seen on the Figure \ref{img:8}.
+odd and to 3 half-cones connected in the singular point when $n$ is even.
+First four $D_{n--}$ singularities can be seen in the Figure \ref{img:8}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img8}}
@@ -271,7 +270,7 @@ First four $D_{n--}$ singularities can be seen on the Figure \ref{img:8}.
     \label{img:8}
 \end{figure}
 
-Symmetry plane for all branches of these singularities is $z=0$.
+The symmetry plane for all branches of these singularities is $z=0$.
 the intersection of the surface and plane $z=0$ is displayed on the Figure \ref{img:6}.
 
 \begin{figure}
@@ -286,10 +285,10 @@ For $D_{n--}$ singularity, the intersections of the two branches where
 $y \geq 0$ are bounded by curves $y=0$ and $x^2=y^{n-2}$. For given $r$,
 we pick the triangulation vectors as $(r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$
 and $(-r, \frac{1}{2}r^{\frac{2}{n-2}}, 0)$. The resulting vectors are
+displayed in the Figure \ref{img:9} by the blue arrow. Parameter $r$ is changed based
+on the length of the edge of the triangulation triangle.
 displayed on the Figure \ref{img:9} by blue arrow. Parameter $r$ is changed based
-on the length of the edge of triangulation triangle.
-displayed on the Figure \ref{img:9} by blue arrow. Parameter $r$ is changed based
-on the length of the edge of triangulation triangle.
+on the length of the edge of the triangulation triangle.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img9}}
@@ -312,7 +311,7 @@ $E_{7+-}, E_{7-+}$ and $E_{7--}$ are all reflected $E_{7++}$ singularity.
 $E_{8+-}, E_{8-+}$ and $E_{8--}$ are all reflected $E_{8++}$ singularity.
 
 We only analyze geometry of $E_{6++}$, $E_{6+-}$, $E_{7++}$ and $E_{8++}$
-singularities. These singularities are displayed on the the Figure \ref{img:12}.
+singularities. These singularities are displayed in the Figure \ref{img:12}.
 
 
 \begin{figure}
@@ -327,14 +326,14 @@ they each have only one branch. The planes of symmetry of both of these
 branches are $y=0$ and $z=0$, therefore we pick $(-1, 0, 0)$ as the
 triangulation vector.
 
-$E_{7++}$ singularity is topologically equivalent to a cone, therefore it has
+$E_{7++}$ singularity is topologically equivalent to a cone, therefore, it has
 two branches. The plane of symmetry of this singularity is $z=0$.
 
-$E_{8++}$ singularity is also topologically equivalent to a plane, therefore
+$E_{8++}$ singularity is also topologically equivalent to a plane, therefore,
 it has only one branch. This branch has only one plane of symmetry $z=0$.
 
 We again look at the intersection of the surfaces with the plane of 
-symmetry, this is displayed on the Figure \ref{img:10}.
+symmetry, this is displayed in the Figure \ref{img:10}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img10}}
@@ -349,7 +348,7 @@ symmetry, this is displayed on the Figure \ref{img:10}.
 For $E_{7++}$ singularity, we pick $(-1, 0, 0)$ and 
 $(\frac{1}{2}r^{\frac{3}{2}}, -r, 0)$ as triangulation vectors.
 For $E_{8++}$ singularity, we pick $(-1, -1, 0)$ as a triangulation vector.
-These vectors are displayed on the Figure \ref{img:10} as blue arrows.
+These vectors are displayed as blue arrows in the Figure \ref{img:10}.
 
 \subsection{Analytical calculation of local triangulation of some ADE singularities}
 For given edge size $e$, we calculate the local triangulation of ADE
@@ -357,7 +356,7 @@ singularities, such that edges on the border of the local triangulation
 have length $e$.
 \subsubsection*{$A_{n--}$ singularities}
 For $A_{n--}$ singularities, we create a disc of six isosceles triangles
-with vertex in the singular point. The bases of these triangles create regular
+with a vertex in the singular point. The bases of these triangles create regular
 hexagon in the plane $P$ parallel to the plane $x=0$, as showed on the Figure
 \ref{img:11}.
 \begin{figure}
@@ -377,7 +376,7 @@ the surface and the plane $x=h$. The equation of the intersecting circle
 is $y^2+z^2=h^{n+1}$ therefore, the radius can be also expressed as 
 $r=h^{\frac{n+1}{2}}$, which emerges $h=e^{\frac{2}{n+1}}$. Knowing the
 distance of the plane, one can easily calculate the length of the arms of
-the triangles using Pythagorean theorem: 
+the triangles using the Pythagorean theorem: 
 $$a^2=h^2+e^2 \implies a = \sqrt{e^{\frac{4}{n+1}} + e^2}$$
 
 \textbf{Layers for $A_{n--}$ singularities:}
@@ -393,16 +392,16 @@ on the Figure \ref{img:A5-uniform}.
 \end{figure}
 
 As one may see, the approximation around the singular
-point is not as accurate as for the rest of the surface.
-For this problem, we introduce layers -- the surroundings of sungularities are
-triangulated in multiple layers of triangles and only after that, the algorithm for
+point is less accurate than for the rest of the surface.
+For this problem, we introduce layers -- the surroundings of singularities are
+triangulated in multiple layers of triangles, and only after that, the algorithm for
 regular parts is used.
 
-Given the edge length $e$ and number of the layers, we calculate the height $h_e$ 
+Given the edge length $e$ and number of layers, we calculate the height $h_e$ 
 at which the bases of the triangles
 have the length $e$. We divide the height by the number of layers to obtain the
-layer height $h_l$. Now, $i$--th layer of points is obtained by using the height
-$h = i\cdot h_l$. As we want to connect these points into triangles, every second
+layer height $h_l$. Now, $i$--th layer of points is obtained using the height
+$h = i\cdot h_l$. To connect these points into triangles, every second
 layer is rotated by $\frac{\pi}{6}$. The resulting 3 layers of triangles
 for the $A_{1--}$ singularity as viewed from the point $(1, 0, 0)$ is displayed on
 the Figure \ref{img:52}. 
@@ -415,19 +414,19 @@ the Figure \ref{img:52}.
     \label{img:52}
 \end{figure}
 
-The local mesh with 1 layer, 4 layers and 8 layers (from left to right) 
+The local mesh with one layer, four layers and eight layers (from left to right) 
 for $A_{5--}$ singularity is displayed
 on the Figure \ref{img:53}. 
 \begin{figure}
     \centerline{\includegraphics[scale=0.4]{images/img53}}
     \caption[Local mesh with layers for the $A_{5--}$ singularity]
-    {Local mesh with 1 layer, 4 layers and 8 layers (from left to right) 
+    {Local mesh with one layer, four layers and eight layers (from left to right) 
     for the $A_{5--}$ singularity.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:53}
 \end{figure}
 
-The resulting mesh with 4 layers is displayed on the
+The resulting mesh with four layers is displayed on the
 Figure \ref{A5-uniform-layers}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.25]{images/A5-uniform-layers}}
@@ -440,9 +439,8 @@ Figure \ref{A5-uniform-layers}.
 \subsubsection*{$D_n$ singularities}
 Some $D_n$ singularities have branches with elliptical intersection with 
 a plane parallel to the plane $y=0$. As ellipses have two axes of symmetry,
-we create eight triangles with apex in the singular point for these branches.
-The other points of the triangles lie on the ellipse and they have the same length
-of the base.
+we create eight triangles with an apex in the singular point for these branches.
+The other points of the triangles lie on the ellipse, and they have the same base length.
 
 Let us have an ellipse $E$ with semi-major axis $a$, semi-minor axis $b$ 
 and the center in the point $(0, 0)$.
@@ -451,14 +449,14 @@ $$E: \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$$
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img13}}
     \caption[Equidistant points on ellipse.]
-    {Equidistant points on ellipse.}
+    {Equidistant points on the ellipse.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:13}
 \end{figure}
-As displayed on the Figure \ref{img:13}, we pick the leftmost, the rightmost, the top
+As displayed in the Figure \ref{img:13}, we pick the leftmost, the rightmost, the top
 and the bottom points. As shown on the figure \ref{img:13}, the coordinates of these 
 points are $P_1 = (a, 0)$, $P_2 = (0, b)$, $P_3=(-a, 0)$, $P_4 = (0, -b)$.
-Then we can calculate the point $P$ on ellipse equidistant
+Then we can calculate the point $P$ on the ellipse equidistant
 from points $P_1$ and $P_2$. We calculate this point by taking the point $P_{12}$ 
 in the middle of a line segment $P_1P_2$. 
 
@@ -482,7 +480,7 @@ therefore
 $$P=\frac{1}{2}(a,b) + \frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{2(a^4+b^4)}(b,a).$$
 
 Given edge length $e$, we are not able to calculate the height in which the distance
-between points $P1$ and $P$ is $e$. The visualization showing this is on the Figure \ref{img:17}.
+between points $P1$ and $P$ is $e$. The visualization showing this is in the Figure \ref{img:17}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img17}}
@@ -511,7 +509,7 @@ and we can calculate $e_h=||P_h-P_1||$.
 
 As $e \leq a_h$, we can start the binary search on the interval
 $\langle 0, a^\frac{2}{n-2}\rangle$ or $\langle 0, a^\frac{2}{n-1}\rangle$
-and finish, when required precision is reached.
+and finish when the required precision is reached.
 
 \textbf{Proof that $e_h$ is monotone in $h$:} Let us consider a general ellipse
 with the semi-major axis $a$, semi-minor axis $b$ and center in the point $(0, 0)$. 
@@ -527,7 +525,7 @@ are displayed on the Figure \ref{img:40}.
     \label{img:40}
 \end{figure}
 
-As we calculated, it holds, that
+As we calculated, it holds that
 $$C = M + \frac{t}{2} \cdot (b, a) \hspace{5mm} \textrm{for} \hspace{5mm} t=\frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{a^4+b^4}.$$
 
 As length of the vector $(b,a)$ is $\sqrt{a^2+b^2}$, the distance 
@@ -542,14 +540,14 @@ This means that $|MC|$ is increasing in both $a$ and $b$. As the distance $|MA|=
 also increasing in $a$ and $b$, it follows from Pythagorean theorem, that $|AC|=|BC|$
 is increasing in $a$ and $b$.
 
-When the height $h$ increases, both semi-major and semi-minor axis of the ellipse increase,
+When the height $h$ increases, both the semi-major and semi-minor axis of the ellipse increase,
 thus $e_h$ is increasing in $h$.
 
 \subsection{Numerical calculation of local triangulation of ADE singularities}
 
-For other types of ADE singularities, the exact analytical calculations become more
-complicated. In this section we present an approach for triangulation of all types
-of ADE singularities using iterative numerical algorithms based on the idea of binary 
+The exact analytical calculations become more
+complicated for other types of ADE singularities. In this section, we present an approach for triangulation of all types
+of ADE singularities using iterative numerical algorithms based on the binary 
 search.
 
 We begin by dividing ADE singularities into two categories.
@@ -594,14 +592,14 @@ Let us assume that the singular point is located in the point $O = (0, 0, 0).$
 For the singularities from 1. category, 
 topologically equivalent to a plane, given by the implicit
 equation $F(x, y, z) = 0$ it holds, that $F(O+\vec{t}) \cdot F(O-\vec{t})<0$.
-For the singularities from 2. category, topologically equivalent to a cone,
+For the singularities from the 2. category, topologically equivalent to a cone,
 it holds, that $F(O+\vec{t}_j) \cdot F(O+\vec{t}_j^\bot) <0$ for $j = 0, 1$.
-This means, that in both cases, we can perform binary search to find a point on 
+This means that in both cases, we can perform a binary search to find a point on 
 the surface.
 Given the required length $l$ -- the length of the leg of the isosceles triangle 
-created around the singularity, we perform binary search to find
+created around the singularity, we perform a binary search to find
 an angle, for which the endpoint of the rotated vector $l \cdot \vec{t}$ lies on 
-the surface with given precision as displayed on the Figure \ref{img:41}.
+the surface with given precision as displayed in the Figure \ref{img:41}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img41}}
@@ -611,7 +609,7 @@ the surface with given precision as displayed on the Figure \ref{img:41}.
     \label{img:41}
 \end{figure}
 
-The binary search for singularities topologically equivalent to a cone, is displayed
+The binary search for singularities topologically equivalent to a cone is displayed
 on the Figure \ref{img:45}.
 
 \begin{figure}
@@ -643,9 +641,9 @@ $\vec{t}$ by $\frac{2 \pi}{6}$.
 
 For $A_{n--}$ singularities with two branches, the same approach is used,
 we perform the binary search only once and use rotation and
-reflection to create the remainding points on the surface.
+reflection to create the remaining points on the surface.
 
-In case of other singularities, we create different number of triangles:
+In the case of other singularities, we create different numbers of triangles:
 \begin{itemize}
     \item $A_{2k+-}$ -- 8 triangles,
     \item $A_{(2k+1)+-}$ -- 6 triangles for each branch,
@@ -663,28 +661,28 @@ In case of other singularities, we create different number of triangles:
 \end{itemize}
 
 As some singularities have symmetries, we can use these symmetries
-to perform the binary search less times and find the remaining points
+to perform the binary search fewer times and find the remaining points
 as the mirror symmetries of the points found by binary search.
 
 \subsubsection*{Triangulation of 2. category singularities}
-For the singularities in the 2. category, we create more general, slower solution.
-Again, we find the points on the surface, lying in the rotated half-planes
+We create a more general, slower solution for the singularities in the 2. category.
+Again, we find the points on the surface lying in the rotated half-planes
 as displayed on the Figure \ref{img:rotating-planes}.
-For these singularities, we do not have the general rule for the start 
-and end agle to begin the binary search with. We have the triangulation vector,
-whose endpoint is lying inside of the space volume bounded by the respective branch.
-We consider this triangulation vector as a start vector to start the binary 
+We do not have the general rule for the start 
+and end angle to begin the binary search for these singularities. We have the triangulation vector,
+whose endpoint lies inside the space volume bounded by the respective branch.
+We consider this triangulation vector a start vector to start the binary 
 search. We find the end vector by rotating the triangulation vector $\vec{t}$ 
 around the vector $\vec{p}$ -- vector perpendicular to $\vec{t}$, by small increments, 
 until the endpoint of the rotated vector is outside of the space volume bounded by the branch,
 let us denote this vector $\vec{r}$.
-To find the point of surface, we perform an angular binary search between $\vec{t}$
+To find the point of the surface, we perform an angular binary search between $\vec{t}$
 and $\vec{r}$. We proceed to find other points by rotating $\vec{p}$
 around $\vec{t}$ by $\frac{2\pi}{k}$.
 By using the small increments, we ensure that the rotated vector does not end up in
 the space volume bounded by another branch, but it slows down the process of creating
 the local mesh.
-For the illustration, on the Figure \ref{img:54} on the left one can see the iterative
+For the illustration, in the Figure \ref{img:54} on the left, one can see the iterative
 process to find the vector $\vec{r}$ by rotating $\vec{t}$ around $\vec{p}$.
 On the right, one can see the rotation of $\vec{p}$ around $\vec{t}$ by 
 $\frac{2\pi}{k}$ to find the remainding points on the surface.
@@ -701,24 +699,24 @@ $\frac{2\pi}{k}$ to find the remainding points on the surface.
 \end{figure}
 
 TODO rewrite this odsek
-For the singularities with symmetrical branches, we only need to perform binary
-search for one of the branches. In case of the singularities with rotation
-symmetry, we again create the remainding points by using the rotation symmetry.
-In case of other singularities, we again make use of the
+For the singularities with symmetrical branches, we only need to perform a binary
+search for one of the branches. In the case of the singularities with rotation
+symmetry, we again create the remaining points using rotation symmetry.
+In the case of other singularities, we again make use of the
 potential planes of symmetry.
 
 \subsubsection*{Layers for ADE singularities}
-We already introduced the concept of creating multiple layers of triangles around
-$A_{n--}$ singularities. In this section we explain the extension of this concept
-to remainding ADE singularities. For a given singularity, we create $l$ layers of
-points for each branch. In contrast with $A_{n--}$ singularities, we do not 
-rotate every second layer by $\frac{\pi}{k}$. The reason is, that the midpoints of
+We have already introduced the concept of creating multiple layers of triangles around
+$A_{n--}$ singularities. In this section, we explain the extension of this concept
+to remaining ADE singularities. We create $l$ layers of
+points for each branch for a given singularity. In contrast with $A_{n--}$ singularities, we do not 
+rotate every second layer by $\frac{\pi}{k}$. The reason is that the midpoints of
 the edges connecting a particular layer of points do not lie on the surface. This results
-in insufficient approximation of the curves lying in the intersection of the surface 
-and coordinate planes. In some cases, it even results in incorrect local mesh with 
+in a poor approximation of the curves lying in the intersection of the surface 
+and coordinate planes. Sometimes, it even results in incorrect local mesh with 
 overlapping triangles.
 
-On the Figure \ref{img:56} on the left, one may see the insufficient approximation
+In the Figure \ref{img:56} on the left, one may see the insufficient approximation
 of $D_{4+-}$ singularity with
 four layers of triangles and rotation by $\frac{\pi}{k}$. On the right, one
 may see the local mesh of the same singularity with four layers of triangles
@@ -748,12 +746,12 @@ without rotation by the angle $\frac{\pi}{k}$.
 
 
 \subsubsection*{Optimization of the quality of the local mesh for some singularities}
-For some of the singularities, it is not convinient to look for the points on
-the surface in the planes rotated by identical angles as seen on the Figure
+For some of the singularities, it is not convenient to look for the points on
+the surface in the planes rotated by identical angles as seen in the Figure
 \ref{img:rotating-planes}. An example of such singularities are $D_{n+-}$
-singularities. The local mesh created with 8 triangles using the described 
-approach is displayed on the Figure \ref{img:D4-before}. One may see that the
-outer edges of the triangles have a significant length differece.
+singularities. The local mesh created with eight triangles using the described 
+approach is displayed in the Figure \ref{img:D4-before}. One may see that the
+outer edges of the triangles have a significant length difference.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.25]{images/D4-before}}
@@ -763,17 +761,17 @@ outer edges of the triangles have a significant length differece.
     \label{img:D4-before}
 \end{figure}
 
-The problem is significant on the singularities with 8 triangles near
+The problem is significant in the singularities with eight triangles near
 the singular point.
 Our solution is to use binary search to find the angle where the triangles are
 close to isosceles triangles. The points found in rotated half-spaces given by 
 the angles $0, \frac{\pi}{2}, \pi$ and $\frac{3\pi}{4}$ are unchanged.
-The points in between these points are iteratively changed until the
-triangles are isosceles with required precision. Starting on the interval 
+The points between these points are iteratively changed until the
+triangles are isosceles with the required precision. Starting on the interval 
 of angles $(0, \frac{\pi}{2})$, in each step, 
 the new angle is calculated as an angle in the middle 
 between the two angles. The new point is then calculated using the binary 
-search to find a point on the surface as displayed on the Figure \ref{img:41}.
+search to find a point on the surface as displayed in the Figure \ref{img:41}.
 
 As all singularities using this optimization are symmetrical by two coordinate
 planes, we only need to perform this binary search once for each layer of 
@@ -782,7 +780,7 @@ points and use mirror symmetry to obtain the remaining points.
 The result of the binary 
 search of an angle for the $D_{4+-}$ singularity is displayed 
 on the Figure \ref{img:D4-after}. The triangles around the singularity
-are closer to isosceles triangles in comparison with the Figure 
+are closer to isosceles triangles in comparison to the Figure 
 \ref{img:D4-before}.
 
 \begin{figure}
@@ -795,7 +793,7 @@ are closer to isosceles triangles in comparison with the Figure
 
 \subsection{Triangulation of a plane with multiple $A_{n--}$ singularities}
 In this section, we present an approach for creating an implicit equation of a
-surface which consists of a plane and arbitrary many $A_{n--}$ singularities
+surface, which consists of a plane and arbitrary many $A_{n--}$ singularities
 $C^1$ smoothly connected to this plane. 
 \subsubsection*{Input and output}
 In this section, the following data are provided on the input:
@@ -805,9 +803,8 @@ In this section, the following data are provided on the input:
     \item $m$ degrees of the singularities - $n_1, ..., n_m$,
     \item $m$ heights at which each singularity is connected - $h_1, ..., h_m$.
 \end{enumerate}
-The visualisation of desired output function can be seen on the Figure \ref{img:22}. 
-On this figure, the singularity is displayed by green color, the red color is used to
-display the function which connects the singularity to a plane - the bump function.
+The visualization of desired output function can be seen in the Figure \ref{img:22}. 
+In this figure, the singularity is displayed in green colour. The red colour displays the function which connects the singularity to a plane - the bump function.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img22}}
     \caption[Plane with singularities.]
@@ -816,8 +813,8 @@ display the function which connects the singularity to a plane - the bump functi
     \label{img:22}
 \end{figure}
 There are some limitations on the input data. As we do not want the singularities 
-or the bump functions to intsect, we require that each pair of input points is
-distanced $d_{ij}$ from each other. We specify the value of $d_{ij}$ in the section TODO.
+or the bump functions to intersect, we require that each pair of input points is
+distanced $d_{ij}$ from each other. We specify the $d_{ij}$ value in the section TODO.
 \subsubsection*{Bump function}
 \begin{definition}
 The support $supp(f)$ of a function $f: \R^n \to \R$ is a set of points where $f$ is not
@@ -837,8 +834,8 @@ $$f(x)= \left\{
     \right. $$
 which is both $C^\infty$ and compactly supported.
 
-The bump function can be used to smoothly connect a curve to a line or a surface to a
-plane in higher dimension. If we only need to connect a curve and a line $C^n$ smoothly, 
+The bump function can smoothly connect a curve to a line or a surface to a
+plane in a higher dimension. If we only need to connect a curve and a line $C^n$ smoothly, 
 we only need a bump function which connects $C^n$ smoothly to a line.
 
 In our work, we connect two surfaces with $C^1$ continuity and for this purpose
@@ -857,7 +854,7 @@ $$f(x, y) = \left\{
         0, & otherwise.\\
     \end{array} 
     \right. $$
-Both of these functions can be seen on the Figure \ref{img:21}.
+These functions can be seen in the Figure \ref{img:21}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img21}}
     \caption[$C^1$ cosine bump function.]
@@ -868,12 +865,12 @@ Both of these functions can be seen on the Figure \ref{img:21}.
 
 \subsubsection*{Implicit equation of the cosine bump function}
 To construct the implicit equation of the cosine bump function, we use CSG
-- constructive solid geometry, which is described in the section \ref{sub2.6}.
+- constructive solid geometry, described in the section \ref{sub2.6}.
 
 First, we cut out the part of the rotated cosine, where
 $x^2+y^2<(\frac{\pi}{k})^2$ using cylinder and intersection operation. Next,
 we use a plane and the union operation to \textit{glue} the bump to the plane.
-The described process is displayed on the Figure \ref{img:24} in the form of CSG tree.
+The described process is displayed in the Figure \ref{img:24} in the form of a CSG tree.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img24}}
     \caption[Construction of the cosine bump function using CSG]
@@ -887,7 +884,7 @@ We use the following equations of the surfaces to model the cosine bump function
     \centering
     \begin{tabular}{|c|c|}
         \hline\hline
-    Funcion name            & Implicit equation                                        \\ \hline\hline
+    Function name            & Implicit equation                                        \\ \hline\hline
     Rotated cosine function & $x+q \cdot cos(k \cdot \sqrt{(y-p_y)^2+(z-p_z)^2})+q=0$  \\ \hline
     Cylinder                & $(y-p_y)^2+(z-p_z)^2-(\frac{\pi}{k})^2=0$                \\ \hline
     Plane                   & x=0                                                      \\ \hline\hline
@@ -911,7 +908,7 @@ The singularity given by the implicit equation $x^{n+1}-y^2-z^2$ intersected wit
 the plane $x=h$ produces a circle with the radius $r=\sqrt{h^{n+1}}$.
 The cosine bump function is scaled using $q$ and $k$ to smoothly connect the
 singularity in the middle of the cosine bump function. This approach is displayed
-on the Figure \ref{img:25}. 
+in the Figure \ref{img:25}. 
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img25}}
@@ -924,8 +921,8 @@ on the Figure \ref{img:25}.
 As the singularity is attached in the middle of the
 bump function, we get the equality $r=\frac{\pi}{2k}$ and therefore
 $\sqrt{h^{n+1}}=\frac{\pi}{2k} \implies k=\pi/(2\sqrt{h^{n+1}})$.
-The parameter $q$ is calculated from $C^1$ continuity requirement. We require the
-gradients to be linearly dependent in the points of connection. Due to the rotation
+The parameter $q$ is calculated from the $C^1$ continuity requirement. We require the
+gradients to be linearly dependent on the points of connection. Due to the rotation
 symmetry, we check it only for the intersection with the plane $z=0$
 for the point $(-q, \frac{\pi}{2k})$.
 $$F=(x+h+q)^{n+1}-y^2 \implies \nabla F = \left[(n+1)(x+h+q)^n, -2y\right]$$
@@ -939,8 +936,8 @@ and knowing $k=\pi/(2\sqrt{h^{n+1}})$, we get $s=(n+1)h^n$ and therefore $q=4h/(
 After calculating the parameters $q$ and $k$ of the cosine bump function, 
 we proceed to connect the singularity to the bump function.
 We use intersection with the plane $x=-q$ to get the sections of the singularity
-and the section of the bump function and lastly, we use union of these two 
-surfaces. The described process is displayed on the Figure \ref{img:26}.
+and the section of the bump function, and lastly, we use the union of these two 
+surfaces. The described process is displayed in the Figure \ref{img:26}.
 The information about the detailed calculation of the implicit equation 
 can be found in the appendix \ref{appA}.
 
@@ -953,8 +950,8 @@ can be found in the appendix \ref{appA}.
 \end{figure}
 
 To connect multiple singularities to the same plane, we construct the implicit
-equation for each of these singularities and then use the union operation to
-create a surface with multiple singularities. This procedure is displayed on
+equation for each singularity and then use the union operation to
+create a surface with multiple singularities. This procedure is displayed in
 the Figure \ref{img:28}.
 
 \begin{figure}
@@ -966,7 +963,7 @@ the Figure \ref{img:28}.
 \end{figure}
 
 \subsubsection*{Limitations on the input data}
-As we already mentioned, we require that each pair of input points is
+As mentioned, we require that each pair of input points is
 distanced $d_{ij}$ from each other. As the radius of the closed support
 of the cosine bump function is $r=\frac{\pi}{k}=2\sqrt{h^{n+1}}$, the 
 distance between two input points $p_j, p_j$ must be at least
@@ -1002,12 +999,12 @@ $$P_{n+1} = proj_C(Q_{n+1}),$$
 while checking if the new point is inside the axis-aligned bounding box.
 We stop once the new point is outside of the axis-aligned bounding box or
 if the new point is close to the starting point $P_0$, which means the approximated
-curve is a closed curve.
+the curve is a closed curve.
 
-In case of the open curve, to complete the whole polyline, we also approximate 
+In the case of the open curve, to complete the whole polyline, we also approximate 
 the second part of the singular curve by iteratively creating points in the 
-opposite direction, starting from point $P_0$. Let $m$ be number of points
-in the polyline, the second part of the polyline consists of the points
+opposite direction, starting from point $P_0$. Let $m$ be the number of points
+in the polyline the second part of the polyline consists of the points
 $P_m, P_{m+1}, ...$, where
 $$Q_m = P_0 - e \cdot \vec{t}_C(P_0),$$
 $$P_m = proj_C(Q_m),$$
@@ -1015,12 +1012,12 @@ and again, iteratively
 $$Q_{n+1} = P_n - e \cdot \vec{t}_C(P_{n}), \hspace{5mm} n = m, m+1, ...$$
 $$P_{n+1} = proj_C(Q_{n+1}), \hspace{5mm} n = m, m+1, ...$$
 
-The presented approach is visualized in two dimensions on the Figure \ref{img:37}.
+The presented approach is visualized in two dimensions in the Figure \ref{img:37}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img37}}
     \caption[Approximation of the implicit curve by polyline]
-    {Approximation of the implicit curve by polyline.}
+    {Approximation of the implicit curve by a polyline.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:37}
 \end{figure}
@@ -1029,14 +1026,14 @@ After obtaining the polyline approximation of the curve on the intersection
 of the two surfaces, one may create the local mesh. Let us rename the polyline 
 points to $P_0, P_1, ..., P_k$, such that $l_i = \overline{P_i P_{i+1}}$ is a 
 line segment of the polyline for $i=0, ..., k-1$ (and $l_k = \overline{P_k P_0}$ is a 
-line segment of the polyline for closed curve).
+a line segment of the polyline for a closed curve).
 
-For each line segment $l_i$ we create two adjacent triangles containing $l_i$.
+For each line segment $l_i$, we create two adjacent triangles containing $l_i$.
 
 We start by calculating the midpoint $M_i = \frac{P_i+P_{i+1}}{2}$.
-By projecting the point $M_i$ to the surface $S_1$, we obtain the point $M_i^1$,
-by projecting it to the surface $S_2$, we obtain the point $M_i^2$. The defiined points
-are visualized on the Figure \ref{img:38}.
+By projecting the point $M_i$ to the surface $S_1$, we obtain the point $M_i^1$.
+By projecting it to the surface $S_2$, we obtain the point $M_i^2$. The defined points
+are visualized in the Figure \ref{img:38}.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img38}}
@@ -1060,11 +1057,11 @@ $\nabla{F_1}(M_1)$ by the given edge length $e$.
 
 $$R_i^1 = M_i + e \cdot \frac{\nabla{F_1}(M_1) \times \overrightarrow{P_{i} P_{i+1}}}{||\nabla{F_1}(M_1) \times \overrightarrow{P_i P_{i+1}}||}.$$
 
-The described situation is displayed on the Figure \ref{img:39}.
+The described situation is displayed in the Figure \ref{img:39}.
 For the point $M_i$, the plane $H_i$ passing through $M_i$, perpendicular to the
 line segment $l_i$ is defined:
 $$H_i : \overrightarrow{P_i P_{i+1}} \cdot (X-M_i) = 0.$$
-For better understanding the Figure \ref{img:39} is the projection of the surroundings
+For better understanding, the Figure \ref{img:39} is the projection of the surroundings
 of the point $M_i$ to the plane $H_i$. Generally, points $M_i^1$ and $M_i^2$ do not lie in
 the plane $H_i$. 
 
@@ -1080,7 +1077,7 @@ The points $R_i^1$ and $R_i^2$ are projected to the surface given by the interse
 of the interiors of the two surfaces. The equation defining the surface is 
 $$F_{1 \cap 2} = F_1 + F_2 + \sqrt{F_1^2+F_2^2}.$$
 
-An example of the resulting local mesh for an open curve is displayed on the image
+An example of the resulting local mesh for an open curve is displayed in the image
 \ref{img:local-mesh-sing-curve}. This curve is a part of the singular curve on the surface 
 given by the intersection of the interiors of a sphere and a hyperboloid.
 
