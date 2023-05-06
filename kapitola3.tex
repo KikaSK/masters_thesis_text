@@ -9,7 +9,10 @@ parts of implicit surfaces introduced in bachelor's thesis \cite{korecova2021tri
 
 The algorithm creates triangles iteratively, one at a time. The new triangle is
 created at the edge of the existing triangle. The new point is projected on the
-surface using the Newton-Rhapson method. This method finds the root of the implicit
+surface using the well known iterative Newton-Rhapson method, which is the 
+fast-converging method for root finding of a function $y=f(x)$. The condition 
+for convergence of this method is to provide a point on the function sufficiently
+close to the root. We use this methodto find the root of the implicit
 function lying on the line, which is in the direction of the gradient of the implicit
 function. This approach is displayed on the Figure \ref{img:29}.
 \begin{figure}
@@ -26,17 +29,28 @@ by Hilton \cite{hilton1996marching}. The Delaunay condition checks,
 if some other points are in the proximity of circumcenter of the new triangle.
 The conditions minimize the chances of triangle intersection.
 If the new triangle intersects with some existing triangles, the algorithm
-tries to connect the new triangle to the existing triangles in its proximity.
+tries to connect the new triangle to the existing points of the mesh in its proximity.
 
 The algorithm is enriched with the possibility to triangulate adaptively
 to the curvature of the surface using approach presented by Akkouche 
 \cite{akkouche2001adaptive}. It can also triangulate surfaces in the
 bounded volume - axis aligned bounding box, given by six numbers - minimal
-and maximal value for each of the three axes.
+and maximal value for each of the three coordinate axes.
+
+The algorithm was implemented using brute force. The queue of the edges
+on the border of the mesh -- \textit{active edges}, was being iteratively updated. 
+In each step, an edge from the active edges queue was removed
+and the creation of the new triangle near this edge was attempted.
+If the new triangle was successfully created, the edge has become 
+\textit{inside edge}, in case of failure, the edge has become 
+\textit{checked edge}. The last characterization of an edge is for
+the edges with both end-points lying on the bounding box, these edges
+are called \textit{bounding edges}.
 
 As a part of our work, we reimplement the algorithm to be more effective by
 using advanced data structures, such as the half-edge data structure 
-\cite{kettner1999using} and the range tree \cite{lueker1978data}. 
+\cite{kettner1999using} and the range tree \cite{lueker1978data}.
+
 \section{Data structures for triangulation algorithm}
 \label{sub2.5}
 
