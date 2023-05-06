@@ -44,7 +44,7 @@ Points lying on the implicit surface can be classified as regular or
 singular based on the value of the gradient vector at that point.
 
 \begin{definition}
-    Point $P=(x,y,z)$ lying on the implicit surface is said to be regular
+    Point $P=(x,y,z)$ lying on the implicit surface is considered regular
     if $\nabla F(x, y, z) \neq 0$. On the contrary, point $P$ is said to be 
     singular if $\nabla F(x, y, z) = 0$.
 \end{definition}
@@ -72,18 +72,17 @@ singularities.
 \subsection{Curvature of a surface}
 
 Curvature is a fundamental concept in differential geometry of curves and surfaces.
-In the case of curves, the curvature is a measure of how much does the curve differ from a 
+In the case of curves, the curvature measures how much the curve differs from a 
 straight line. It is defined as the inverse of the radius of the osculating circle,
 which is the second-order approximation of the curve.
 
 For surfaces, the curvature is a measure of how much does the surface differ from a 
-plane. The definition of the curvature of a surface is not as straightforward
-as in the case of curves. The curvature of a curve on a surface depends on the 
+plane. The definition of the curvature of a surface is more complex than in the case of curves. The curvature of a curve on a surface depends on the 
 choice of the tangent direction of a measured point.
 
 The idea of measuring the curvature of a surface has a long history in mathematics.
 One of the first contributors was the mathematician Carl Friedrich Gauss, who developed
-the idea of the Gaussian curvature of surfaces. In this subsection, we are drawing from
+the idea of the Gaussian curvature of surfaces. In this subsection, we draw from
 the summary presented by Tiago Novello et al.\cite{novello2021differential}.
 
 \subsubsection*{Normal curvature of the surface}
@@ -273,7 +272,7 @@ signature.
         \end{itemize}
 \end{definition}
 
-The most common example of a surface with ADE singularity is an ordinary cone.
+An ordinary cone is the most common example of a surface with ADE singularity.
 Given as the zero set of the function $F(x, y, z)=x^2-y^2-z^2$, cone has
 a singular point $P=(0, 0, 0)$. This singular point is an example of $A_{1--}$
 singularity.
@@ -325,7 +324,7 @@ $SO(3, \R)$, which represent certain types of symmetries in $\R^3$.
 
 \section{CSG modelling for implicit surfaces}
 \label{sub2.6}
-In this section, we will discuss how constructive solid geometry can be used for
+This section will discuss how constructive solid geometry can be used for
 modelling complex implicit surfaces. The first major publication regarding constructive
 solid geometry was published in 1977 by Requicha and Voelcker \cite{requicha1977constructive}.
 More detailed mathematical foundations were published a year later, in 1978, by
@@ -335,7 +334,7 @@ Constructive solid geometry is a technique used for modelling complex geometric
 objects using boolean operations on sets of points -- union, intersection and
 difference. It gained popularity in the 1980s as a powerful tool to create complex
 shapes from sets of geometrical primitives, such as cylinders, spheres and cones.
-The resulting model can be represented as a CSG tree, which contains geometrical
+The resulting model can be represented as a CSG tree containing geometrical
 primitives in its leaves and boolean operations in its internal nodes 
 \cite{foley1996computer}. An example of such a CSG tree can be seen in the Figure 
 \ref{img:18}.
@@ -407,8 +406,7 @@ In the CSG modelling, singular curves most commonly arise as a result of interse
 union and difference operations on the interiors of these surfaces. When performing
 the intersection, union or difference operation on the interiors of two regular surfaces, 
 the singular curve is the curve given by the intersection of these surfaces. An example
-of an intersection of two spherical interiors is shown in the Figure \ref{img:35}. The resulting singular curve given by an intersection of the two spheres is displayed
-by the red colour.
+of an intersection of two spherical interiors is shown in the Figure \ref{img:35}. The red colour displays the resulting singular curve given by an intersection of the two spheres.
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img35}}
