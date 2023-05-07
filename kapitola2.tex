@@ -81,15 +81,27 @@ calculated as the size of the edge which would fit $k_d$--times int $r_c$.
 A maximum edge size is set to avoid the edge case in the planar point.
 
 During the algorithm, for a given edge $E$ with the length $l_E$, the point
-$P_E$ is created as displayed on the Figure \ref{img:57}, the point $P_E$ lies
+$C$ is created as displayed on the Figure \ref{img:57}. The point $C$ lies
 in the plane of the incident triangle of the edge $E$ on the line perpendicular
 to $E$ and passing through $M_E$--midpoint of the edge $E$. The distance between
-$M_E$ and $P_E$ is half the height of the equilateral triangle with the edge $E$.
+$M_E$ and $C$ is the height of the equilateral triangle with the edge $E$.
+
+The curvedness is computed in each of the points $A$, $B$ and $C$.
+The maximal value of the three computed values is used.
+To avoid fast changes of the triangle size, some constraints are 
+introduced. 
+
+Inspired by the article by Akkouche and Galin \cite{akkouche2001adaptive},
+let us define $l_{avg}$ as the average length of the set of edges consisting
+of the edges incident with the points $A$ and $B$ on the boundary of the mesh
+and the edge $E$.
+The rate at which the triangle height can scale compared to
+the height of the equilateral triangle with the edge length $l_{avg}$ is set to 30\%. 
 
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img57}}
-    \caption[Creating the point $P_E$]
-    {Creating the point $P_E$ for the given edge $E$.}
+    \caption[Creating the point $C$]
+    {Creating the point $C$ for the given edge $E$.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:57}
 \end{figure}
