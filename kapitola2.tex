@@ -1,4 +1,4 @@
-\chapter{Our contributions}
+\chapter{Mathematical model of the proposed triangulation}
 \label{chap2}
 
 \section{Triangulation adaptive to the local curvature}
@@ -144,9 +144,9 @@ expressed by corresponding implicit equations.
 We already know that $A_{1--}$ singularity is locally represented as a cone.
 This section discusses the geometric structure of other ADE surface singularities.
 
-\begin{definition} (TODO rewrite)
-    Let us define the branch of ADE singularity as the part of the surface
-    connected to the rest only by the singular point.
+\begin{definition}
+    Let us define the branch of ADE singularity as the part of the implicit surface
+    connected to the rest of the implicit surface only by the singular point.
 \end{definition}
 
 \begin{comment}
@@ -482,12 +482,11 @@ $$l: \frac{1}{2}(a,b) + \frac{t}{2}(b,a), \hspace{3mm} t \in \R$$
 
 Given the ellipse with semi-major axis $a$, 
 semi-minor axis $b$ and the center in the point $(0, 0)$, the point $P$ can be 
-calculated as follows:
+calculated as follows
 
 $$P \in l \cap E \implies 
 \frac{(a+tb)^2}{4a^2} + \frac{(b+ta)^2}{4b^2} = 1$$
 $$t=\frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{a^4+b^4},$$
-
 therefore 
 $$P=\frac{1}{2}(a,b) + \frac{ab(\sqrt{3a^4+2a^2b^2+3b^4}-a^2-b^2)}{2(a^4+b^4)}(b,a).$$
 
@@ -830,7 +829,7 @@ distanced $d_{ij}$ from each other. We specify the $d_{ij}$ value in the section
 \subsubsection*{Bump function}
 \begin{definition}
 The support $supp(f)$ of a function $f: \R^n \to \R$ is a set of points where $f$ is not
-zero: $$supp(f) = \{ x\in \R^n : f(x)\neq 0 \}.$$
+zero $$supp(f) = \{ x\in \R^n : f(x)\neq 0 \}.$$
 The closed support of the function $f$ is defined as a closure of $supp(f)$.
 \end{definition}
 Bump function if a function $f:\R^n \to \R$ which is smooth ($C^\infty$) and
@@ -912,7 +911,7 @@ to the given point $(p_y, p_z)$.
 
 \subsubsection*{Attaching singularities to the plane using the cosine bump function}
 
-Given the type of the singularity - $n$ and given height - $h$, we calculate the
+Given the type of the singularity -- $n$ and given height -- $h$, we calculate the
 constants of the cosine bump function to connect $C^1$ smoothly to the given
 singularity.
 
