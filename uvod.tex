@@ -14,6 +14,12 @@ the intersection of a ray and a triangular mesh is far
 easier task as calculating the intersection of a ray and
 an implicit surface.
 
+Many surfaces contain singular points where all three partial
+derivatives vanish. These points may cause problems for
+meshing algorithms. Some meshing algorithms, such as 
+Marching Cubes, simply ignore these points,
+which leads to insufficient surface representation.
+
 In this thesis, we follow up on our effort in bachelor's thesis
 \cite{korecova2021triangulation} to present an algorithm for
 creating the triangular mesh of regular implicit surfaces.
@@ -22,10 +28,13 @@ First, we reimplement the algorithm to be more effective,
 by using advanced data structures for mesh representation 
 and 3D point search.
 
-Next, we extend this algorithm to include the triangulation
-of certain types of isolated singularities - ADE singularities.
+Next, we extend the algorithm to include the triangulation
+of certain types of isolated singularities -- ADE singularities,
+and non-isolated singularities -- curves on the intersection
+of two regular surfaces.
 We analyze the geometry of these singularities and propose 
-an approach to triangulate these singularities.
+an approach to create a mesh, which correctly captures
+the geometry of the singularities.
 
-Lastly, we improve the adaptive technique, which changes the
+Lastly, we propose the adaptive technique, which changes the
 size of the triangles based on the local curvature of the surface.

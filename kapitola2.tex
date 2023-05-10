@@ -443,7 +443,7 @@ Figure~\ref{A5-uniform-layers}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.25]{images/A5-uniform-layers}}
     \caption[Resulting mesh for the $A_{5--}$ singularity]
-    {Resulting mesh for the $A_{5--}$ singularity - 5 layers.}
+    {Resulting mesh for the $A_{5--}$ singularity - four layers.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:A5-uniform-layers}
 \end{figure}
@@ -640,7 +640,7 @@ about the axis given by $\vec{t}$ as displayed on the Figure~\ref{img:rotating-p
 \begin{figure}
     \centerline{\includegraphics[scale=0.3]{images/rotating-planes}}
     \caption[Rotating the plane about the vector]
-    {Rotating the plane about the vector $\vec{t}$.}
+    {Rotating the plane about the vector $\vec{t}$ \cite{calcplot3d}.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:rotating-planes}
 \end{figure}
@@ -884,7 +884,7 @@ The described process is displayed in the Figure~\ref{img:24} in the form of a C
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img24}}
     \caption[Construction of the cosine bump function using CSG]
-    {Construction of the cosine bump function using CSG.}
+    {Construction of the cosine bump function using CSG \cite{calcplot3d}.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:24}
 \end{figure}
@@ -954,7 +954,7 @@ can be found in the appendix~\ref{appA}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img26}}
     \caption[Attaching the singularity to a plane using CSG]
-    {Attaching the singularity to a plane using CSG.}
+    {Attaching the singularity to a plane using CSG \cite{calcplot3d}.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:26}
 \end{figure}
@@ -967,7 +967,7 @@ the Figure~\ref{img:28}.
 \begin{figure}
     \centerline{\includegraphics[scale=0.5]{images/img28}}
     \caption[Plane with multiple attached singularities]
-    {Plane with multiple attached singularities.}
+    {Plane with multiple attached singularities \cite{calcplot3d}.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:28}
 \end{figure}
@@ -1046,7 +1046,7 @@ By projecting the point $M_i$ to the surface $S_1$, we obtain the point $M_i^1$.
 By projecting it to the surface $S_2$, we obtain the point $M_i^2$. The defined points
 are visualized in the Figure~\ref{img:38}.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img38}}
     \caption[Definition of the points]
     {Definition of the points $M_i$, $M_i^1$ and $M_i^2$.}
@@ -1074,9 +1074,11 @@ line segment $l_i$ is defined:
 $$H_i : \overrightarrow{P_i P_{i+1}} \cdot (X-M_i) = 0.$$
 For better understanding, the Figure~\ref{img:39} is the projection of the surroundings
 of the point $M_i$ to the plane $H_i$. Generally, points $M_i^1$ and $M_i^2$ do not lie in
-the plane $H_i$. 
+the plane $H_i$. The points $R_i^1$ and $R_i^2$ are picked in such way, that the point
+$R_i^1$ does not lie outside of the $S_2$ and the point $R_i^2$ does not lie outside of 
+the surface $S_1$.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img39}}
     \caption[Definition of the points]
     {Definition of the points $R_i^1$ and $R_i^2$ in the plane $H_i$.}
@@ -1092,10 +1094,39 @@ An example of the resulting local mesh for an open curve is displayed in the ima
 \ref{img:local-mesh-sing-curve}. This curve is a part of the singular curve on the surface 
 given by the intersection of the interiors of a sphere and a hyperboloid.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.3]{images/local-mesh-sing-curve}}
     \caption[Local mesh around the singular curve]
     {Local mesh around the singular curve.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:local-mesh-sing-curve}
+\end{figure}
+
+\subsection{Modification for triangulation of the union and the difference}
+For the intersection, the points $R_i^1$ and $R_i^2$ were picked in such way, that the point
+$R_i^1$ does not lie outside of the $S_2$ and the point $R_i^2$ does not lie outside of 
+the surface $S_1$. The local mesh for the union is achieved by picking $R_i^1$ and $R_i^2$
+in such way, that $R_i^1$ does not lie inside of $S_2$ and the point $R_i^2$ does not lie 
+inside of the surface $S_1$. The points $R_i^1$ and $R_i^2$ for creating local mesh for 
+the union of the interiors is displayed on the Figure~\ref{img:75}.
+
+\begin{figure}[h!]
+    \centerline{\includegraphics[scale=0.5]{images/img75}}
+    \caption[Definition of the points for union]
+    {Definition of the points $M_i$, $M_i^1$ and $M_i^2$ for union.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:75}
+\end{figure}
+
+For the difference, the points $R_i^1$ and $R_i^2$ are picked in such way, that $R_i^1$ 
+does not lie inside of $S_2$ and the point $R_i^2$ does not lie 
+outside of the surface $S_1$. The points $R_i^1$ and $R_i^2$ for creating local mesh for 
+the difference of the interiors is displayed on the Figure~\ref{img:75}.
+
+\begin{figure}[h!]
+    \centerline{\includegraphics[scale=0.5]{images/img76}}
+    \caption[Definition of the points for difference]
+    {Definition of the points $M_i$, $M_i^1$ and $M_i^2$ for difference.}
+    %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
+    \label{img:76}
 \end{figure}

@@ -146,7 +146,18 @@ structure with the modification -- each point has references to all outgoing edg
 instead of just one outgoing edge. 
 
 \subsection{Range tree}
-TODO
+The range tree is a tree data structure used for geometric search.
+The range tree holds a list of points and it answers the queries about
+the points in the given range. When used in three-dimensional space, 
+the range corresponds to the three-dimensional interval.
+The advantage of the range tree compared to other tree structures for 
+three-dimensional search, such as quad-tree or k-d tree is a fast query
+time. The implementation we used \cite{rangetree} answers the query for 
+the set of points in a given three-dimensional
+interval in $\mathcal{O}(log^3n+k)$, where $n$ is the number of
+the points in the tree and $k$ is the number of the points in the three-dimensional
+interval.
+
 \subsection{Mesh structure}
 Triangular mesh consists of vertices, edges and faces. We use the half-edge 
 data structure for mesh representation and the range tree for time efficient
@@ -203,7 +214,7 @@ the end of the list, it behaves as a queue.
 
 When checking for the conditions for the newly created triangle, the 
 proximity within the mesh provided by the half-edge data structure is
-not enough. Here, the range-tree is used. To find the triangles in the
+not enough. Here, the range tree is used. To find the triangles in the
 proximity of a point $P$, all meshpoints in a three-dimensional interval
 around this points are found using range tree. The triangles are then 
 extracted by finding the incident faces of outgoing edges of the points
