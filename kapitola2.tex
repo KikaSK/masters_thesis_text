@@ -367,6 +367,7 @@ For given edge size $e$, we calculate the local triangulation of ADE
 singularities, such that edges on the border of the local triangulation
 have length $e$.
 \subsubsection*{$A_{n--}$ singularities}
+\label{An--singularities}
 For $A_{n--}$ singularities, we create a disc of six isosceles triangles
 with a vertex in the singular point. The bases of these triangles create regular
 hexagon in the plane $P$ parallel to the plane $x=0$, as showed on the Figure
@@ -981,10 +982,13 @@ distance between two input points $p_j, p_j$ must be at least
 $d_{ij} = 2\sqrt{h_i^{n_i+1}}+2\sqrt{h_j^{n_j+1}}$. This way, both singularities
 and the corresponding bump functions do not intersect. 
 
-\subsubsection*{Visualization of results of the triangulated surfaces}
+Let $l$ be the number of layers used for the triangulation and let $h_e$ be the height
+calculated from the input edge length $e$ as shown in the chapter \ref{An--singularities}.
+Then, the height $h$ displayed on the image \ref{img:25} must be bigger than the
+height $h_e$.
 
 \section{Triangulation of non-isolated singularities}
-\label{sub3.3}
+\label{sub3.3} 
 
 We present an approach for triangulation of implicit surfaces with singular
 curves which are
