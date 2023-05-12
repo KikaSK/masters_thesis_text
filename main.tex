@@ -161,9 +161,26 @@ Supervisor: & \mfskolitel \\
 \newpage 
 \section*{Abstrakt}
 
-TODO Abstrakt po Slovensky
+Implicitne zadané plochy sú plochy, ktoré sú definované ako nulová hladina
+funkcie troch premenných. Triangulácia plochy je častý spôsob digitálnej reprezentácie
+plochy.
+Pre množstvo algoritmov, ktoré vytvárajú aproximáciu trojuholníkovým meshom,
+vznikajú problémy ak plocha obsahuje singularity -- body v ktorých je gradient funkcie
+nulový vektor.
+Niektoré algoritmy, ako napríklad Marching Cubes \cite{lorensen1987marching},
+jednoducho ignorujú singulárne body, čo vedie k nekorektnej aproximácií plochy.
+V tejto práci vytvárame algoritmus na trianguláciu plôch zadaných implicitne
+obsahujúcich niktoré typy singuarít, pričom sa zameriavame na korektnosť
+triangulácie a kvalitu meshu.
+Rozširujeme algoritmus implementovaný v bakalárskej práci \cite{korecova2021triangulation}
+založený na algoritme Marching Triangles \cite{hilton1996marching}
+aby umožnil trianguláciu implicitne zadaných plôch obsahujúcich 
+ADE singularity a krivkové singularity na prieniku dvoch regulárnych plôch.
+Navyše navrhujeme prístup na vytvorenie triangulácie adaptívnej na 
+lokálnu krivosť plochy. Nakoniec reimplemenutujeme algoritmus 
+\cite{korecova2021triangulation} pre zrýchlenie času behu algoritmu.
+\paragraph*{Kľúčové slová:} implicitne definovaná plocha, triangulácia, výpočtový prístup
 
-\paragraph*{Kľúčové slová:} TODO Kľúčové slová
 % --- Koniec Abstrakt - Slovensky
 
 
@@ -172,11 +189,27 @@ TODO Abstrakt po Slovensky
 % -------------------
 \newpage 
 \section*{Abstract}
-
-TODO Abstract in English
-
-
-\paragraph*{Keywords:} TODO Keywords
+Implicit surfaces are surfaces defined as a zero set of a function.
+Triangulation of the surface is a common way of the digital surface
+representation.
+For most algorithm constructing the approximation by the triangular mesh
+a problem arises if the surface contains singularities -- the points at which 
+the gradient of the defining function vanishes.
+Some algorithms, such as the Marching Cubes \cite{lorensen1987marching},
+simply ignore the singular points, which results in the incorrect approximation
+of the surface.
+In this thesis, we create an algorithm for triangulation of 
+the surfaces with certain types of singularities, while focusing on the
+correctness of the triangulation and the quality of a mesh.
+We are extending the algorithm implemented in the bachelor's thesis 
+\cite{korecova2021triangulation}
+based on the Marching Triangles \cite{hilton1996marching} to allow 
+triangulation of the implicit surfaces containg ADE singularities
+and curve singularities on the intersection of two regular surfaces.
+Moreover, we propose an approach to create a triangulation adaptive 
+to the local curvature of a surface. Lastly, we reimplement the 
+algorithm \cite{korecova2021triangulation} to speed up its runtime.
+\paragraph*{Keywords:} implicitly defined surface, triangulation, computational approach
 
 % --- Koniec Abstrakt - Anglicky
 

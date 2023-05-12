@@ -1,7 +1,7 @@
 \chapter{Mathematical model of the proposed triangulation}
 \label{chap2}
 
-Ordered set $V, E, F$, where $V$ is the set of vertices, $E$ is the set of edges given
+Ordered triplet of sets $(V, E, F)$, where $V$ is the set of vertices, $E$ is the set of edges given
 by two vertices and $F$ is a set of faces given by three vertices is called triangular
 mesh.
 
@@ -17,7 +17,9 @@ Marching Cubes \cite{lorensen1987marching} and Marching Triangles \cite{hilton19
 While Marching Cubes is a fast algorithm producing non-quality mesh, the Marching triangles
 produces quality mesh for the cost of slower algorithm runtime.
 
-
+In \cite{korecova2021triangulation}, we implemented an algorithm based on the Marching
+Triangles approach. In this chapter we introduce the modification of the algorithm 
+to enable adaptive triangulation of surfaces with some singular points and curves. 
 
 \section{Triangulation adaptive to the local curvature}
 \label{sub3.1}
