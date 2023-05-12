@@ -829,15 +829,59 @@ sticked to a plane is displayed on the Figure~\ref{img:87}.
 In this section we compare the runtime of the reimplemented solution using half-edge 
 and range-tree to the brute-force solution implemented in \cite{korecova2021triangulation}.
 
-To obtain the results, laptop with 6-core AMD Ryzen 5 5600U with Radeon Graphics is used.
+To obtain the results, laptop with 6-core AMD Ryzen 5 5600U with Radeon Graphics was used.
+We measured the runtime of the algorithm with a given edge length on a unit sphere.
 
-Plotting from data:
+The dependance of the time from the length of the edge of the triangle is
+displayed on the Graph~\ref{graph1}.
+For better insight into the meshes with bigger triangles, the same values are 
+displayed on the Graph~\ref{graph2} with a logaritmic scale.
 
+\renewcommand{\figurename}{Graph}
+\begin{figure}
+    \centering
+\begin{tikzpicture} 
+    \begin{axis}[ 
+        xlabel={Runtime (in seconds)},
+        ylabel={Length of the edge of the triangle},
+        xmin=0, xmax=1,
+        ymin=0.1, ymax=250,
+        xtick={0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9},
+        ytick={50, 100, 150, 200},
+        legend pos=north east,
+        ymajorgrids=true,
+        grid style=dashed,
+    ]
+    
+    \addplot[
+        color=blue, 
+        mark=square,
+        ]
+        coordinates {
+        (0.1,205.438933)(0.2,15.250317)(0.3,3.367879)(0.4,1.131365)(0.5,0.667250)(0.6,0.350175)(0.7,0.253612)(0.8,0.140533)(0.9,0.133069)
+        };
+        
+    \addplot[
+        color=red,
+        mark=square,
+        ]
+        coordinates {
+        (0.1,22.024978)(0.2,5.393445)(0.3,2.709244)(0.4,1.735185)(0.5,1.075388)(0.6,0.709317)(0.7,0.484937)(0.8,0.330943)(0.9,0.228294)
+        };
+    \legend{Brute-force algorithm, Optimized algorithm}
+    \end{axis}
+    \end{tikzpicture}
+\caption[The dependance of the runtime on the input edge length for the unit sphere]
+{The dependance of the runtime on the input edge length for the unit sphere}
+\label{graph1}
+\end{figure}
+
+\begin{figure}
+    \centering
 \begin{tikzpicture}
 \begin{semilogyaxis}[
-    title={TODO title},
-    xlabel={TODO xlabel},
-    ylabel={TODO ylabel},
+    xlabel={Runtime (in miliseconds)},
+    ylabel={Length of the edge of the triangle},
     xmin=0, xmax=1,
     ymin=100, ymax=250000,
     xtick={0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9},
@@ -865,21 +909,93 @@ Plotting from data:
 \legend{Brute-force algorithm, Optimized algorithm}
 \end{semilogyaxis}
 \end{tikzpicture}
+\caption[The dependance of the runtime on the input edge length for the unit sphere (logaritmic scale)]
+{The dependance of the runtime on the input edge length for the unit sphere (logaritmic scale)}        
+\label{graph2}
+\end{figure}
 
+    As the edge size does not fully capture the size of the mesh,
+    we provide the graphs of dependance of the runtime of the 
+    algorithm from the number of triangles in the mesh.
+    The dependance is displayed on the Graph~\ref{graph3}.
+    The dependance with logaritmic scale is displayed on the Graph~\ref{graph4}.
+
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[ 
+                xlabel={Runtime (in seconds)},
+                ylabel={Number of generated triangles},
+                xmin=0, xmax=3500,
+                ymin=0, ymax=250,
+                xtick={1000,2000,3000},
+                ytick={50, 100, 150, 200},
+                legend pos=north west,
+                ymajorgrids=true,
+                grid style=dashed,
+            ]
+            
+            \addplot[
+                color=blue,
+                mark=square,
+                ]
+                coordinates {
+                (48,0.228294)(62,0.330943)(80,0.484937)(104,0.709317)
+                (146,1.075388)(216,1.735185)(392,2.709244)(824,5.393445)(918,6.197391)
+                (1004,7.139166)
+                (1472,9.752797)
+                (1684,12.162663)
+                (1906,14.997818)
+                (2298,16.664245)
+                (2700,19.739528)
+                (3226,22.024978)
+                };
+                
+                
+            \addplot[
+                color=red,
+                mark=square,
+                ]
+                coordinates {
+        (62,0.133069)
+        (66,0.140533)
+        (92,0.253612)
+        (116,0.350175)
+        (152,0.667250)
+        (224,1.131365)
+        (384,3.367879)
+        (830,15.250317)
+        (896,18.185244)
+        (1018,25.419886)
+        (1436,47.219744)
+        (1628,61.809660)
+        (1838,80.175296)
+        (2212,115.449970)
+        (2578,157.599387)
+        (3144,205.438933)
+                };
+            \legend{Brute-force algorithm, Optimized algorithm}
+            \end{axis}
+            \end{tikzpicture}
+    \caption[The dependance of the runtime on the number of generated triangles]
+    {The dependance of the runtime on the number of generated triangles}        
+    \label{graph3}
+        \end{figure}    
+\begin{figure}
+    \centering
 \begin{tikzpicture}
     \begin{semilogyaxis}[
-        title={TODO title},
-        xlabel={TODO xlabel},
-        ylabel={TODO ylabel},
+        xlabel={Runtime (in miliseconds)},
+        ylabel={Number of generated triangles},
         xmin=0, xmax=3500,
         ymin=100, ymax=250000,
-        xtick={500,1000,1500,2000,2500,3000,3500},
+        xtick={1000,2000,3000},
         ytick={100, 1000, 10000, 100000},
         legend pos=north west,
         ymajorgrids=true,
         grid style=dashed,
     ]
-    
+     
     \addplot[
         color=blue,
         mark=square,
@@ -921,3 +1037,12 @@ Plotting from data:
     \legend{Brute-force algorithm, Optimized algorithm}
     \end{semilogyaxis}
     \end{tikzpicture}
+    \caption[The dependance of the runtime on the number of generated triangles (logaritmic scale)]
+    {The dependance of the runtime on the number of generated triangles (logaritmic scale)}        
+    \label{graph4}
+\end{figure}
+One can see that the bruteforce algorithm beats the optimized implementation
+with the smaller meshes, however, for the bigger meshes, the optimized 
+implementation is more than nine times faster for the biggest model.
+
+\renewcommand{\figurename}{Figure}

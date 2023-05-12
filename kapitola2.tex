@@ -1,6 +1,24 @@
 \chapter{Mathematical model of the proposed triangulation}
 \label{chap2}
 
+Ordered set $V, E, F$, where $V$ is the set of vertices, $E$ is the set of edges given
+by two vertices and $F$ is a set of faces given by three vertices is called triangular
+mesh.
+
+The triangulation of a surface is an approximation of the surface by a triangular mesh.
+
+A correct triangulation shoud approximate the surface precisely enough and
+be topologically equivalent to the surface. Moreover, a quality triangulation
+should have triangles as equilateral as possible and adapt the size of the triangles
+to the local curvature of the surface.
+
+Two of the best known approaches when triangulating the implicit surface are
+Marching Cubes \cite{lorensen1987marching} and Marching Triangles \cite{hilton1996marching}.
+While Marching Cubes is a fast algorithm producing non-quality mesh, the Marching triangles
+produces quality mesh for the cost of slower algorithm runtime.
+
+
+
 \section{Triangulation adaptive to the local curvature}
 \label{sub3.1}
 
