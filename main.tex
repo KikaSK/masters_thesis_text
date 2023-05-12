@@ -195,25 +195,24 @@ lokálnu krivosť plochy. Nakoniec reimplemenutujeme algoritmus
 % --- Abstrakt - Anglicky 
 % -------------------
 \newpage 
-\section*{Abstract}
-Implicit surfaces are surfaces defined as a zero set of a function.
-Triangulation of the surface is a common way of the digital surface
+\section*{Abstract}Implicit surfaces are surfaces defined as a zero set of a function.
+Triangulation of the surface is a common way of digital surface
 representation.
-For most algorithm constructing the approximation by the triangular mesh
-a problem arises if the surface contains singularities -- the points at which 
+For most algorithms constructing the approximation by the triangular mesh
+a problem arises if the surface contains singularities $-$ the points at which 
 the gradient of the defining function vanishes.
 Some algorithms, such as the Marching Cubes \cite{lorensen1987marching},
-simply ignore the singular points, which results in the incorrect approximation
+ignore the singular points, which results in the incorrect approximation
 of the surface.
-In this thesis, we create an algorithm for triangulation of 
-the surfaces with certain types of singularities, while focusing on the
+In this thesis, we create an algorithm for the triangulation of 
+the surfaces with certain types of singularities while focusing on the
 correctness of the triangulation and the quality of a mesh.
 We are extending the algorithm implemented in the bachelor's thesis 
 \cite{korecova2021triangulation}
 based on the Marching Triangles \cite{hilton1996marching} to allow 
-triangulation of the implicit surfaces containg ADE singularities
+triangulation of the implicit surfaces containing ADE singularities
 and curve singularities on the intersection of two regular surfaces.
-Moreover, we propose an approach to create a triangulation adaptive 
+Moreover, we propose an approach to creating a triangulation adaptive 
 to the local curvature of a surface. Lastly, we reimplement the 
 algorithm \cite{korecova2021triangulation} to speed up its runtime.
 \paragraph*{Keywords:} implicitly defined surface, triangulation, computational approach
@@ -315,8 +314,6 @@ algorithm \cite{korecova2021triangulation} to speed up its runtime.
 %Zoznam príloh je súčasťou obsahu.
 %
 \input appendixA.tex
-
-%\input appendixB.tex
 
 \end{document}
 

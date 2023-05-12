@@ -130,9 +130,9 @@
 \chapter{Results}
 \label{chap4}
 
-In this chapter, we present the results achieved in triangulation of
+In this chapter, we present the results achieved in the triangulation of
 ADE singularities, surfaces with ADE singularities and surfaces with 
-sungular curves arised from CSG operations on the regular surfaces.
+singular curves arose from CSG operations on regular surfaces.
 We measure some of the quality criteria proposed in \cite{korecova2021triangulation}
 and compare our meshes in terms of quality with the meshes produced by a software 
 for visualization of the implicit surfaces with ADE singularities implemented
@@ -153,16 +153,16 @@ for the resulting mesh with uniform edge size:
     The mean ratio of the length of the longest side of the triangle
     and the shortest side of the triangle shows the uniformity of the 
     triangles. 
-    For equilateral triangle, the ratio equals exactly one. The ratio is
+    For an equilateral triangle, the ratio equals exactly one. The ratio is
     greater than one for isosceles and scalene triangles. 
-    The further the triangle is from equilateral triangle, the greater is the ratio.
-    The number close to one indicates triangles close to the equilateral triangles,
-    whereas the number greater than one indicates more non-uniform triangles in the mesh.
+    The further the triangle is from an equilateral triangle, the greater the ratio.
+    A number close to one indicates triangles close to the equilateral triangles,
+    whereas a number greater than one indicates more non-uniform triangles in the mesh.
 
     \item \textit{Discrete approximation of the Hausdorff distance}
     
     To define the discrete approximation of the Hausdorff distance of the mesh and
-    the implicit surface, one needs to introduce the notion of the distance of two sets
+    the implicit surface, one needs to introduce the notion of the distance between two sets
     of points.
 \begin{definition} The distance $\delta$ of the point $a\in \R^3$ and the set
     $M \subset \R^3$ is defined as 
@@ -177,10 +177,10 @@ for the resulting mesh with uniform edge size:
         h(M, N) = \max \big \{\sup_{a \in M} \, \delta(a, N), \sup_{b \in N} \, \delta(M, b) \big \}.
     \end{equation}
 \end{definition}
-    The Hausdorff distance is numerically aproximated by taking the maximum distance
-    of the gravity center of a triangle of the mesh and perpendicular projection of
+    The Hausdorff distance is numerically approximated by taking the maximum distance
+    of the gravity center of a triangle of the mesh and the perpendicular projection of
     the gravity center to the triangulated surface.
-    This approximation is based on the assumption, that the point on the surface
+    This approximation is based on the assumption that the point on the surface
     closest to the gravity center of the triangle is the perpendicular projection of
     that point to the surface.
 
@@ -189,21 +189,19 @@ for the resulting mesh with uniform edge size:
 
     \item \textit{The mean distance of the gravity center and its perpendicular projection}
     
-    Measuring the mean distance of the gravity center and its perpendicular 
-    projection shows the accuracy of the approximation globally, by taking into
+    Measuring the mean distance of the gravity center and its perpendicular projection shows the accuracy of the approximation globally by taking into
     account all triangles of the mesh rather than picking out the worst approximating 
     triangle.
 
-    \item \textit{The mean distance of the neighbour vertices from the vertex and the 
-    standard deviation of the distance from the mean}
+    \item \textit{The mean distance of the neighbour vertices from the vertex and the standard deviation of the distance from the mean}
 
     The standard deviation of the values from the mean value says about the 
-    distibution of the values around the mean value. Small standard deviation indicates,
-    that the values are close to the mean. On the contrary, bigger standard deviation
-    indicates, that the values are further distributed from the mean value.
+    distribution of the values around the mean value. A small standard deviation indicates
+    that the values are close to the mean. On the contrary, a bigger standard deviation
+    indicates that the values are further distributed from the mean value.
 
     \begin{definition}
-        Given $N$ values -- $x_1, ..., x_N$, let us denote the arithmetical mean 
+        Given $N$ values $-$ $x_1, ..., x_N$, let us denote the arithmetical mean 
         of the values as $\overline{x}$. The standard deviation $\sigma$ can be calculated
         as
         \begin{equation}
@@ -218,8 +216,8 @@ for the resulting mesh with uniform edge size:
 \section{Comparison with SingSurf}
 \label{sub4.2}
 
-SingSurf \cite{morris2003client} is a software used for visualization of two dimensional
-and three dimensional models. It can work with parametric and implicit surfaces, 
+SingSurf \cite{morris2003client} is a software used to visualize two-dimensional
+and three-dimensional models. It can work with parametric and implicit surfaces 
 while allowing to model also some of the surface singularities, including
 ADE singularities. The software was implemented based on an article by 
 Richard Morris \cite{morris2003client}.
@@ -227,13 +225,13 @@ Richard Morris \cite{morris2003client}.
 \subsection{SingSurf algorithm}
 In this subsection, we draw from the article by Richard Morris \cite{morris2003client}.
 
-The server taked the defining equation $F(x, y, z)$ of an algebraic surface and 
+The server takes the defining equation $F(x, y, z)$ of an algebraic surface and 
 produces a polygonization of the surface inside the given bounding box.
-The algorithm used by the SingSurf surface begins with recursive subdivision of
-the bounding box to smaller boxes with half edge size. They use the test based 
+The algorithm used by the SingSurf surface begins with a recursive subdivision of
+the bounding box to smaller boxes with half-edge size. They use the test based 
 on Bernstein polynomials to determine whether the subdivided box contains a part of
 the surface. Only boxes which contain a surface are further subdivided.
-After three or four levels of subdivision the smaller boxes are examined in greater detail.
+After three or four levels of subdivision, the smaller boxes are examined in greater detail.
 
 They define and find three types of points.
 \begin{enumerate}
@@ -245,29 +243,28 @@ They define and find three types of points.
     partial derivatives are zero. They call these points 3-nodes.}
 \end{enumerate}
 
-These points are found in every box and they are connected into triangles to form 
+These points are found in every box, and they are connected into triangles to form 
 a mesh.
 
 \subsubsection*{Limitations for the input data for the SingSurf software}
-To avoid the degenerate cases, it is required that the input to the
-software satisfies the following conditions.
+To avoid degenerate cases, the input to the
+software is required to satisfy the following conditions.
 \begin{enumerate}
     \item {The surface does not intersect the corner points of the bounding box.}
     \item {None of the partial derivatives vanish at the solutions on the edges of the box.}
     \item {The 2-nodes on the faces of the box are isolated.}
 \end{enumerate}
 
-This usually means, that the bounding box needs to be constructed with unequal bounds 
+This usually means that the bounding box needs to be constructed with unequal bounds 
 so that the origin, which is usually the singular point, does not lie at a corner of a box.
 
 \clearpage
 \subsection{Evaluated quality criteria of the SingSurf meshes}
-We compared in quality on fifteen different models. The models were chosen
+We compared in quality of fifteen different models. The models were chosen
 to capture all categories of ADE singularities. Each pair of models was 
-created to have the same axis aligned bounding box and approximately the
+created to have the same axis-aligned bounding box and approximately the
 same number of faces. In the measurement, the invalid faces 
-(the points are lying on a line) produced by SingSurf are not taken into 
-account.
+(the points lying on a line) produced by SingSurf are not considered.
 
 \subsubsection*{$A_{n--}$ singularities}
 We created meshes of $A_{1--}, A_{2--}, A_{3--}$ and $A_{4--}$ singularities.
@@ -293,7 +290,7 @@ Figure~\ref{img:60}.
 \end{figure}
 
 The resulting meshes generated by SingSurf 
-can be seen on the Figure~\ref{img:47}.
+can be seen in the Figure~\ref{img:47}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img47}}
     \caption[Resulting triangulation of $A_{n--}$ singularities by SingSurf]
@@ -302,9 +299,9 @@ can be seen on the Figure~\ref{img:47}.
     \label{img:47}
 \end{figure}
 
-The comparison on the quality criteria measured on these meshes 
+The comparison of the quality criteria measured on these meshes 
 is in the table~\ref{tab:An--}. The better values are visualized
-by the green color and the worse values are visualized by the red 
+by the green color, and the worse values are visualized by the red 
 color.
 \renewcommand*{\MinNumberA}{0.0}%
 \renewcommand*{\MaxNumberA}{1.0}%
@@ -321,7 +318,7 @@ color.
 
 
 \begin{table}[h!]
-    \caption[Quality criteria -- $A_{n--}$ singularities]{Comparison of the quality criteria for $A_{n--}$ singularities.}
+    \caption[Quality criteria $-$ $A_{n--}$ singularities]{Comparison of the quality criteria for $A_{n--}$ singularities.}
         \begin{center}
         \label{tab:An--}
             \begin{tabular}{|c|c|A B C D|} 
@@ -390,7 +387,7 @@ Figure~\ref{img:65}.
 \end{figure}
 
 The resulting meshes generated by SingSurf 
-can be seen on the Figure~\ref{img:47}.
+can be seen in the Figure~\ref{img:47}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img68}}
     \caption[Resulting triangulation of $A_{n+-}$ singularities by SingSurf]
@@ -398,9 +395,9 @@ can be seen on the Figure~\ref{img:47}.
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:68}
 \end{figure}
-The comparison on the quality criteria measured on these meshes 
+The comparison of the quality criteria measured on these meshes 
 is in the table~\ref{tab:An+-}. The better values are visualized
-by the green color and the worse values are visualized by the red 
+by the green color, and the worse values are visualized by the red 
 color.
 
 \renewcommand*{\MinNumberA}{0.0}%
@@ -418,7 +415,7 @@ color.
 
 
 \begin{table}[h!]
-    \caption[Quality criteria -- $A_{n+-}$ singularities]{Comparison of the quality criteria for $A_{n+-}$ singularities.}
+    \caption[Quality criteria $-$ $A_{n+-}$ singularities]{Comparison of the quality criteria for $A_{n+-}$ singularities.}
         \begin{center}
         \label{tab:An+-}
             \begin{tabular}{|c|c|A B C D|} 
@@ -482,7 +479,7 @@ color.
     \end{figure}
 
     The resulting meshes generated by SingSurf 
-    can be seen on the Figure~\ref{img:69}.
+    can be seen in the Figure~\ref{img:69}.
     \begin{figure}[h!]
         \centerline{\includegraphics[scale=0.5]{images/img69}}
         \caption[Resulting triangulation of $D_{n}$ singularities by SingSurf]
@@ -490,9 +487,9 @@ color.
         %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
         \label{img:69}
     \end{figure}
-    The comparison on the quality criteria measured on these meshes 
+    The comparison of the quality criteria measured on these meshes 
     is in the table~\ref{tab:Dn}. The better values are visualized
-    by the green color and the worse values are visualized by the red 
+    by the green color, and the worse values are visualized by the red 
     color.
 
 \renewcommand*{\MinNumberA}{0.0}%
@@ -510,7 +507,7 @@ color.
 
 
 \begin{table}[h!]
-    \caption[Quality criteria -- $D_{n}$ singularities]{Comparison of the quality criteria for $D_{n}$ singularities.}
+    \caption[Quality criteria $-$ $D_{n}$ singularities]{Comparison of the quality criteria for $D_{n}$ singularities.}
         \begin{center}
         \label{tab:Dn}
         \begin{tabular}{|c|c|A B C D|} 
@@ -593,7 +590,7 @@ color.
     \end{figure}
 
     The resulting meshes generated by SingSurf 
-can be seen on the Figure~\ref{img:70}.
+can be seen in the Figure~\ref{img:70}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img70}}
     \caption[Resulting triangulation of $E_{n}$ singularities by SingSurf]
@@ -602,13 +599,13 @@ can be seen on the Figure~\ref{img:70}.
     \label{img:70}
 \end{figure}
 
-The comparison on the quality criteria measured on these meshes 
+The comparison of the quality criteria measured on these meshes 
 is in the table~\ref{tab:En}. The better values are visualized
-by the green color and the worse values are visualized by the red 
+by the green color, and the worse values are visualized by the red 
 color.
 
 \begin{table}[h!]
-    \caption[Quality criteria -- $E_{n}$ singularities]{Comparison of the quality criteria for $E_{n}$ singularities.}
+    \caption[Quality criteria $-$ $E_{n}$ singularities]{Comparison of the quality criteria for $E_{n}$ singularities.}
         \begin{center}
         \label{tab:En}
         \begin{tabular}{|c|c|A B C D|}
@@ -653,9 +650,9 @@ color.
 \end{table}
 
 \section{Curve singularities}
-In this section we will present the meshes generated for the intersection, union 
-and difference of the interiors of two regular surfaces.
-The uniform meshes are generated with multiple different edges length.
+In this section, we present the meshes generated for the intersection, union 
+and the difference of the interiors of two regular surfaces.
+The uniform meshes are generated with multiple different edge lengths.
 
 \subsection{Intersection}
 The intersection of the inside of a sphere given by the equation
@@ -664,18 +661,18 @@ equation $x^2-y^2+z^2-1=0$ is displayed on the Figure~\ref{img:71}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img71}}
     \caption[The surface given by the intersection of a sphere and a hyperboloid]
-    {The surface given by the intersection of a sphere and a hyperboloid.}
+    {The surface is given by the intersection of a sphere and a hyperboloid.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:71}
 \end{figure}
 
 The intersection of the inside of a sphere given by the equation
-$x^2+y^2+z^2-9=0$ and the inside of a tanglecube given by the 
+$x^2+y^2+z^2-9=0$ and the inside of a tangle-cube given by the 
 equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img:73}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img73}}
-    \caption[The surface given by the intersection of a sphere and a tanglecube]
-    {The surface given by the intersection of a sphere and a tanglecube.}
+    \caption[The surface given by the intersection of a sphere and a tangle-cube]
+    {The surface given by the intersection of a sphere and a tangle-cube.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:73}
 \end{figure}
@@ -695,7 +692,7 @@ equation $z=0$ is displayed on the Figure~\ref{img:74}.
 
 The intersection of the inside of a sphere given by the equation
 $x^2+y^2+z^2-4=0$ and the inside of a plane (halfspace) given by the 
-equation $y=$ is displayed on the Figure~\ref{img:72}.
+equation $y=$ is displayed in the Figure~\ref{img:72}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img72}}
     \caption[The surface given by the intersection of a sphere and a plane]
@@ -726,12 +723,12 @@ equation $(x-2)^2+y^2+z^2-4=0$ is displayed on the Figure~\ref{img:78}.
     \label{img:78}
 \end{figure}
 The union of the inside of a sphere given by the equation
-$x^2+y^2+z^2-9=0$ and the inside of a tanglecube given by the 
+$x^2+y^2+z^2-9=0$ and the inside of a tangle-cube given by the 
 equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img:79}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img79}}
-    \caption[The surface given by the union of a sphere and a tanglecube]
-    {The surface given by the union of a sphere and a tanglecube.}
+    \caption[The surface given by the union of a sphere and a tangle-cube]
+    {The surface given by the union of a sphere and a tangle-cube.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:79}
 \end{figure}
@@ -750,34 +747,33 @@ equation $(x-2)^2+y^2+z^2-4=0$ is displayed on the Figure~\ref{img:80}.
 \end{figure}
 
 The difference of the inside of a sphere given by the equation
-$x^2+y^2+z^2-5.5=0$ and the inside of a tanglecube given by the 
+$x^2+y^2+z^2-5.5=0$ and the inside of a tangle-cube given by the 
 equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img:82}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.49]{images/img82}}
-    \caption[The surface given by the difference of a sphere and a tanglecube]
-    {The surface given by the difference of a sphere and a tanglecube.}
+    \caption[The surface given by the difference of a sphere and a tangle-cube]
+    {The surface given by the difference of a sphere and a tangle-cube.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:82}
 \end{figure}
 
-The difference of the inside of a tanglecube given by the 
+The difference of the inside of a tangle-cube given by the 
 equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ and the inside 
 of a sphere given by the equation
 $x^2+y^2+z^2-5.5=0$ is displayed on the Figure~\ref{img:83}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.49]{images/img83}}
-    \caption[The surface given by the difference of a tanglecube and a sphere]
-    {The surface given by the difference of a tanglecube and a sphere.}
+    \caption[The surface given by the difference of a tangle-cube and a sphere]
+    {The surface given by the difference of a tangle-cube and a sphere.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:83}
 \end{figure}
 
 \clearpage
 \section{Triangulation of a plane with $A_{n--}$ singularities}
-In this section we will present the meshes generated for the $A_{n--}$ singularities
-sticked to the plane. The presented meshes are uniform with different edge lengths.
+In this section, we present the meshes generated for the $A_{n--}$ singularities stuck to the plane. The presented meshes are uniform with different edge lengths.
 
-\textit{Note: Some edges of the mesh are not displayed due to zero angle between the incident
+\textit{Note: Some mesh edges are not displayed due to zero angle between the incident
 triangles. This is an error in the used obj viewer.}
 
 The uniform mesh with a single $A_{2--}$ singularity sticked to a plane is displayed
@@ -803,7 +799,7 @@ on the Figure~\ref{img:85}.
 \end{figure}
 
 The uniform mesh with one $A_{2--}$ singularity and one $A_{4--}$ singularity
-sticked to a plane is displayed on the Figure~\ref{img:86}.
+stuck to a plane is displayed on the Figure~\ref{img:86}.
 
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img86}}
@@ -814,7 +810,7 @@ sticked to a plane is displayed on the Figure~\ref{img:86}.
 \end{figure}
 
 The uniform mesh with $A_{1--}$, $A_{2--}$, $A_{3--}$, $A_{4--}$ singularities
-sticked to a plane is displayed on the Figure~\ref{img:87}.
+stuck to a plane is displayed on the Figure~\ref{img:87}.
 
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img87}}
@@ -826,15 +822,15 @@ sticked to a plane is displayed on the Figure~\ref{img:87}.
 
 \section{Runtime comparison of the reimplemented solution}
 \label{sub4.3}
-In this section we compare the runtime of the reimplemented solution using half-edge 
+In this section, we compare the runtime of the reimplemented solution using half-edge 
 and range-tree to the brute-force solution implemented in \cite{korecova2021triangulation}.
 
-To obtain the results, laptop with 6-core AMD Ryzen 5 5600U with Radeon Graphics was used.
+To obtain the results, a laptop with a 6-core AMD Ryzen 5 5600U with Radeon Graphics was used.
 We measured the runtime of the algorithm with a given edge length on a unit sphere.
 
-The dependance of the time from the length of the edge of the triangle is
+The dependence of the time from the length of the edge of the triangle is
 displayed on the Graph~\ref{graph1}.
-For better insight into the meshes with bigger triangles, the same values are 
+For a better insight into the meshes with bigger triangles, the same values are 
 displayed on the Graph~\ref{graph2} with a logaritmic scale.
 
 \renewcommand{\figurename}{Graph}
@@ -871,8 +867,8 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
     \legend{Brute-force algorithm, Optimized algorithm}
     \end{axis}
     \end{tikzpicture}
-\caption[The dependance of the runtime on the input edge length for the unit sphere]
-{The dependance of the runtime on the input edge length for the unit sphere}
+\caption[The dependence of the runtime on the input edge length for the unit sphere]
+{The dependence of the runtime on the input edge length for the unit sphere}
 \label{graph1}
 \end{figure}
 
@@ -880,7 +876,7 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
     \centering
 \begin{tikzpicture}
 \begin{semilogyaxis}[
-    xlabel={Runtime (in miliseconds)},
+    xlabel={Runtime (in milliseconds)},
     ylabel={Length of the edge of the triangle},
     xmin=0, xmax=1,
     ymin=100, ymax=250000,
@@ -909,16 +905,16 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
 \legend{Brute-force algorithm, Optimized algorithm}
 \end{semilogyaxis}
 \end{tikzpicture}
-\caption[The dependance of the runtime on the input edge length for the unit sphere (logaritmic scale)]
-{The dependance of the runtime on the input edge length for the unit sphere (logaritmic scale)}        
+\caption[The dependence of the runtime on the input edge length for the unit sphere (logarithmic scale)]
+{The dependence of the runtime on the input edge length for the unit sphere (logarithmic scale)}        
 \label{graph2}
 \end{figure}
 
     As the edge size does not fully capture the size of the mesh,
-    we provide the graphs of dependance of the runtime of the 
-    algorithm from the number of triangles in the mesh.
-    The dependance is displayed on the Graph~\ref{graph3}.
-    The dependance with logaritmic scale is displayed on the Graph~\ref{graph4}.
+    we provide the graphs of dependence of the runtime of the 
+    the algorithm from the number of triangles in the mesh.
+    The dependence is displayed on the Graph~\ref{graph3}.
+    The dependence with logarithmic scale is displayed on the Graph~\ref{graph4}.
 
     \begin{figure}
         \centering
@@ -977,15 +973,15 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
             \legend{Brute-force algorithm, Optimized algorithm}
             \end{axis}
             \end{tikzpicture}
-    \caption[The dependance of the runtime on the number of generated triangles]
-    {The dependance of the runtime on the number of generated triangles}        
+    \caption[The dependence of the runtime on the number of generated triangles]
+    {The dependence of the runtime on the number of generated triangles}        
     \label{graph3}
         \end{figure}    
 \begin{figure}
     \centering
 \begin{tikzpicture}
     \begin{semilogyaxis}[
-        xlabel={Runtime (in miliseconds)},
+        xlabel={Runtime (in milliseconds)},
         ylabel={Number of generated triangles},
         xmin=0, xmax=3500,
         ymin=100, ymax=250000,
@@ -1037,12 +1033,12 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
     \legend{Brute-force algorithm, Optimized algorithm}
     \end{semilogyaxis}
     \end{tikzpicture}
-    \caption[The dependance of the runtime on the number of generated triangles (logaritmic scale)]
-    {The dependance of the runtime on the number of generated triangles (logaritmic scale)}        
+    \caption[The dependence of the runtime on the number of generated triangles (logarithmic scale)]
+    {The dependence of the runtime on the number of generated triangles (logarithmic scale)}        
     \label{graph4}
 \end{figure}
-One can see that the bruteforce algorithm beats the optimized implementation
-with the smaller meshes, however, for the bigger meshes, the optimized 
+One can see that the brute-force algorithm beats the optimized implementation
+with the smaller meshes. However, for the bigger meshes, the optimized 
 implementation is more than nine times faster for the biggest model.
 
 \renewcommand{\figurename}{Figure}

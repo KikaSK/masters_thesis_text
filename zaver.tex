@@ -3,7 +3,7 @@
 \markboth{Conclusion}{Conclusion} % vyriesenie hlaviciek
 The goal of this work was to develop an approach to triangulate
 surfaces with certain types of singular points and singular points.
-We developed an approch for creating a local mesh for ADE singularities
+We developed an approach for creating a local mesh for ADE singularities
 and singular curves arising as the curves on the intersection of two regular
 surfaces.
 The local mesh could then be finished by using the 
@@ -14,8 +14,8 @@ one branch of the $D_{n--}$ singularities. For other types of singularities, we
 introduced different numerical solutions based on the local geometry of 
 the ADE singularities. Moreover, we introduced layers to improve the local 
 approximation around the singular points. We optimized the numerical solution
-to create triangles which are closer to isosceles triangles to improve the 
-quality of the mesh.
+to create triangles closer to isosceles triangles to improve the 
+mesh quality.
 
 For the singular curves given by the intersection of two regular surfaces
 we created an approach for both -- closed and open singular curves.
@@ -23,30 +23,27 @@ The local mesh can be created for intersection, union or difference of the
 two regular surfaces.
 
 To achieve the triangulation adaptive to the local curvature of the surface,
-we proposed a solution, which determines the length of the edge of the triangle
+we proposed a solution which determines the length of the edge of the triangle
 based on the constant of detail. The constant of detail is a parameter,
-which determines the relation between the size of the triangle and curvedness
+which determines the relation between the size of the triangle and the curvedness
 in a given point.
 
 In the section \ref{sub4.2}, we presented a comparison with the SingSurf software 
-\cite{morris2003client} in terms of quality of the resulting mesh of ADE singularities.
+\cite{morris2003client} in terms of the quality of the resulting mesh of ADE singularities.
 
 Lastly, we reimplemented the algorithm for regular parts of the implicit surfaces
-using half-edge data structure and range-tree. We implement the solution in C++
+using a half-edge data structure and a range-tree. We implement the solution in C++
 using the GiNaC library \cite{bauer2002introduction} -- open framework for symbolic 
 computation within the C++ programming language.
-The reimplementation sped up the
-runtime of the algorithm significantly when creating the meshes with large number
+The reimplementation sped up the runtime of the algorithm significantly when creating the meshes with a large number
 of triangles.
 
-In the future, one could develop an approach for analytical trianuglation of 
+In the future, one could develop an approach for the analytical triangulation of 
 other ADE singularities. Other types of singularities could also be included in 
 the solutions. For ADE singularities, we have the triangulation vectors given on 
 the input. In the future, these could be calculated or approximated directly from 
-the equation. For the CSG modelling, one could implement a solution for triangulation
-of the surfaces resulting from intersection of multiple surfaces. In these surfaces
-also isolated singularities lying on the singular curves could arise. At the end,
-there is a possibility of improvement of the algorithm for regular parts, including
-creating a robust algorithm for fixing holes or a postprocessing to improve the
-quality of the mesh.
+the equation. For the CSG modelling, one could implement a solution for triangulation of the surfaces resulting from the intersection of multiple surfaces. In these surfaces, isolated singularities lying on the singular curves could arise. In the end,
+improving the algorithm for regular parts is possible, including
+creating a robust algorithm for fixing holes or postprocessing to improve the
+mesh quality.
 

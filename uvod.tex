@@ -3,9 +3,9 @@
 \markboth{Introduction}{Introduction} % vyriesenie hlaviciek
 
 In mathematics, an implicit surface in $\R^3$ is a set of points where
-a given function $F:\R^3 \to \R$ is zero. Due to
+a given function $F:\R^3 \to \R$ is zero. Due to a
 unification of constructive solid geometry modelling and 
-implicit surfaces, we can now model and represent very 
+implicit surfaces, one can model and represent very 
 complex surfaces using a single function.
 
 In computer graphics, triangular mesh is the most common
@@ -17,10 +17,10 @@ an implicit surface.
 Many surfaces contain singular points where all three partial
 derivatives vanish. These points may cause problems for
 meshing algorithms. Some meshing algorithms, such as 
-Marching Cubes, simply ignore these points,
+Marching Cubes ignore these points,
 which leads to insufficient surface representation.
 
-In this thesis, we follow up on our effort in bachelor's thesis
+In this thesis, we follow up on our effort in our bachelor's thesis
 \cite{korecova2021triangulation} to present an algorithm for
 creating the triangular mesh of regular implicit surfaces.
 
@@ -29,11 +29,11 @@ by using advanced data structures for mesh representation
 and 3D point search.
 
 Next, we extend the algorithm to include the triangulation
-of certain types of isolated singularities -- ADE singularities,
-and non-isolated singularities -- curves on the intersection
+of certain types of isolated singularities $-$ ADE singularities,
+and non-isolated singularities $-$ curves on the intersection
 of two regular surfaces.
 We analyze the geometry of these singularities and propose 
-an approach to create a mesh, which correctly captures
+an approach to create a mesh which correctly captures
 the geometry of the singularities.
 
 Lastly, we propose the adaptive technique, which changes the
