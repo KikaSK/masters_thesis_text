@@ -36,8 +36,8 @@
 % --- Definicia zakladnych pojmov
 % --- Vyplnte podla vasho zadania
 % -------------------
-\def\mfrok{2021}
-\def\mfnazov{Triangulation of implicit surface with singularities}
+\def\mfrok{2023}
+\def\mfnazov{Triangulation of implicitly defined surfaces}
 \def\mftyp{Master's thesis}
 \def\mfautor{Bc. Kristína Korecová}
 \def\mfskolitel{doc. RNDr. Pavel Chalmovianský, PhD. }
@@ -138,6 +138,8 @@ Supervisor: & \mfskolitel \\
 \thispagestyle{empty}
 \hspace{-2cm}\includegraphics[page=1,width=1.1\textwidth]{images/zadanie-en}
 \hspace{-2cm}\includegraphics[page=2,width=1.1\textwidth]{images/zadanie-en}
+\hspace{-2cm}\includegraphics[page=1,width=1.1\textwidth]{images/zadanie-sk}
+\hspace{-2cm}\includegraphics[page=2,width=1.1\textwidth]{images/zadanie-sk}
 
 % --- Koniec zadania
 
@@ -151,14 +153,14 @@ Supervisor: & \mfskolitel \\
 ~
 
 \vfill
-{\bf Acknowledgements:} In the first place, I want to thank my supervisor doc.
+{\bf Acknowledgements:} In the first place, I want to thank my supervisor, doc.
 RNDr. Pavel Chalmovianský, PhD. for answering my questions and providing me 
 with valuable feedback.
-I also want to thank my partner Andrej, for always being my (not only technical)
-support and for the involuntary listening to my geometry lectures. Next I want to 
-thank my family, especially my mother and grandma for the support and the best meals.
+I also want to thank my partner, Andrej, for always being my (not only technical)
+support and for the involuntary listening to my geometry lectures. Next, I want to 
+thank my family, especially my mom and grandma, for the support and the best meals.
 Last but not least, I want to thank my classmates - Lucka, Bea and Mima for listening
-to my never ending complaints.
+to my never-ending complaints.
 
 % --- Koniec poďakovania
 
@@ -168,25 +170,26 @@ to my never ending complaints.
 \newpage 
 \section*{Abstrakt}
 
-Implicitne zadané plochy sú plochy, ktoré sú definované ako nulová hladina
-funkcie troch premenných. Triangulácia plochy je častý spôsob digitálnej reprezentácie
-plochy.
-Pre množstvo algoritmov, ktoré vytvárajú aproximáciu trojuholníkovým meshom,
-vznikajú problémy ak plocha obsahuje singularity -- body v ktorých je gradient funkcie
-nulový vektor.
-Niektoré algoritmy, ako napríklad Marching Cubes \cite{lorensen1987marching},
-jednoducho ignorujú singulárne body, čo vedie k nekorektnej aproximácií plochy.
+Implicitne zadané plochy sú plochy definované ako nulová hladina
+funkcie troch premenných. 
+Aproximácia plochy trojuholníkovým meshom $-$ triangulácia
+je častý spôsob digitálnej reprezentácie plochy.
+Pre množstvo algoritmov, ktoré vytvárajú trianguláciu plochy,
+vznikajú problémy ak plocha obsahuje singularity $-$ body v ktorých je gradient 
+definujúcej funkcie nulový vektor.
+Niektoré algoritmy
+ignorujú singulárne body, čo vedie k nekorektnej aproximácií plochy.
 V tejto práci vytvárame algoritmus na trianguláciu plôch zadaných implicitne
-obsahujúcich niktoré typy singuarít, pričom sa zameriavame na korektnosť
+obsahujúcich niektoré typy singularít. Pritom sa zameriavame na korektnosť
 triangulácie a kvalitu meshu.
-Rozširujeme algoritmus implementovaný v bakalárskej práci \cite{korecova2021triangulation}
-založený na algoritme Marching Triangles \cite{hilton1996marching}
+Rozširujeme algoritmus implementovaný v našej bakalárskej práci
+založený na algoritme Marching Triangles tak,
 aby umožnil trianguláciu implicitne zadaných plôch obsahujúcich 
 ADE singularity a krivkové singularity na prieniku dvoch regulárnych plôch.
-Navyše navrhujeme prístup na vytvorenie triangulácie adaptívnej na 
+Navyše navrhujeme postup na vytvorenie triangulácie adaptívnej na 
 lokálnu krivosť plochy. Nakoniec reimplemenutujeme algoritmus 
-\cite{korecova2021triangulation} pre zrýchlenie času behu algoritmu.
-\paragraph*{Kľúčové slová:} implicitne definovaná plocha, triangulácia, výpočtový prístup
+pre zrýchlenie času behu algoritmu.
+\paragraph*{Kľúčové slová:} implicitne definovaná plocha, triangulácia, numerický algoritmus
 
 % --- Koniec Abstrakt - Slovensky
 
@@ -196,25 +199,24 @@ lokálnu krivosť plochy. Nakoniec reimplemenutujeme algoritmus
 % -------------------
 \newpage 
 \section*{Abstract}Implicit surfaces are surfaces defined as a zero set of a function.
-Triangulation of the surface is a common way of digital surface
-representation.
-For most algorithms constructing the approximation by the triangular mesh
+Approximation of a surface by a triangular mesh $-$ triangulation 
+is a common way of digital surface representation.
+For most algorithms constructing the triangulation of a surface
 a problem arises if the surface contains singularities $-$ the points at which 
 the gradient of the defining function vanishes.
-Some algorithms, such as the Marching Cubes \cite{lorensen1987marching},
+Some algorithms
 ignore the singular points, which results in the incorrect approximation
 of the surface.
 In this thesis, we create an algorithm for the triangulation of 
-the surfaces with certain types of singularities while focusing on the
+the surfaces with certain types of singularities. We focus on the
 correctness of the triangulation and the quality of a mesh.
-We are extending the algorithm implemented in the bachelor's thesis 
-\cite{korecova2021triangulation}
-based on the Marching Triangles \cite{hilton1996marching} to allow 
+We are extending the algorithm implemented in our bachelor's thesis
+based on the Marching Triangles to allow 
 triangulation of the implicit surfaces containing ADE singularities
 and curve singularities on the intersection of two regular surfaces.
-Moreover, we propose an approach to creating a triangulation adaptive 
+Moreover, we propose an approach for creating a triangulation adaptive 
 to the local curvature of a surface. Lastly, we reimplement the 
-algorithm \cite{korecova2021triangulation} to speed up its runtime.
+algorithm to speed up its runtime.
 \paragraph*{Keywords:} implicitly defined surface, triangulation, computational approach
 
 % --- Koniec Abstrakt - Anglicky
@@ -315,9 +317,11 @@ algorithm \cite{korecova2021triangulation} to speed up its runtime.
 %
 \input appendixA.tex
 
+\input appendixB.tex
+
 \end{document}
 
-
+ 
 
 
 

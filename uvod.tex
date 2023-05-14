@@ -11,16 +11,16 @@ complex surfaces using a single function.
 In computer graphics, triangular mesh is the most common
 way of surface representation and visualization. Calculating
 the intersection of a ray and a triangular mesh is far 
-easier task as calculating the intersection of a ray and
+easier task than calculating the intersection of a ray and
 an implicit surface.
 
 Many surfaces contain singular points where all three partial
 derivatives vanish. These points may cause problems for
 meshing algorithms. Some meshing algorithms, such as 
-Marching Cubes ignore these points,
+Marching Cubes \cite{lorensen1987marching} ignore these points,
 which leads to insufficient surface representation.
 
-In this thesis, we follow up on our effort in our bachelor's thesis
+In this thesis, we follow up on our effort in our previous work
 \cite{korecova2021triangulation} to present an algorithm for
 creating the triangular mesh of regular implicit surfaces.
 
@@ -38,3 +38,8 @@ the geometry of the singularities.
 
 Lastly, we propose the adaptive technique, which changes the
 size of the triangles based on the local curvature of the surface.
+
+In the chapter \ref{chap4} we compare the quality of the meshes
+with the SingSurf software \cite{morris2003client}. We also compare
+the runtime of the reimplemented algorithm with the implementation
+presented in our previous work \cite{korecova2021triangulation}. 

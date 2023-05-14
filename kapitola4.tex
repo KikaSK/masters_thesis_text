@@ -132,7 +132,7 @@
 
 In this chapter, we present the results achieved in the triangulation of
 ADE singularities, surfaces with ADE singularities and surfaces with 
-singular curves arose from CSG operations on regular surfaces.
+singular curves which arose from performing CSG operation on regular surfaces.
 We measure some of the quality criteria proposed in \cite{korecova2021triangulation}
 and compare our meshes in terms of quality with the meshes produced by a software 
 for visualization of the implicit surfaces with ADE singularities implemented
@@ -150,14 +150,15 @@ for the resulting mesh with uniform edge size:
 \begin{enumerate}
     \item \textit{The mean ratio of the length of the sides of the triangle}
     
-    The mean ratio of the length of the longest side of the triangle
-    and the shortest side of the triangle shows the uniformity of the 
+    The mean ratio of the length of the shortest side of the triangle
+    and the longest side of the triangle shows the uniformity of the 
     triangles. 
     For an equilateral triangle, the ratio equals exactly one. The ratio is
-    greater than one for isosceles and scalene triangles. 
-    The further the triangle is from an equilateral triangle, the greater the ratio.
+    smaller than one for isosceles and scalene triangles. 
+    The further the triangle is from an equilateral triangle, the smaller the ratio.
     A number close to one indicates triangles close to the equilateral triangles,
-    whereas a number greater than one indicates more non-uniform triangles in the mesh.
+    whereas a number close to zero indicates more non-uniform triangles in the mesh.
+    Let us denote this criterium $k_1$.
 
     \item \textit{Discrete approximation of the Hausdorff distance}
     
@@ -186,14 +187,16 @@ for the resulting mesh with uniform edge size:
 
     The Hausdorff distance measures the accuracy of the triangulation by picking the 
     triangle, which approximates the surface the worst.
+    Let us denote this criterium $k_2$.
 
     \item \textit{The mean distance of the gravity center and its perpendicular projection}
     
     Measuring the mean distance of the gravity center and its perpendicular projection shows the accuracy of the approximation globally by taking into
     account all triangles of the mesh rather than picking out the worst approximating 
     triangle.
+    Let us denote this criterium $k_3$.
 
-    \item \textit{The mean distance of the neighbour vertices from the vertex and the standard deviation of the distance from the mean}
+    \item \textit{The mean distance of the neighbour vertices from a vertex and the standard deviation of the distance from the mean}
 
     The standard deviation of the values from the mean value says about the 
     distribution of the values around the mean value. A small standard deviation indicates
@@ -209,8 +212,10 @@ for the resulting mesh with uniform edge size:
         \end{equation}
     \end{definition}
 
-    For the whole mesh, we are calculating the mean standard deviation from the 
-    standard deviation of all points and its neighbour points in the mesh.
+    For the whole mesh, we calculate the mean standard deviation as an arithmetical
+    mean of the 
+    standard deviations of the distances of all points from its neighbour points in the mesh.
+    Let us denote this criterium $k_4$.
 \end{enumerate}
 
 \section{Comparison with SingSurf}
@@ -228,7 +233,8 @@ In this subsection, we draw from the article by Richard Morris \cite{morris2003c
 The server takes the defining equation $F(x, y, z)$ of an algebraic surface and 
 produces a polygonization of the surface inside the given bounding box.
 The algorithm used by the SingSurf surface begins with a recursive subdivision of
-the bounding box to smaller boxes with half-edge size. They use the test based 
+the bounding box to smaller boxes with the half of the size of the edge of the bigger box. 
+They use the test based 
 on Bernstein polynomials to determine whether the subdivided box contains a part of
 the surface. Only boxes which contain a surface are further subdivided.
 After three or four levels of subdivision, the smaller boxes are examined in greater detail.
@@ -236,7 +242,7 @@ After three or four levels of subdivision, the smaller boxes are examined in gre
 They define and find three types of points.
 \begin{enumerate}
     \item{Points on the edges of the box where $F=0$.}
-    \item{Points on the faces of the box where $F=0$ and at least one of partial
+    \item{Points on the faces of the box where $F=0$ and at least one of the partial
     derivatives, $\frac{\partial F}{\partial x}$, $\frac{\partial F}{\partial y}$
     or $\frac{\partial F}{\partial z}$ is zero. They call these points 2-nodes.}
     \item{Points in the interior of the box where $F=0$ and at least two of the
@@ -259,17 +265,17 @@ This usually means that the bounding box needs to be constructed with unequal bo
 so that the origin, which is usually the singular point, does not lie at a corner of a box.
 
 \clearpage
-\subsection{Evaluated quality criteria of the SingSurf meshes}
-We compared in quality of fifteen different models. The models were chosen
+\subsection{Evaluated quality criteria}
+We compared the quality of fifteen different models. The models were chosen
 to capture all categories of ADE singularities. Each pair of models was 
 created to have the same axis-aligned bounding box and approximately the
 same number of faces. In the measurement, the invalid faces 
-(the points lying on a line) produced by SingSurf are not considered.
+(the points lying on a line) produced by the SingSurf software are not considered.
 
 \subsubsection*{$A_{n--}$ singularities}
 We created meshes of $A_{1--}, A_{2--}, A_{3--}$ and $A_{4--}$ singularities.
 
-The resulting uniform meshes from our algorithm can be seen on the 
+The resulting uniform meshes from our algorithm can be seen in the 
 Figure~\ref{img:61}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.24]{images/img61}}
@@ -279,7 +285,7 @@ Figure~\ref{img:61}.
     \label{img:61}
 \end{figure} 
 
-The resulting adaptive meshes from our algorithm can be seen on the 
+The resulting adaptive meshes from our algorithm can be seen in the 
 Figure~\ref{img:60}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img60}}
@@ -300,7 +306,7 @@ can be seen in the Figure~\ref{img:47}.
 \end{figure}
 
 The comparison of the quality criteria measured on these meshes 
-is in the table~\ref{tab:An--}. The better values are visualized
+is in the Table~\ref{tab:An--}. The better values are visualized
 by the green color, and the worse values are visualized by the red 
 color.
 \renewcommand*{\MinNumberA}{0.0}%
@@ -366,7 +372,7 @@ color.
 \subsubsection*{$A_{n+-}$ singularities}
 We created meshes of $A_{2+-}, A_{3+-}$ and $A_{4+-}$ singularities.
 
-The resulting uniform meshes from our algorithm can be seen on the 
+The resulting uniform meshes from our algorithm can be seen in the 
 Figure~\ref{img:63}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img63}}
@@ -376,7 +382,7 @@ Figure~\ref{img:63}.
     \label{img:63}
 \end{figure}
 
-The resulting adaptive meshes from our algorithm can be seen on the 
+The resulting adaptive meshes from our algorithm can be seen in the 
 Figure~\ref{img:65}.
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img65}}
@@ -395,8 +401,9 @@ can be seen in the Figure~\ref{img:47}.
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:68}
 \end{figure}
+
 The comparison of the quality criteria measured on these meshes 
-is in the table~\ref{tab:An+-}. The better values are visualized
+is in the Table~\ref{tab:An+-}. The better values are visualized
 by the green color, and the worse values are visualized by the red 
 color.
 
@@ -458,7 +465,7 @@ color.
     \subsubsection*{$D_{n}$ singularities}
     We created meshes of $D_{4+-}, D_{4--}, D_{5+-}$ and $D_{5--}$ singularities.
 
-    The resulting uniform meshes from our algorithm can be seen on the 
+    The resulting uniform meshes from our algorithm can be seen in the 
     Figure~\ref{img:62}.
     \begin{figure}[h!]
         \centerline{\includegraphics[scale=0.5]{images/img62}}
@@ -468,7 +475,7 @@ color.
         \label{img:62}
     \end{figure}
 
-    The resulting adaptive meshes from our algorithm can be seen on the 
+    The resulting adaptive meshes from our algorithm can be seen in the 
     Figure~\ref{img:66}.
     \begin{figure}[h!]
         \centerline{\includegraphics[scale=0.5]{images/img66}}
@@ -487,8 +494,9 @@ color.
         %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
         \label{img:69}
     \end{figure}
+
     The comparison of the quality criteria measured on these meshes 
-    is in the table~\ref{tab:Dn}. The better values are visualized
+    is in the Table~\ref{tab:Dn}. The better values are visualized
     by the green color, and the worse values are visualized by the red 
     color.
 
@@ -569,7 +577,7 @@ color.
 \subsubsection*{$E_{n}$ singularities}
     We created meshes of $E_{4++}, E_{6+-}, E_{7++}$ and $E_{8++}$ singularities.
 
-    The resulting uniform meshes from our algorithm can be seen on the 
+    The resulting uniform meshes from our algorithm can be seen in the 
     Figure~\ref{img:64}.
     \begin{figure}[h!]
         \centerline{\includegraphics[scale=0.5]{images/img64}}
@@ -579,7 +587,7 @@ color.
         \label{img:64}
     \end{figure}
 
-    The resulting adaptive meshes from our algorithm can be seen on the 
+    The resulting adaptive meshes from our algorithm can be seen in the 
     Figure~\ref{img:67}.
     \begin{figure}[h!]
         \centerline{\includegraphics[scale=0.5]{images/img67}}
@@ -600,7 +608,7 @@ can be seen in the Figure~\ref{img:70}.
 \end{figure}
 
 The comparison of the quality criteria measured on these meshes 
-is in the table~\ref{tab:En}. The better values are visualized
+is in the Table~\ref{tab:En}. The better values are visualized
 by the green color, and the worse values are visualized by the red 
 color.
 
@@ -656,19 +664,21 @@ The uniform meshes are generated with multiple different edge lengths.
 
 \subsection{Intersection}
 The intersection of the inside of a sphere given by the equation
-$x^2+y^2+z^2-4=0$ and the inside of a hyperboloid given by the 
-equation $x^2-y^2+z^2-1=0$ is displayed on the Figure~\ref{img:71}.
+$$x^2+y^2+z^2-4=0$$ and the inside of a hyperboloid given by the 
+equation $$x^2-y^2+z^2-1=0$$ is displayed in the Figure~\ref{img:71}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img71}}
     \caption[The surface given by the intersection of a sphere and a hyperboloid]
-    {The surface is given by the intersection of a sphere and a hyperboloid.}
+    {The surface given by the intersection of a sphere and a hyperboloid.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:71}
 \end{figure}
 
 The intersection of the inside of a sphere given by the equation
-$x^2+y^2+z^2-9=0$ and the inside of a tangle-cube given by the 
-equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img:73}.
+$$x^2+y^2+z^2-9=0$$ and the inside of a tangle-cube given by the 
+equation $$x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$$ is displayed in the Figure~\ref{img:73}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img73}}
     \caption[The surface given by the intersection of a sphere and a tangle-cube]
@@ -678,10 +688,10 @@ equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img
 \end{figure}
 
 The intersection of the inside of a blobby object given by the equation
-\newline
-$2\sqrt{x^2+y^2+z^2+1}-1.1=0$ 
+$$2\sqrt{x^2+y^2+z^2+1}-1.1=0$$ 
 and the inside of a plane (halfspace) given by the 
-equation $z=0$ is displayed on the Figure~\ref{img:74}.
+equation $$z=0$$ is displayed in the Figure~\ref{img:74}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img74}}
     \caption[The surface given by the intersection of a blobby object and a plane]
@@ -691,8 +701,9 @@ equation $z=0$ is displayed on the Figure~\ref{img:74}.
 \end{figure}
 
 The intersection of the inside of a sphere given by the equation
-$x^2+y^2+z^2-4=0$ and the inside of a plane (halfspace) given by the 
-equation $y=$ is displayed in the Figure~\ref{img:72}.
+$$x^2+y^2+z^2-4=0$$ and the inside of a plane (halfspace) given by the 
+equation $$y=-1$$ is displayed in the Figure~\ref{img:72}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img72}}
     \caption[The surface given by the intersection of a sphere and a plane]
@@ -703,8 +714,9 @@ equation $y=$ is displayed in the Figure~\ref{img:72}.
 
 \subsection{Union}
 The union of the inside of a sphere given by the equation
-$x^2+y^2+z^2-4=0$ and the inside of a hyperboloid given by the 
-equation $x^2-y^2+z^2-1=0$ is displayed on the Figure~\ref{img:77}.
+$$x^2+y^2+z^2-4=0$$ and the inside of a hyperboloid given by the 
+equation $$x^2-y^2+z^2-1=0$$ is displayed in the Figure~\ref{img:77}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img77}}
     \caption[The surface given by the union of a sphere and a hyperboloid]
@@ -712,9 +724,11 @@ equation $x^2-y^2+z^2-1=0$ is displayed on the Figure~\ref{img:77}.
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:77}
 \end{figure}
+
 The union of the inside of a sphere given by the equation
-$x^2+y^2+z^2-4=0$ and the inside of a sphere given by the 
-equation $(x-2)^2+y^2+z^2-4=0$ is displayed on the Figure~\ref{img:78}.
+$$x^2+y^2+z^2-4=0$$ and the inside of a sphere given by the 
+equation $$(x-2)^2+y^2+z^2-4=0$$ is displayed in the Figure~\ref{img:78}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img78}}
     \caption[The surface given by the union of two spheres]
@@ -722,9 +736,11 @@ equation $(x-2)^2+y^2+z^2-4=0$ is displayed on the Figure~\ref{img:78}.
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:78}
 \end{figure}
+
 The union of the inside of a sphere given by the equation
-$x^2+y^2+z^2-9=0$ and the inside of a tangle-cube given by the 
-equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img:79}.
+$$x^2+y^2+z^2-9=0$$ and the inside of a tangle-cube given by the 
+equation $$x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$$ is displayed in the Figure~\ref{img:79}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img79}}
     \caption[The surface given by the union of a sphere and a tangle-cube]
@@ -736,8 +752,9 @@ equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img
 \subsection{Difference}
 
 The difference of the inside of a sphere given by the equation
-$x^2+y^2+z^2-4=0$ and the inside of a sphere given by the 
-equation $(x-2)^2+y^2+z^2-4=0$ is displayed on the Figure~\ref{img:80}.
+$$x^2+y^2+z^2-4=0$$ and the inside of a sphere given by the 
+equation $$(x-2)^2+y^2+z^2-4=0$$ is displayed in the Figure~\ref{img:80}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.49]{images/img80}}
     \caption[The surface given by the difference of two spheres]
@@ -747,8 +764,9 @@ equation $(x-2)^2+y^2+z^2-4=0$ is displayed on the Figure~\ref{img:80}.
 \end{figure}
 
 The difference of the inside of a sphere given by the equation
-$x^2+y^2+z^2-5.5=0$ and the inside of a tangle-cube given by the 
-equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img:82}.
+$$x^2+y^2+z^2-5.5=0$$ and the inside of a tangle-cube given by the 
+equation $$x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$$ is displayed in the Figure~\ref{img:82}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.49]{images/img82}}
     \caption[The surface given by the difference of a sphere and a tangle-cube]
@@ -758,9 +776,10 @@ equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ is displayed on the Figure~\ref{img
 \end{figure}
 
 The difference of the inside of a tangle-cube given by the 
-equation $x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$ and the inside 
+equation $$x^4-5x^2+y^4-5y^2+z^4-5z^2+11.8=0$$ and the inside 
 of a sphere given by the equation
-$x^2+y^2+z^2-5.5=0$ is displayed on the Figure~\ref{img:83}.
+$$x^2+y^2+z^2-5.5=0$$ is displayed in the Figure~\ref{img:83}.
+
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.49]{images/img83}}
     \caption[The surface given by the difference of a tangle-cube and a sphere]
@@ -771,51 +790,52 @@ $x^2+y^2+z^2-5.5=0$ is displayed on the Figure~\ref{img:83}.
 
 \clearpage
 \section{Triangulation of a plane with $A_{n--}$ singularities}
-In this section, we present the meshes generated for the $A_{n--}$ singularities stuck to the plane. The presented meshes are uniform with different edge lengths.
+In this section, we present the meshes\footnote{Some mesh edges are not displayed 
+due to zero angle between the incident
+triangles. This is an error in the used obj viewer.} generated for the 
+$A_{n--}$ singularities 
+glued to the plane. The presented meshes are uniform with different edge lengths.
 
-\textit{Note: Some mesh edges are not displayed due to zero angle between the incident
-triangles. This is an error in the used obj viewer.}
-
-The uniform mesh with a single $A_{2--}$ singularity sticked to a plane is displayed
-on the Figure~\ref{img:84}.
+The uniform mesh with a single $A_{2--}$ singularity is displayed
+in the Figure~\ref{img:84}.
 
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img84}}
-    \caption[The triangulation of the $A_{2--}$ singularity sticked to a plane]
-    {The triangulation of the $A_{2--}$ singularity sticked to a plane.}
+    \caption[The triangulation of the $A_{2--}$ singularity]
+    {The triangulation of the $A_{2--}$ singularity.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:84}
 \end{figure}
 
-The uniform mesh with a two $A_{2--}$ singularities sticked to a plane is displayed
-on the Figure~\ref{img:85}.
+The uniform mesh with a two $A_{2--}$ singularities is displayed
+in the Figure~\ref{img:85}.
 
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img85}}
-    \caption[The triangulation of the two $A_{2--}$ singularities sticked to a plane]
-    {The triangulation of the two $A_{2--}$ singularities sticked to a plane.}
+    \caption[The triangulation of the two $A_{2--}$ singularities]
+    {The triangulation of the two $A_{2--}$ singularities.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:85}
 \end{figure}
 
 The uniform mesh with one $A_{2--}$ singularity and one $A_{4--}$ singularity
-stuck to a plane is displayed on the Figure~\ref{img:86}.
+is displayed in the Figure~\ref{img:86}.
 
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img86}}
-    \caption[The triangulation of $A_{2--}$ and $A_{4--}$ singularities sticked to a plane]
-    {The triangulation of  $A_{2--}$ and $A_{4--}$ singularities sticked to a plane.}
+    \caption[The triangulation of $A_{2--}$ and $A_{4--}$ singularities]
+    {The triangulation of  $A_{2--}$ and $A_{4--}$ singularities.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:86}
 \end{figure}
 
 The uniform mesh with $A_{1--}$, $A_{2--}$, $A_{3--}$, $A_{4--}$ singularities
-stuck to a plane is displayed on the Figure~\ref{img:87}.
+is displayed in the Figure~\ref{img:87}.
 
 \begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img87}}
-    \caption[The triangulation of $A_{1--}$, $A_{2--}$, $A_{3--}$ and $A_{4--}$ singularities sticked to a plane]
-    {The triangulation of $A_{1--}$, $A_{2--}$, $A_{3--}$ and $A_{4--}$ singularities sticked to a plane.}
+    \caption[The triangulation of $A_{1--}$, $A_{2--}$, $A_{3--}$ and $A_{4--}$ singularities]
+    {The triangulation of $A_{1--}$, $A_{2--}$, $A_{3--}$ and $A_{4--}$ singularities.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:87}
 \end{figure}
@@ -823,9 +843,9 @@ stuck to a plane is displayed on the Figure~\ref{img:87}.
 \section{Runtime comparison of the reimplemented solution}
 \label{sub4.3}
 In this section, we compare the runtime of the reimplemented solution using half-edge 
-and range-tree to the brute-force solution implemented in \cite{korecova2021triangulation}.
+and range tree to the brute-force solution implemented in \cite{korecova2021triangulation}.
 
-To obtain the results, a laptop with a 6-core AMD Ryzen 5 5600U with Radeon Graphics was used.
+To obtain the results, a laptop with a 6-core AMD Ryzen 5 5600U was used.
 We measured the runtime of the algorithm with a given edge length on a unit sphere.
 
 The dependence of the time from the length of the edge of the triangle is
@@ -838,8 +858,8 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
     \centering
 \begin{tikzpicture} 
     \begin{axis}[ 
-        xlabel={Runtime (in seconds)},
-        ylabel={Length of the edge of the triangle},
+        ylabel={Runtime (in seconds)},
+        xlabel={Length of the edge of the triangle},
         xmin=0, xmax=1,
         ymin=0.1, ymax=250,
         xtick={0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9},
@@ -876,8 +896,8 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
     \centering
 \begin{tikzpicture}
 \begin{semilogyaxis}[
-    xlabel={Runtime (in milliseconds)},
-    ylabel={Length of the edge of the triangle},
+    ylabel={Runtime (in milliseconds)},
+    xlabel={Length of the edge of the triangle},
     xmin=0, xmax=1,
     ymin=100, ymax=250000,
     xtick={0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9},
@@ -920,8 +940,8 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
         \centering
         \begin{tikzpicture}
             \begin{axis}[ 
-                xlabel={Runtime (in seconds)},
-                ylabel={Number of generated triangles},
+                ylabel={Runtime (in seconds)},
+                xlabel={Number of generated triangles},
                 xmin=0, xmax=3500,
                 ymin=0, ymax=250,
                 xtick={1000,2000,3000},
@@ -981,8 +1001,8 @@ displayed on the Graph~\ref{graph2} with a logaritmic scale.
     \centering
 \begin{tikzpicture}
     \begin{semilogyaxis}[
-        xlabel={Runtime (in milliseconds)},
-        ylabel={Number of generated triangles},
+        ylabel={Runtime (in milliseconds)},
+        xlabel={Number of generated triangles},
         xmin=0, xmax=3500,
         ymin=100, ymax=250000,
         xtick={1000,2000,3000},

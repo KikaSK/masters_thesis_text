@@ -5,8 +5,9 @@
 \label{sub2.1}
 
 Implicit functions are a tool for surface representation and manipulation.
-In computer graphics, the implicit functions can be used to model complex surfaces
-using boolean operations, realistic animations, rendering and others.
+In computer graphics, the implicit functions can be used for rendering, 
+creating realistic animations, modeling complex surfaces
+using boolean operations and others.
 
 Implicit functions do not define the surface explicitly, i.e. parametrically. 
 Instead, the surface is defined as a zero set of a function and the parametrization 
@@ -16,20 +17,16 @@ is guaranteed in a neighbourhood of a regular point.
     as a set of points $(x, y, z)\in \R^3$ that satisfy $F(x, y, z) = 0$.
 \end{definition}
 
-Some examples of implicit surfaces and their equations can be seen on
+Some examples of implicit surfaces and their equations can be seen in
 the Figure~\ref{img:1}.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img1}}
     \caption[Implicit surfaces with corresponding equations]
     {Implicit surfaces with corresponding equations.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:1}
 \end{figure}
-
-Unit normal vector of the implicit surface Z(F) in its point $(x_0, y_0, z_0)$ is
-the normalized gradient of the corresponding function F and it is required to be 
-differentiable at that point and non-zero.
 
 \begin{definition}
     Gradient vector of a function $F:\R^3 \to \R$ is defined as 
@@ -41,11 +38,11 @@ differentiable at that point and non-zero.
     \\*
 \end{definition}
 
-The points lying on an implicit surface can be classified as regular or
-singular based on the value of the gradient vector at that point.
+The points lying on an implicit surface $Z(F)$ can be classified as regular or
+singular based on the value of the gradient vector $\nabla F(x, y, z)$ at that point.
 
 \begin{definition}
-    The point $P=(x,y,z)$ lying on the implicit surface is considered regular
+    The point $P=(x,y,z)$ lying on the implicit surface $Z(F)$ is considered regular
     if $\nabla F(x, y, z) \neq \vec{0}$. On the contrary, the point $P$ is said to be 
     singular if $\nabla F(x, y, z) = \vec{0}$.
 \end{definition}
@@ -62,7 +59,7 @@ Singular points can be further classified as isolated or non-isolated.
 In the Figure~\ref{img:2}, one can see an example of isolated and non-isolated
 singularities.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img2}}
     \caption[Isolated and non-isolated singularities of an implicitly defined surfaces]
     {Isolated and non-isolated singularities of implicitly defined surfaces.}
@@ -88,15 +85,16 @@ the summary presented by Tiago Novello et al.\cite{novello2021differential}.
 
 \subsubsection*{Normal curvature of the surface}
 
-Let $S$ be a parametric surface $$S: D \subseteq \R^2 \to \R^3,$$ 
+Let $S$ be a parametric surface defined on the domain $D \subseteq \R^2$ 
+$$S: D \subseteq \R^2 \to \R^3,$$ 
 $$S(u, v) = (S_x(u,v), S_y(u,v), S_z(u,v)), \hspace{3mm} (u,v)\in D.$$
 Let the unit normal vector of the surface $S$ at the point $S(u, v)$ be $\vec{n}(u, v)$.
 
-We define the normal curvature of the surface as a function of the location of the point
+We define the normal curvature of the surface as a function of the location of the point $P$
 on the surface given by parameters $u$ and $v$ and the unit tangent vector in that point $\vec{t}$. 
 
 \begin{definition}
-The normal cut of a surface $S$ at the regular point $P$ in the direction of the unit tangent vector 
+The normal cut $\nu_S(u, v, \vec{t})$ of a surface $S$ at the regular point $P$ in the direction of the unit tangent vector 
 $\vec{t}$ is defined as an intersection of the surface $S$ and a plane
 given by the vectors $\vec{t}$ and $\vec{n}(u, v)$ shifted to 
 the point $S(u, v)$. 
@@ -104,9 +102,9 @@ the point $S(u, v)$.
 
 The visualization of the normal cut is shown in the Figure~\ref{img:14}.
 It is clear that the
-normal cut is a plane curve lying on the surface. We denote this normal cut as $\nu_S(u, v, \vec{t})$.
+normal cut is a plane curve lying on the surface.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img14}}
     \caption[Normal cut]
     {Normal cut of the parametric surface $S(u,v)$.}
@@ -127,33 +125,39 @@ normal cut is a plane curve lying on the surface. We denote this normal cut as $
     $$\kappa_{\max}(u,v) = \max_{\vec{t} \in T_PS} \kappa_{S, \vec{t}}(P),$$
     where $T_PS$ is a tangent plane of the surface $S$ in the point $P$.
 
-    Minimal and maximal curvatures are called principal.
+    Minimal and maximal curvatures are called principal curvatures.
 \end{definition}
 
 \begin{definition}
-    Gaussian curvature at a point $S(u, v)$ is defined as a product of principal curvatures
+    Gaussian curvature $\kappa_G(u, v)$ at a point $P=S(u, v)$ is defined as a product of principal curvatures
     at that point, i.e.
-    $$\kappa_G(u, v) = \kappa_{\min}(u,v) \kappa_{\max}(u,v).$$
+    $$\kappa_G(u, v) = \kappa_{\min}(u,v) \cdot \kappa_{\max}(u,v).$$
 \end{definition}
 
 Gaussian curvature describes the shape of the surface in the local neighbourhood of the point.
+
 Points of the surface S, where the Gaussian curvature is positive, are called elliptic.
+
 Points of the surface S, where the Gaussian curvature is negative, are called hyperbolic.
+
 Points of the surface S, where only one of $\kappa_{\min}, \kappa_{\max}$ is zero, are called
-parabolic and points, where both $\kappa_{\min}$ and $\kappa_{\max}$ are zero, are called planar.
-The shape of the surface in the local neighbourhoods of the points, visualized on the
+parabolic. 
+
+Points, where both $\kappa_{\min}$ and $\kappa_{\max}$ are zero, are called planar.
+
+The shape of the surface in the local neighbourhoods of the points, visualized in the
 Figure~\ref{img:33}, is as follows:
 \begin{itemize}
-    \item {elliptic points $\longrightarrow$ surface is locally curved like an ellipsoid,}
-    \item {hyperbolic points $\longrightarrow$ surface is not locally convex,}
-    \item {parabolic points $\longrightarrow$ surface is locally curved like a parabolic cylinder,}
-    \item {planar points $\longrightarrow$ surface is locally flat like a plane.}
+    \item {elliptic points $-$ surface is locally curved like an ellipsoid,}
+    \item {hyperbolic points $-$ surface is not locally convex,}
+    \item {parabolic points $-$ surface is locally curved like a parabolic cylinder,}
+    \item {planar points $-$ surface is locally flat like a plane.}
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img33}}
-    \caption[Categorization of the surface points based on Gaussian curvature]
-    {Categorization of the surface points based on Gaussian curvature \cite{morris2003client}.}
+    \caption[Categorization of the surface points based on the Gaussian curvature]
+    {Categorization of the surface points based on the Gaussian curvature \cite{morris2003client}.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:33}
 \end{figure}
@@ -162,7 +166,7 @@ Gaussian curvature is an
 intrinsic property, which means that it is also independent of the isometric image of the surface.
 
 \begin{definition}
-    Mean curvature of a surface $S$ at a point $P=S(u,v)$ is defined as
+    Mean curvature $\kappa_M(u, v)$ of a surface $S$ at a point $P=S(u,v)$ is defined as
     the arithmetic mean of corresponding principal curvatures
     $$\kappa_M(u, v) = \frac{\kappa_{\min}(u,v) + \kappa_{\max}(u,v)}{2}.$$
 \end{definition}
@@ -172,7 +176,7 @@ where the blue colour indicates a positive value of the corresponding visualized
 red colour indicates a negative value of the corresponding visualized curvature
 and the white colour indicates a zero value of the corresponding visualized curvature.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img16}}
     \caption[Visualisation of the curvatures of the double-torus]
     {Visualization of minimal, maximal, Gaussian and mean curvatures of the double-torus \cite{novello2021differential}.
@@ -189,7 +193,7 @@ In this subsection, we point out these formulas.
 
 Let $F:\R^3 \to R$ be an implicit function which defines surface by the equation $F(x, y, z) = 0$. 
 Let us denote $F_t = \frac{\partial F}{\partial t}$ and $F_{ts} = \frac{\partial^2 F}{\partial t \partial s}$.
-Hessian matrix $-$ the matrix of the second-order derivatives is defined as 
+Hessian matrix $H(F)$ $-$ the matrix of the second-order derivatives is defined as 
 $$
 H(F) = 
 \begin{pmatrix}
@@ -198,7 +202,7 @@ H(F) =
     F_{zx} & F_{zy} & F_{zz}
 \end{pmatrix},
 $$
-and the adjoint of the Hessian is defined as a transpose of its cofactor matrix.
+and the adjoint of the Hessian $H^*(F)$ is defined as a transpose of its cofactor matrix.
 $$
 H^*(F) = 
 \begin{pmatrix}
@@ -234,7 +238,7 @@ $$\kappa_{min}, \kappa_{max} = - \kappa_M \pm \sqrt{\kappa_M^2-\kappa_G}.$$
 
 ADE singularities, also referred to as du Val singularities, are a specific
 class of simple, isolated surface singularities.
-They were classified by Arnold's
+They were classified by Arnold
 \cite{arnol1972normal} according to ADE classification
 \cite{hazewinkel1977ubiquity} based on
 correspondence of these singularities to simply laced Dynkin diagrams
@@ -304,7 +308,7 @@ $SO(3)$ are the rotational symmetry groups of
     \end{itemize}
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img34}}
     \caption[Shapes representing the finite subgroups of $SO(3)$ group]
     {Shapes representing the finite subgroups of $SO(3)$ group.}
@@ -341,7 +345,7 @@ primitives in its leaves and boolean operations in its internal nodes
 \cite{foley1996computer}. An example of such a CSG tree can be seen in the Figure~
 \ref{img:18}.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img18}}
     \caption[Example of CSG tree]
     {Example of CSG tree \cite{foley1996computer}.}
@@ -350,19 +354,19 @@ primitives in its leaves and boolean operations in its internal nodes
 \end{figure}
 
 \subsubsection*{CSG for implicit surfaces}
-The implicit surface divides space into \textit{inside} $-$ negative part of a space,
+The implicit surface $Z(F)$ divides space into \textit{inside} $-$ negative part of a space,
 where $F(x, y, z) < 0$ and
 \textit{outside} $-$ positive part of a space, where $F(x, y, z) > 0$. One can easily 
 combine the idea of
-implicit surfaces and CSG modelling. Given two implicit surfaces represented
-by the implicit functions $F$ and $G$, the surface of the
+implicit surfaces and CSG modelling. Given two implicit surfaces $Z(F)$ and $Z(G)$ 
+represented by the implicit functions $F$ and $G$, the surface of the
 intersection of the interiors can be defined by the implicit function $H=\min(F, G)$.
 Similarly, the surface of the union of the interiors can be defined
 by the implicit function $H=\max(F, G)$ and lastly, the surface of the difference of
 the interiors can be defined by the implicit function $H=\max(F, -G)$. Two-dimensional
 example of this idea can be seen in the Figure~\ref{img:19}.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img19}}
     \caption[Boolean operations on implicit curves]
     {Boolean operations on implicit curves.}
@@ -372,9 +376,9 @@ example of this idea can be seen in the Figure~\ref{img:19}.
 
 \begin{theorem}
     The minimum function $\min(F, G)$ of two functions $F:\R^3 \to \R$ and
-    $G:\R^3 \to \R$ is defined as $$\min(F, G) = F + G - \sqrt{F^2+G^2}$$.
+    $G:\R^3 \to \R$ is defined as $$\min(F, G) = F + G - \sqrt{F^2+G^2}.$$
     The maximum function $\max(F, G)$ of two functions $F:\R^3 \to \R$ and
-    $G:\R^3 \to \R$ is defined as $$\max(F, G) = F + G + \sqrt{F^2+G^2}$$.
+    $G:\R^3 \to \R$ is defined as $$\max(F, G) = F + G + \sqrt{F^2+G^2}.$$
 \end{theorem}
 
 These formulas allow modeling implicit surfaces, which are the result of
@@ -386,13 +390,13 @@ a sphere. Let us have an implicit function
 $F(x, y, z) = x^2+y^2+z^2-1$, which represents a unit sphere and another
 implicit function $G(x, y, z) = z$ which represents the $xy$ plane.
 The minimum function of these two functions
-$$min(F, G) = x^2+y^2+y^2-1+z-\sqrt{(x^2+y^2+y^2-1)^2+z^2}$$ represents the
+$$\min(F, G) = x^2+y^2+y^2-1+z-\sqrt{(x^2+y^2+y^2-1)^2+z^2}$$ represents the
 surface of a half sphere. The visualization of these surfaces can be seen in
 the Figure~\ref{img:20}.
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img20}}
     \caption[Intersection of a sphere and a plane]
-    {intersection of a sphere and a plane.}
+    {Intersection of a sphere and a plane.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:20}
 \end{figure}
@@ -404,17 +408,18 @@ the Figure~\ref{img:20}.
 As we already mentioned, the non-isolated singular point of the surface $S$ is 
 the singular point, for which
 every open ball $B_\varepsilon(P)$ contains other singular points of the surface $S$.
-Such non-isolated singular points are also called singular curves.
+Connected sets of non-isolated singular points are also called singular curves.
 
-In the CSG modelling, singular curves most commonly arise as a result of intersection,
+In the CSG modelling, singular curves commonly arise as a result of intersection,
 union and difference operations on the interiors of these surfaces. When performing
 the intersection, union or difference operation on the interiors of two regular surfaces, 
 the singular curve is the curve given by the intersection of these surfaces. An example
-of an intersection of two spherical interiors is shown in the Figure~\ref{img:35}. The red colour displays the resulting singular curve given by an intersection of the two spheres.
+of an intersection of two spherical interiors is shown in the Figure~\ref{img:35}. 
+The red colour displays the resulting singular curve given by the intersection of the two spheres.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img35}}
-    \caption[Intersection of a two balls]
+    \caption[Intersection of two balls]
     {Intersection of two balls.}
     %id obrazku, pomocou ktoreho sa budeme na obrazok odvolavat
     \label{img:35}
@@ -424,14 +429,14 @@ of an intersection of two spherical interiors is shown in the Figure~\ref{img:35
 
 Implicit curve $C$ is given by two implicit equations $-$ the equations of two surfaces
 which intersect in the curve $C$.
-To project a point close to the surface to the given surface, we use the method where
-we project the point in the direction of the normal vector using the iterative 
+To project a point close to the surface to the given surface, we 
+project the point in the direction of the normal vector using the iterative 
 Newton-Rhapson method. An extension of this method can be used to project a point
 to the implicit curve by alternately projecting to the two surfaces until the
 point lies on both with the required precision. A visualization of this approach can be
-seen in the Figure~\ref{img:36}. We denote the projection function $proj_C$.
+seen in the Figure~\ref{img:36}. The projection of a point to the curve $C$ is denoted $proj_C$.
 
-\begin{figure}
+\begin{figure}[h!]
     \centerline{\includegraphics[scale=0.5]{images/img36}}
     \caption[Projecting a point to the implicit curve]
     {Projecting a point to the implicit curve.}

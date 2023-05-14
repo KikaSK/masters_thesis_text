@@ -27,14 +27,14 @@ After the new point is projected on the surface, conditions are checked.
 Some of these conditions are based on the Delaunay triangulation introduced
 by Hilton \cite{hilton1996marching}. The Delaunay condition checks
 if some other points are in the proximity of the circumcenter of the new triangle.
-The conditions minimize the chances of a triangle intersection.
+These conditions minimize the chances of a triangle intersection.
 If the new triangle intersects with some existing triangles, the algorithm
 tries to connect the new triangle to the existing points of the mesh in its proximity.
 
 The algorithm is enriched with the possibility to triangulate adaptively
 to the curvature of the surface using the approach presented by Akkouche 
 \cite{akkouche2001adaptive}. It can also triangulate surfaces in the
-bounded volume - axis-aligned bounding box, given by six numbers - minimal
+bounded volume $-$ axis-aligned bounding box, given by six numbers - minimal
 and maximal value for each of the three coordinate axes.
 
 The algorithm was implemented using brute force. The queue of the edges
@@ -43,7 +43,7 @@ In each step, an edge from the active edges queue was removed, and the creation 
 If the new triangle was successfully created, the edge has become 
 \textit{inside edge}, in case of failure, the edge has become 
 \textit{checked edge}. The last characterization of an edge is for
-the edges with both end-points lying on the bounding box, these edges
+the edges with both end-points lying on the bounding box. These edges
 are called \textit{bounding edges}.
 
 As a part of our work, we reimplement the algorithm to be more effective by
@@ -55,14 +55,14 @@ using advanced data structures, such as the half-edge data structure
 
 \subsection{Half-edge data structure}
 Triangular mesh is given by vertices, non-oriented edges and triangular faces.
-There are multiple methods for mesh representation. The straightforward one -
-list of vertices, edges and vertices does not provide any information about
+There are multiple methods for mesh representation. The straightforward one $-$
+list of vertices, edges and faces does not provide any information about
 the local surroundings of the vertices, edges and faces and, therefore, the searching
 for incident faces or incident edges is complicated and inefficient.
 
 In 1975, Baumgart \cite{baumgart1975polyhedron} presented a representation
 using winged edges, which was further improved in 1985 by Weiler \cite{weiler1985edge}
-who presented the modification called a half-edge data structure.
+who presented the modification called a \newline half-edge data structure.
 Both of these representations are edge-based representations, each edge stores
 references (pointers) to the surrounding vertices, edges and faces. One can easily extract information about the
 surrounding vertices, edges and faces.
@@ -70,9 +70,9 @@ surrounding vertices, edges and faces.
 In the half-edge representation, edges are split into two halves of directed edges.
 Each half-edge
 stores reference to its initial vertex, left face, opposite half-edge and left
-traverse - predecessing and succeeding half-edge. A visualization of the
+traverse $-$ predecessing and succeeding half-edge. A visualization of the
 half-edge is displayed in the Figure~\ref{img:32}. An example of half-edge
-representation is shown on the Figure~\ref{img:31} and 
+representation is displayed in the Figure~\ref{img:31} and 
 tables~\ref{tab:5},~\ref{tab:6},~\ref{tab:7}.
 
 \begin{figure}
@@ -91,7 +91,8 @@ tables~\ref{tab:5},~\ref{tab:6},~\ref{tab:7}.
     \label{img:31}
 \end{figure}
 
-\begin{table}[]\centering
+\begin{table}[h!]
+    \centering
     \begin{tabular}{|c|c|c|ccc|}
     \hline
     \hline
@@ -109,13 +110,13 @@ tables~\ref{tab:5},~\ref{tab:6},~\ref{tab:7}.
 \label{tab:5}
 \end{table}
 
-\begin{table}[]
+\begin{table}[h!]
     \centering
     \begin{tabular}{|c|ccc|c|}
     \hline
     \hline
     Vertex  & \multicolumn{3}{c|}{Coordinates}          & Edge            \\ \hline
-          & x            & y            & z           & Outgoing edge   \\ \hline\hline
+          & x            & y            & z           & Outgoing   \\ \hline\hline
     $V_1$ & $x_1$        & $y_1$        & $z_1$       & $e_1$           \\ \hline
     $V_2$ & $x_2$        & $y_2$        & $z_2$       & $e_3$           \\ \hline
     $V_3$ & $x_3$        & $y_3$        & $z_3$       & $e_2$           \\ \hline
@@ -125,7 +126,7 @@ tables~\ref{tab:5},~\ref{tab:6},~\ref{tab:7}.
 \label{tab:6}
 \end{table}
 
-\begin{table}[]
+\begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|}
     \hline
@@ -140,7 +141,7 @@ tables~\ref{tab:5},~\ref{tab:6},~\ref{tab:7}.
 
 The half-edge data structure is implemented in a way which does not provide 
 neighborhood information for non-manifold meshes.
-As our algorithm creates non-manifold meshes, we implement the half-edge data
+As our algorithm creates also non-manifold meshes, we implement the half-edge data
 structure with the modification $-$ each point has references to all outgoing edges
 instead of just one outgoing edge. 
 
@@ -149,13 +150,13 @@ The range tree is a tree data structure used for geometric search.
 The range tree holds a list of points and answers queries about
 the points in the given range. When used in three-dimensional space, 
 the range corresponds to the three-dimensional interval.
-The advantage of the range tree compared to other tree structures for 
-three-dimensional search, such as a quad-tree or k-d tree, is a fast query
+The advantage of the range tree, is a fast query and insert
 time. The implementation we used \cite{rangetree} answers the query for 
 the set of points in a given three-dimensional
 interval in $\mathcal{O}(log^3n+k)$, where $n$ is the number of
 the points in the tree, and $k$ is the number of points in the three-dimensional
-interval.
+interval. The amortized time complexity of the insert of a point into the 
+range tree is $\mathcal{O}(log^3n)$.
 
 \subsection{Mesh structure}
 The triangular mesh consists of vertices, edges and faces. We use the half-edge 
@@ -172,17 +173,14 @@ consists of:
 Vertex consists of 
 \begin{itemize}
     \setlength\itemsep{-2mm}
-    \item three coordinates,
     \item index of itself in the list of vertices,
     \item list of indices to all outgoing edges.
 \end{itemize}
 Half-edge consists of 
 \begin{itemize}
     \setlength\itemsep{-2mm}
-    \item six coordinates,
     \item index of itself in the list of half-edges,
-    \item index of the initial vertex in the list of vertices, 
-    \item index of the terminal vertex in the list of vertices,
+    \item index of the initial vertex in the list of vertices,
     \item index of the opposite edge in the list of half-edges,
     \item index of the predecessing edge in the list of half-edges,
     \item index of the succeeding edge in the list of half-edges,
@@ -193,12 +191,11 @@ Half-edge consists of
 Face consists of
 \begin{itemize}
     \setlength\itemsep{-2mm}
-    \item nine coordinates,
     \item index of incident half-edge in the list of half-edges.
 \end{itemize}
-
-\subsection{Algorithm runtime}
-During the algorithm, new points, edges and triangles are added in
+ 
+\section{Algorithm runtime}
+During the algorithm, new points, edges and triangles are added
 at the end of the respective list in the mesh. 
 The algorithm is implemented as a single pass through the list of 
 mesh edges. 
@@ -224,5 +221,6 @@ equal. Let us denote the number $n$. The query time for the three-dimensional
 range tree is $\mathcal{O}(log^3n+k)$, where $k$ is the number of points
 reported by a given query. In each step of the algorithm, a constant number of
 operations and a constant number of queries to the range tree is performed.
+Moreover, each point is inserted into the range tree once.
 Therefore, the overall time complexity of producing the mesh with $\mathcal{O}(n)$
-faces is $\mathcal{O}(n (log^3n+k))$
+faces is $\mathcal{O}(n (log^3n+k))$.
